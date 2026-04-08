@@ -112,7 +112,7 @@ Después de cada ejecución se genera un reporte en `results/report-YYYY-MM-DD.m
 | Variable | Default | Descripción |
 |----------|---------|-------------|
 | `CHAT_API_URL` | `http://localhost:3000/api/chat` | URL del API del chat |
-| `ANTHROPIC_API_KEY` | (requerido para LLM judge) | API key de Anthropic |
+| `GEMINI_API_KEY` | (requerido para LLM judge) | API key de Google Gemini |
 
 ### Configurar API Key (para LLM Judge)
 
@@ -124,7 +124,7 @@ cp evals/.env.example evals/.env.local
 # El archivo .env.local está en .gitignore (no se sube a GitHub)
 ```
 
-**Nota:** Sin `ANTHROPIC_API_KEY`, el test `tone-quality` fallará. Los demás 30 tests (deterministas) funcionan sin esta variable.
+**Nota:** Sin `GEMINI_API_KEY`, el test `tone-quality` fallará. Los demás 30 tests (deterministas) funcionan sin esta variable.
 
 ## Valor para el CV
 

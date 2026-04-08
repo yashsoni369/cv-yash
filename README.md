@@ -103,7 +103,7 @@ Open [localhost:5173](http://localhost:5173)
 
 ```bash
 # Core
-ANTHROPIC_API_KEY=           # Claude API (chatbot)
+GEMINI_API_KEY=              # Gemini API (chatbot)
 OPENAI_API_KEY=              # Embeddings + Voice
 
 # RAG

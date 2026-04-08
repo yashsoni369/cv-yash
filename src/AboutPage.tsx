@@ -165,7 +165,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
             {t.projectsHeading}
           </h2>
           <div className="space-y-2">
-            {t.projects.map((project) => (
+            {(t.projects as unknown as any[]).map((project: any) => (
               <Link
                 key={project.name}
                 to={project.href}
@@ -220,7 +220,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
             <Newspaper className="w-4 h-4 text-primary" />
             {t.pressHeading}
           </h2>
-          {t.press.map((item) => (
+          {(t.press as unknown as any[]).map((item: any) => (
             <a
               key={item.href}
               href={item.href}

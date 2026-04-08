@@ -9,7 +9,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-// Cargar .env.local si existe (para ANTHROPIC_API_KEY del LLM Judge)
+// Cargar .env.local si existe (para GEMINI_API_KEY del LLM Judge)
 const envLocalPath = path.join(import.meta.dirname, '.env.local')
 if (fs.existsSync(envLocalPath)) {
   const envContent = fs.readFileSync(envLocalPath, 'utf-8')

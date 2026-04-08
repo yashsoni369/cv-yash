@@ -358,7 +358,7 @@ function HomeToc({ lang }: { lang: Lang }) {
                   : 'text-muted-foreground/60 hover:text-foreground/80'
                 }`}
               >
-                {section[lang]}
+                {(section as any)[lang] || section['en']}
               </button>
             </li>
           )
@@ -2018,9 +2018,9 @@ function App() {
                       <span key={t} className="text-[10px] px-2 py-0.5 rounded-md bg-muted/50 text-muted-foreground">{t}</span>
                     ))}
                   </div>
-                  {project.caseStudyUrl && (
-                    <Link to={project.caseStudyUrl} className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary hover:text-primary/80 transition-colors">
-                      {project.caseStudyLabel || 'Read case study'} →
+                  {(project as any).caseStudyUrl && (
+                    <Link to={(project as any).caseStudyUrl} className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary hover:text-primary/80 transition-colors">
+                      {(project as any).caseStudyLabel || 'Read case study'} →
                     </Link>
                   )}
                 </div>
@@ -2305,16 +2305,16 @@ function App() {
                           <h3 className="font-display font-semibold mt-1 group-hover:text-primary transition-colors">{item.title}</h3>
                           <p className="text-sm text-muted-foreground mt-1">
                             {item.desc}
-                            {('projectLink' in item && item.projectLink) && (
+                            {((item as any).projectLink) && (
                               <>
                                 {' '}
                                 <a
-                                  href={`https://${item.projectLink}`}
+                                  href={`https://${(item as any).projectLink}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center gap-1 text-primary hover:underline"
                                 >
-                                  {item.projectLabel}
+                                  {(item as any).projectLabel}
                                   <ExternalLink className="w-3 h-3" aria-hidden="true" />
                                 </a>
                               </>
@@ -2323,20 +2323,20 @@ function App() {
                         </div>
                       </div>
                       {/* Testimonial if exists */}
-                      {'testimonial' in item && item.testimonial && (
+                      {(item as any).testimonial && (
                         <a href="https://www.linkedin.com/in/yashsoni369/details/recommendations/" target="_blank" rel="noopener noreferrer" className="block group">
                           <blockquote className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/10 group-hover:border-[hsl(var(--linkedin)/0.3)] transition-colors">
                             <p className="text-sm text-muted-foreground italic mb-4">
-                              "{item.testimonial.quote}"
+                              "{(item as any).testimonial.quote}"
                             </p>
                             <footer className="flex items-center gap-3">
                               <picture>
-                                <source srcSet={item.testimonial.photo.replace(/\.(png|jpg|jpeg)$/i, '.webp')} type="image/webp" />
-                                <img src={item.testimonial.photo} alt={item.testimonial.author} className="w-10 h-10 rounded-full object-cover" width={40} height={40} loading="lazy" decoding="async" />
+                                <source srcSet={(item as any).testimonial.photo.replace(/\.(png|jpg|jpeg)$/i, '.webp')} type="image/webp" />
+                                <img src={(item as any).testimonial.photo} alt={(item as any).testimonial.author} className="w-10 h-10 rounded-full object-cover" width={40} height={40} loading="lazy" decoding="async" />
                               </picture>
                               <div className="flex-1">
-                                <span className="text-sm font-medium text-foreground block">{item.testimonial.author}</span>
-                                <span className="text-xs text-muted-foreground">{item.testimonial.role}</span>
+                                <span className="text-sm font-medium text-foreground block">{(item as any).testimonial.author}</span>
+                                <span className="text-xs text-muted-foreground">{(item as any).testimonial.role}</span>
                               </div>
                               <LinkedInLogo className="w-4 h-4 text-[hsl(var(--linkedin))]" />
                             </footer>
