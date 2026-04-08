@@ -1,4 +1,4 @@
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI } from '@google/genai'
 import { Langfuse } from 'langfuse'
 import {
   searchPortfolio, formatChunksForContext, extractSources, calcCost,
@@ -10,9 +10,7 @@ export const config = {
   runtime: 'edge',
 }
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
 let langfuseClient = null
 function getLangfuse() {
@@ -32,49 +30,49 @@ function getLangfuse() {
 
 const VOICE_OVERRIDE = `Response for spoken conversation. Max 2-3 sentences. No markdown or links. Natural spoken language. Be precise with context data — never fabricate. ALWAYS speak in FIRST PERSON as Yash — never third person ("Yash did..."), but "I did...", "I built...", "My project...".`
 
-async function reasonWithClaude(query, formattedChunks, span, langfuse) {
+async function reasonWithGemini(query, formattedChunks, span, langfuse) {
   const t0 = Date.now()
-  const reasoningSpan = span?.span({ name: 'claude-reasoning', metadata: { query } })
+  const reasoningSpan = span?.span({ name: 'gemini-reasoning', metadata: { query } })
 
   try {
     const { text: systemPromptText } = await getSystemPrompt(langfuse)
 
     const response = await Promise.race([
-      client.messages.create({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 300,
-        system: `${systemPromptText}\n\n${VOICE_OVERRIDE}`,
-        messages: [
-          { role: 'user', content: query },
+      ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: [
+          { role: 'user', parts: [{ text: query }] },
           {
-            role: 'assistant',
-            content: [{
-              type: 'tool_use',
-              id: 'voice_rag_call',
-              name: 'search_portfolio',
-              input: { query },
+            role: 'model',
+            parts: [{
+              functionCall: {
+                name: 'search_portfolio',
+                args: { query },
+              },
             }],
           },
           {
             role: 'user',
-            content: [{
-              type: 'tool_result',
-              tool_use_id: 'voice_rag_call',
-              content: formattedChunks,
+            parts: [{
+              functionResponse: {
+                name: 'search_portfolio',
+                response: { content: formattedChunks },
+              },
             }],
           },
         ],
+        config: {
+          maxOutputTokens: 300,
+          systemInstruction: `${systemPromptText}\n\n${VOICE_OVERRIDE}`,
+        },
       }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('Claude reasoning timeout (>3s)')), 3000)),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('Gemini reasoning timeout (>3s)')), 3000)),
     ])
 
-    const answer = response.content
-      .filter(b => b.type === 'text')
-      .map(b => b.text)
-      .join('')
+    const answer = response.text || ''
 
-    const inputTokens = response.usage?.input_tokens || 0
-    const outputTokens = response.usage?.output_tokens || 0
+    const inputTokens = response.usageMetadata?.promptTokenCount || 0
+    const outputTokens = response.usageMetadata?.candidatesTokenCount || 0
     const latencyMs = Date.now() - t0
 
     reasoningSpan?.end({
@@ -82,7 +80,7 @@ async function reasonWithClaude(query, formattedChunks, span, langfuse) {
         inputTokens,
         outputTokens,
         latencyMs,
-        cost: calcCost('claude-sonnet-4-6', inputTokens, outputTokens),
+        cost: calcCost('gemini-2.5-flash', inputTokens, outputTokens),
       },
     })
 
@@ -130,7 +128,7 @@ export default async function handler(req) {
     const t0 = Date.now()
 
     try {
-      const ragResult = await searchPortfolio(query, ragSpan, client)
+      const ragResult = await searchPortfolio(query, ragSpan, ai)
 
       const formattedChunks = ragResult.chunks
         ? formatChunksForContext(ragResult.chunks)
@@ -149,7 +147,7 @@ export default async function handler(req) {
       // Latency budget: skip Claude reasoning if RAG already took >1.5s
       const ragElapsedMs = Date.now() - t0
       const reasonedAnswer = (ragResult.chunks && ragElapsedMs <= 1500)
-        ? await reasonWithClaude(query, formattedChunks, trace, langfuse)
+        ? await reasonWithGemini(query, formattedChunks, trace, langfuse)
         : null
 
       // Tier 1: Claude + RAG → reasoned answer

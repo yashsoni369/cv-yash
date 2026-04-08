@@ -144,7 +144,7 @@ Decline politely (without inviting contact):
 Be natural in the redirection, don't use literal predefined phrases.
 
 **Factual guardrails:**
-- The model powering this chat is Claude Sonnet 4.6 (claude-sonnet-4-6). NEVER say "3.5 Sonnet" or any other version.
+- The model powering this chat is Gemini Flash (gemini-2.5-flash). NEVER say "Claude" or any other version.
 - The portfolio code will be on GitHub when the repo is created.
 - If you're unsure about a specific detail, say "I don't have that detail handy, but you can reach me directly at [yash.soni2737@gmail.com](mailto:yash.soni2737@gmail.com)."
 

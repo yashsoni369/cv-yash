@@ -12,11 +12,11 @@
 
 import * as dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI } from '@google/genai'
 import * as fs from 'fs'
 import * as path from 'path'
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! })
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! })
 const CHAT_API_URL = process.env.CHAT_API_URL || 'http://localhost:3000/api/chat'
 const PROMPT_REGRESSION_SECRET = process.env.PROMPT_REGRESSION_SECRET
 
@@ -131,12 +131,11 @@ function simpleAssertionCheck(response: string, assertion: Assertion): boolean {
 }
 
 async function compareResponses(v1Response: string, v2Response: string, testInput: string): Promise<{ better: 'v1' | 'v2' | 'equal'; reason: string }> {
-  const result = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 200,
-    messages: [{
+  const result = await ai.models.generateContent({
+    model: 'gemini-2.0-flash-lite',
+    contents: [{
       role: 'user',
-      content: `Compare two chatbot responses to the same question. This is Yash's portfolio chatbot.
+      parts: [{ text: `Compare two chatbot responses to the same question. This is Yash's portfolio chatbot.
 
 Question: "${testInput.slice(0, 200)}"
 
@@ -145,11 +144,12 @@ V1: "${v1Response.slice(0, 400)}"
 V2: "${v2Response.slice(0, 400)}"
 
 Which is better? Consider: helpfulness, conciseness, accuracy, tone.
-JSON only: {"better": "v1"|"v2"|"equal", "reason": "brief explanation"}`
+JSON only: {"better": "v1"|"v2"|"equal", "reason": "brief explanation"}` }],
     }],
+    config: { maxOutputTokens: 200 },
   })
 
-  const text = result.content[0]?.type === 'text' ? result.content[0].text : ''
+  const text = result.text || ''
   const jsonMatch = text.match(/\{[\s\S]*\}/)
   if (!jsonMatch) return { better: 'equal', reason: 'Parse error' }
   return JSON.parse(jsonMatch[0])

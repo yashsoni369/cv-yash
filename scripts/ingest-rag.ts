@@ -10,7 +10,7 @@
  *
  * Requires env vars:
  *   OPENAI_API_KEY, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
- *   ANTHROPIC_API_KEY (optional, for contextual retrieval)
+ *   GEMINI_API_KEY (optional, for contextual retrieval)
  *
  * Usage:
  *   npx tsx --tsconfig tsconfig.app.json scripts/ingest-rag.ts
@@ -26,7 +26,7 @@ import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import OpenAI from 'openai'
 import { createClient } from '@supabase/supabase-js'
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI } from '@google/genai'
 import { articleRegistry } from '../src/articles/registry.ts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -61,9 +61,9 @@ function getSupabase() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY)
 }
 
-function getAnthropic(): Anthropic | null {
-  if (!process.env.ANTHROPIC_API_KEY) return null
-  return new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+function getGenAI(): GoogleGenAI | null {
+  if (!process.env.GEMINI_API_KEY) return null
+  return new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 }
 
 // ---------------------------------------------------------------------------
@@ -180,10 +180,10 @@ function splitChunk(chunk: Chunk): Chunk[] {
 async function addContextualSummaries(
   chunks: Chunk[],
   articleTitle: string,
-  anthropic: Anthropic | null,
+  genAI: GoogleGenAI | null,
 ): Promise<string[]> {
-  if (!anthropic) {
-    console.log('    (no ANTHROPIC_API_KEY — skipping contextual retrieval)')
+  if (!genAI) {
+    console.log('    (no GEMINI_API_KEY — skipping contextual retrieval)')
     return chunks.map(c => c.content)
   }
 
@@ -191,16 +191,16 @@ async function addContextualSummaries(
 
   for (const chunk of chunks) {
     try {
-      const response = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 100,
-        messages: [{
+      const response = await genAI.models.generateContent({
+        model: 'gemini-2.0-flash-lite',
+        contents: [{
           role: 'user',
-          content: `This chunk is from the article "${articleTitle}", section "${chunk.metadata.section_id}". Give a 1-2 sentence context summary that would help retrieve this chunk when relevant. Be specific about what information this chunk contains.\n\nChunk:\n${chunk.content.slice(0, 500)}`,
+          parts: [{ text: `This chunk is from the article "${articleTitle}", section "${chunk.metadata.section_id}". Give a 1-2 sentence context summary that would help retrieve this chunk when relevant. Be specific about what information this chunk contains.\n\nChunk:\n${chunk.content.slice(0, 500)}` }],
         }],
+        config: { maxOutputTokens: 100 },
       })
 
-      const summary = response.content[0].type === 'text' ? response.content[0].text : ''
+      const summary = response.text || ''
       enriched.push(`${summary}\n\n${chunk.content}`)
     } catch {
       // Fallback: use content without summary
@@ -284,7 +284,7 @@ async function main() {
 
   const openai = getOpenAI()
   const supabase = getSupabase()
-  const anthropic = getAnthropic()
+  const genAI = getGenAI()
 
   const hashes = await loadHashes(supabase)
   const newHashes = { ...hashes }
@@ -331,7 +331,7 @@ async function main() {
 
     // Contextual retrieval summaries
     const articleTitle = article?.titles.en || articleId
-    const enrichedTexts = await addContextualSummaries(splitChunks, articleTitle, anthropic)
+    const enrichedTexts = await addContextualSummaries(splitChunks, articleTitle, genAI)
 
     // Embed
     console.log(`     → Embedding ${enrichedTexts.length} chunks...`)

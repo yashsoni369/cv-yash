@@ -16,7 +16,7 @@
 
 import * as dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI } from '@google/genai'
 import { Langfuse } from 'langfuse'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -27,9 +27,7 @@ const langfuse = new Langfuse({
   baseUrl: process.env.LANGFUSE_BASE_URL,
 })
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-})
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! })
 
 // Evaluator prompt - esto es lo que hace un LLM-as-Judge
 const EVALUATOR_PROMPT = `You are an evaluator for a chatbot that represents Yash Soni, a Senior Full Stack Architect based in Mumbai, India.
@@ -106,13 +104,13 @@ async function evaluateTrace(userMessage: string, assistantResponse: string): Pr
     .replace('{user_message}', userMessage)
     .replace('{assistant_response}', assistantResponse)
 
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-5-20250929',
-    max_tokens: 500,
-    messages: [{ role: 'user', content: prompt }],
+  const response = await ai.models.generateContent({
+    model: 'gemini-2.5-flash',
+    contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    config: { maxOutputTokens: 500 },
   })
 
-  const text = response.content[0].type === 'text' ? response.content[0].text : ''
+  const text = response.text || ''
 
   // Extract JSON from response
   const jsonMatch = text.match(/\{[\s\S]*\}/)
@@ -168,12 +166,11 @@ async function generateTestCases(traces: Array<{ id: string; metadata: Record<st
 
       const lang = (trace.metadata?.lang as string) === 'en' ? 'en' : 'es'
 
-      const response = await anthropic.messages.create({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 400,
-        messages: [{
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.0-flash-lite',
+        contents: [{
           role: 'user',
-          content: `Generate a test case for a CV chatbot eval suite. The chatbot represents Yash Soni (Senior Full Stack Architect).
+          parts: [{ text: `Generate a test case for a CV chatbot eval suite. The chatbot represents Yash Soni (Senior Full Stack Architect).
 
 This user message received a low quality score:
 "${userMessage.slice(0, 300)}"
@@ -188,11 +185,12 @@ Create a test case that would catch this quality issue. Respond with JSON only:
   "assertions": [
     {"type": "llm_judge", "criteria": "What the response should do correctly"}
   ]
-}`
+}` }],
         }],
+        config: { maxOutputTokens: 400 },
       })
 
-      const text = response.content[0]?.type === 'text' ? response.content[0].text : ''
+      const text = response.text || ''
       const jsonMatch = text.match(/\{[\s\S]*\}/)
       if (!jsonMatch) continue
 

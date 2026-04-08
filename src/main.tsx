@@ -116,7 +116,7 @@ console.log('%c I architect scalable systems. Let\'s build something great → y
 Object.defineProperty(window, '__yash', {
   value: Object.freeze({
     stack: 'React 19 + TypeScript + Vite + Tailwind v4 + Motion',
-    llm: 'claude-sonnet-4-6 (streaming SSE)',
+    llm: 'gemini-2.5-flash (streaming SSE)',
     experience: '8+ years Full Stack Architecture & AI/SaaS',
     certifications: 'CKAD, Azure AZ-900, AWS Cloud Practitioner',
     render: 'Pre-rendered HTML + critical CSS inlined + client hydration',

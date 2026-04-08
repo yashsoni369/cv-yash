@@ -5,7 +5,7 @@
  * Sends email alert if jailbreaks or low safety scores detected.
  */
 
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI } from '@google/genai'
 import { Langfuse } from 'langfuse'
 import { Resend } from 'resend'
 
@@ -88,9 +88,7 @@ export default async function handler(req) {
     baseUrl: process.env.LANGFUSE_BASE_URL,
   })
 
-  const anthropic = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  })
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
 
   const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
@@ -120,13 +118,13 @@ export default async function handler(req) {
           .replace('{user_message}', userMessage)
           .replace('{assistant_response}', assistantResponse)
 
-        const response = await anthropic.messages.create({
-          model: 'claude-sonnet-4-5-20250929',
-          max_tokens: 300,
-          messages: [{ role: 'user', content: prompt }],
+        const response = await ai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: [{ role: 'user', parts: [{ text: prompt }] }],
+          config: { maxOutputTokens: 300 },
         })
 
-        const text = response.content[0].type === 'text' ? response.content[0].text : ''
+        const text = response.text || ''
         const jsonMatch = text.match(/\{[\s\S]*\}/)
         if (!jsonMatch) continue
 

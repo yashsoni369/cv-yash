@@ -7,8 +7,8 @@
 // ---------------------------------------------------------------------------
 
 export const MODEL_COSTS = {
-  'claude-sonnet-4-6': { input: 3.0 / 1e6, output: 15.0 / 1e6 },
-  'claude-haiku-4-5-20251001': { input: 0.25 / 1e6, output: 1.25 / 1e6 },
+  'gemini-2.5-flash': { input: 0.15 / 1e6, output: 0.60 / 1e6 },
+  'gemini-2.0-flash-lite': { input: 0.075 / 1e6, output: 0.30 / 1e6 },
   'text-embedding-3-small': { input: 0.02 / 1e6 },
 }
 
@@ -125,7 +125,7 @@ export async function searchDocuments(queryText, queryEmbedding) {
 // RAG: re-rank top-10 → top-3 with Haiku
 // ---------------------------------------------------------------------------
 
-export async function rerankChunks(query, chunks, anthropicClient) {
+export async function rerankChunks(query, chunks, genAIClient) {
   if (chunks.length <= 3) return { chunks, latencyMs: 0, rerankedOrder: null, usage: null }
 
   const t0 = Date.now()
@@ -134,16 +134,16 @@ export async function rerankChunks(query, chunks, anthropicClient) {
       `[${i}] ${c.content.slice(0, 200)}`
     ).join('\n')
 
-    const response = await anthropicClient.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 50,
-      messages: [{
+    const response = await genAIClient.models.generateContent({
+      model: 'gemini-2.0-flash-lite',
+      contents: [{
         role: 'user',
-        content: `Query: "${query}"\nRank these chunks by relevance. Return ONLY the top 5 IDs as comma-separated numbers (most relevant first):\n${numbered}`,
+        parts: [{ text: `Query: "${query}"\nRank these chunks by relevance. Return ONLY the top 5 IDs as comma-separated numbers (most relevant first):\n${numbered}` }],
       }],
+      config: { maxOutputTokens: 50 },
     })
 
-    const text = response.content[0]?.type === 'text' ? response.content[0].text : ''
+    const text = response.text || ''
     const ids = text.match(/\d+/g)?.map(Number).filter(n => n < chunks.length) || []
 
     const ranked = ids.slice(0, 5).map(i => chunks[i])
@@ -294,7 +294,7 @@ export function detectMentionedArticles(responseText) {
 // RAG: full agentic search pipeline
 // ---------------------------------------------------------------------------
 
-export async function searchPortfolio(query, trace, anthropicClient) {
+export async function searchPortfolio(query, trace, genAIClient) {
   const result = {
     chunks: null,
     sources: [],
@@ -349,8 +349,8 @@ export async function searchPortfolio(query, trace, anthropicClient) {
     }
 
     // 3. Re-rank
-    const rerankGen = trace?.generation({ name: 'reranking', model: 'claude-haiku-4-5-20251001', metadata: { query } })
-    const rerankResult = await rerankChunks(query, filteredChunks, anthropicClient)
+    const rerankGen = trace?.generation({ name: 'reranking', model: 'gemini-2.0-flash-lite', metadata: { query } })
+    const rerankResult = await rerankChunks(query, filteredChunks, genAIClient)
     result.metrics.rerankMs = rerankResult.latencyMs
     if (rerankResult.usage) {
       result.usage.rerankInputTokens = rerankResult.usage.input_tokens

@@ -2,13 +2,13 @@
  * LLM Judge usando Claude Haiku para evaluaciones subjetivas
  */
 
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI } from '@google/genai'
 
 // Cliente lazy - se inicializa cuando se usa, no al importar el módulo
-let client: Anthropic | null = null
-function getClient(): Anthropic {
+let client: GoogleGenAI | null = null
+function getClient(): GoogleGenAI {
   if (!client) {
-    client = new Anthropic()
+    client = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY! })
   }
   return client
 }
@@ -26,13 +26,12 @@ export async function judgeTone(
   criteria: string
 ): Promise<JudgeResult> {
   try {
-    const result = await getClient().messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 200,
-      messages: [
+    const result = await getClient().models.generateContent({
+      model: 'gemini-2.0-flash-lite',
+      contents: [
         {
           role: 'user',
-          content: `Evalúa si esta respuesta de un chatbot cumple el criterio especificado.
+          parts: [{ text: `Evalúa si esta respuesta de un chatbot cumple el criterio especificado.
 
 Criterio: ${criteria}
 
@@ -44,13 +43,13 @@ ${response}
 Responde SOLO con JSON válido en este formato exacto (sin markdown):
 {"pass": true, "reason": "explicación breve de por qué pasa"}
 o
-{"pass": false, "reason": "explicación breve de por qué no pasa"}`,
+{"pass": false, "reason": "explicación breve de por qué no pasa"}` }],
         },
       ],
+      config: { maxOutputTokens: 200 },
     })
 
-    const text =
-      result.content[0].type === 'text' ? result.content[0].text : ''
+    const text = result.text || ''
 
     // Limpiar posible markdown del JSON
     const cleanText = text.replace(/```json\n?|\n?```/g, '').trim()

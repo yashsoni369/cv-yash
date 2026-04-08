@@ -1,18 +1,35 @@
-import Anthropic from '@anthropic-ai/sdk'
+import { GoogleGenAI, Type } from '@google/genai'
 import { Langfuse } from 'langfuse'
 import { waitUntil } from '@vercel/functions'
 import SYSTEM_PROMPT_FALLBACK from '../chatbot-prompt.txt'
 import {
-  calcCost, isRagEnabled, PORTFOLIO_TOOL, formatChunksForContext,
+  calcCost, isRagEnabled, formatChunksForContext,
   searchPortfolio, filterSourcesByResponse, detectMentionedArticles,
   HOME_SOURCE, classifyIntent, sendJailbreakAlert,
   containsFingerprint, LEAK_RESPONSE,
 } from './_shared/rag.js'
 import { getSystemPrompt } from './_shared/prompt.js'
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
+
+const PORTFOLIO_TOOL_DECL = {
+  name: 'search_portfolio',
+  description: "Search your own published case studies for project details. You wrote these articles — they are YOUR words about YOUR projects. The system prompt only has brief summaries; this tool has the FULL content you authored: architectures, sub-agents, workflows, Airtable structures, metrics, technical decisions, pipeline details, code patterns, and lessons learned. Use this whenever the user asks for specifics about any project. Remember: speak from this content as your own experience, never cite it as an external source.",
+  parameters: {
+    type: Type.OBJECT,
+    properties: {
+      query: { type: Type.STRING, description: 'The search query to find relevant portfolio content' },
+    },
+    required: ['query'],
+  },
+}
+
+function convertMessages(messages) {
+  return messages.map(m => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: typeof m.content === 'string' ? m.content : m.content.map(b => b.text || '').join('') }],
+  }))
+}
 
 // ---------------------------------------------------------------------------
 // Langfuse
@@ -124,17 +141,7 @@ export default async function handler(req) {
       ? `\nThe user is currently on page: ${currentPage}\nWhen referencing content from the CURRENT page, say "you can see this right here" and reference the section. When referencing OTHER articles, mention them by name.`
       : ''
 
-    const systemBlocks = [
-      {
-        type: 'text',
-        text: systemPromptText,
-        cache_control: { type: 'ephemeral' },
-      },
-      {
-        type: 'text',
-        text: langInstruction + pageContext,
-      },
-    ]
+    const fullSystemPrompt = systemPromptText + '\n\n' + langInstruction + pageContext
 
     const cleanMessages = messages.map(m => ({ role: m.role, content: m.content }))
 
@@ -151,39 +158,41 @@ export default async function handler(req) {
     const ragEnabled = isRagEnabled()
 
     if (ragEnabled) {
-      // First call: let Claude decide if it needs to search (non-streaming)
+      // First call: let Gemini decide if it needs to search (non-streaming)
       const toolDecisionSpan = trace?.span({ name: 'tool_decision' })
       const td0 = Date.now()
 
-      const firstResponse = await client.messages.create({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 300,
-        system: systemBlocks,
-        messages: cleanMessages,
-        tools: [PORTFOLIO_TOOL],
-      })
-
-      const toolDecisionMs = Date.now() - td0
-      const tdInputTokens = firstResponse.usage?.input_tokens || 0
-      const tdOutputTokens = firstResponse.usage?.output_tokens || 0
-      toolDecisionSpan?.end({
-        metadata: {
-          stopReason: firstResponse.stop_reason,
-          toolUsed: firstResponse.stop_reason === 'tool_use',
-          inputTokens: tdInputTokens,
-          outputTokens: tdOutputTokens,
-          latencyMs: toolDecisionMs,
-          cost: calcCost('claude-sonnet-4-6', tdInputTokens, tdOutputTokens),
+      const firstResponse = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: convertMessages(cleanMessages),
+        config: {
+          systemInstruction: fullSystemPrompt,
+          maxOutputTokens: 300,
+          tools: [{ functionDeclarations: [PORTFOLIO_TOOL_DECL] }],
         },
       })
 
-      if (firstResponse.stop_reason === 'tool_use') {
+      const toolDecisionMs = Date.now() - td0
+      const tdInputTokens = firstResponse.usageMetadata?.promptTokenCount || 0
+      const tdOutputTokens = firstResponse.usageMetadata?.candidatesTokenCount || 0
+      const functionCall = firstResponse.functionCalls?.[0]
+      toolDecisionSpan?.end({
+        metadata: {
+          stopReason: functionCall ? 'tool_use' : 'end_turn',
+          toolUsed: !!functionCall,
+          inputTokens: tdInputTokens,
+          outputTokens: tdOutputTokens,
+          latencyMs: toolDecisionMs,
+          cost: calcCost('gemini-2.5-flash', tdInputTokens, tdOutputTokens),
+        },
+      })
+
+      if (functionCall) {
         ragUsed = true
-        const toolUseBlock = firstResponse.content.find(b => b.type === 'tool_use')
-        const searchQuery = toolUseBlock?.input?.query || lastUserMessage
+        const searchQuery = functionCall.args?.query || lastUserMessage
 
         // Execute RAG pipeline
-        const ragResult = await searchPortfolio(searchQuery, trace, client)
+        const ragResult = await searchPortfolio(searchQuery, trace, ai)
         ragSources = ragResult.sources
         ragDegraded = ragResult.degraded
         ragDegradedReason = ragResult.degradedReason
@@ -195,23 +204,15 @@ export default async function handler(req) {
           : 'No relevant content found in portfolio articles. You MUST NOT fabricate project details. Say you don\'t have that information and suggest contacting Yash directly.'
 
         const messagesWithTool = [
-          ...cleanMessages,
-          { role: 'assistant', content: firstResponse.content },
-          {
-            role: 'user',
-            content: [{
-              type: 'tool_result',
-              tool_use_id: toolUseBlock.id,
-              content: toolResultContent,
-            }],
-          },
+          ...cleanMessages.map(m => ({ role: m.role, content: m.content })),
+          { role: 'model', parts: [{ functionCall: { name: 'search_portfolio', args: { query: functionCall.args.query } } }] },
+          { role: 'user', parts: [{ functionResponse: { name: 'search_portfolio', response: { result: toolResultContent } } }] },
         ]
 
         // Stream the final response (with fallback if streaming fails)
         return streamResponse({
-          systemBlocks,
+          fullSystemPrompt,
           messages: messagesWithTool,
-          tools: null,
           ragSources,
           ragDegraded,
           ragDegradedReason,
@@ -230,14 +231,14 @@ export default async function handler(req) {
           lang,
           fallbackMessages: cleanMessages,
           promptVersion,
+          isToolResultMessages: true,
         })
       }
 
-      // Claude didn't use tool — stream the response we already have
+      // Gemini didn't use tool — stream the response we already have
       return streamResponse({
-        systemBlocks,
+        fullSystemPrompt,
         messages: cleanMessages,
-        tools: null,
         ragSources: [],
         ragDegraded: false,
         ragDegradedReason: null,
@@ -261,9 +262,8 @@ export default async function handler(req) {
 
     // RAG not enabled — direct streaming (original behavior)
     return streamResponse({
-      systemBlocks,
+      fullSystemPrompt,
       messages: cleanMessages,
-      tools: null,
       ragSources: [],
       ragDegraded: false,
       ragDegradedReason: null,
@@ -294,14 +294,14 @@ export default async function handler(req) {
 }
 
 // ---------------------------------------------------------------------------
-// Stream a Claude response with SSE (for tool_result follow-up or no-RAG)
+// Stream a Gemini response with SSE (for tool_result follow-up or no-RAG)
 // ---------------------------------------------------------------------------
 
 function streamResponse({
-  systemBlocks, messages, tools, ragSources, ragDegraded, ragDegradedReason,
+  fullSystemPrompt, messages, ragSources, ragDegraded, ragDegradedReason,
   canary, intentTags, trace, langfuse, lastUserMessage, t0,
   ragUsed, ragMetrics, ragUsage, toolDecisionMs, tdInputTokens, tdOutputTokens,
-  precomputedResponse, lang, fallbackMessages, promptVersion,
+  precomputedResponse, lang, fallbackMessages, promptVersion, isToolResultMessages,
 }) {
   const encoder = new TextEncoder()
   let fullOutput = ''
@@ -313,18 +313,8 @@ function streamResponse({
     metadata: { ragUsed, streaming: !precomputedResponse },
   })
 
-  // Only create API stream when there's no precomputed response
-  let stream = null
-  if (!precomputedResponse) {
-    const streamParams = {
-      model: 'claude-sonnet-4-6',
-      max_tokens: 800,
-      system: systemBlocks,
-      messages,
-    }
-    if (tools) streamParams.tools = tools
-    stream = client.messages.stream(streamParams)
-  }
+  // Stream params prepared for Gemini (used when no precomputed response)
+  const geminiContents = isToolResultMessages ? messages : convertMessages(messages)
 
   const readableStream = new ReadableStream({
     async start(controller) {
@@ -336,8 +326,7 @@ function streamResponse({
 
         if (precomputedResponse) {
           // Drip precomputed text through the stream
-          const textBlocks = precomputedResponse.content.filter(b => b.type === 'text')
-          const precomputedText = textBlocks.map(b => b.text).join('')
+          const precomputedText = precomputedResponse.text || ''
 
           // Check for leaks
           if (containsFingerprint(precomputedText) || precomputedText.includes(canary)) {
@@ -372,9 +361,9 @@ function streamResponse({
             await new Promise(r => setTimeout(r, delay))
           }
 
-          const pcIn = precomputedResponse.usage?.input_tokens || 0
-          const pcOut = precomputedResponse.usage?.output_tokens || 0
-          generationCost = calcCost('claude-sonnet-4-6', pcIn, pcOut)
+          const pcIn = precomputedResponse.usageMetadata?.promptTokenCount || 0
+          const pcOut = precomputedResponse.usageMetadata?.candidatesTokenCount || 0
+          generationCost = calcCost('gemini-2.5-flash', pcIn, pcOut)
           generationSpan?.end({
             metadata: {
               outputTokens: pcOut,
@@ -384,29 +373,31 @@ function streamResponse({
             },
           })
         } else {
-          // Real-time streaming from Claude API (with retry)
+          // Real-time streaming from Gemini API (with retry)
           const MAX_RETRIES = 1
           let lastStreamError = null
 
           for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
             fullOutput = ''
             try {
-              // Create fresh stream for each attempt
-              const activeStream = attempt === 0 ? stream : client.messages.stream({
-                model: 'claude-sonnet-4-6',
-                max_tokens: 800,
-                system: systemBlocks,
-                messages,
+              const streamResponse = await ai.models.generateContentStream({
+                model: 'gemini-2.5-flash',
+                contents: geminiContents,
+                config: {
+                  systemInstruction: fullSystemPrompt,
+                  maxOutputTokens: 1024,
+                },
               })
 
-              for await (const event of activeStream) {
+              let totalIn = 0, totalOut = 0
+              for await (const chunk of streamResponse) {
                 if (leakDetected) break
 
-                if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-                  const chunk = event.delta.text
-                  fullOutput += chunk
+                if (chunk.text) {
+                  const chunkText = chunk.text
+                  fullOutput += chunkText
 
-                  if (fullOutput.length % 200 < chunk.length || fullOutput.length < 200) {
+                  if (fullOutput.length % 200 < chunkText.length || fullOutput.length < 200) {
                     if (containsFingerprint(fullOutput) || fullOutput.includes(canary)) {
                       leakDetected = true
                       trace?.update({
@@ -423,19 +414,22 @@ function streamResponse({
                     }
                   }
 
-                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: chunk })}\n\n`))
+                  controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: chunkText })}\n\n`))
+                }
+
+                // Capture usage from final chunk
+                if (chunk.usageMetadata) {
+                  totalIn = chunk.usageMetadata.promptTokenCount || totalIn
+                  totalOut = chunk.usageMetadata.candidatesTokenCount || totalOut
                 }
               }
 
               if (!leakDetected) {
-                const finalMessage = await activeStream.finalMessage()
-                const genIn = finalMessage.usage?.input_tokens || 0
-                const genOut = finalMessage.usage?.output_tokens || 0
-                generationCost = calcCost('claude-sonnet-4-6', genIn, genOut)
+                generationCost = calcCost('gemini-2.5-flash', totalIn, totalOut)
                 generationSpan?.end({
                   metadata: {
-                    outputTokens: genOut,
-                    inputTokens: genIn,
+                    outputTokens: totalOut,
+                    inputTokens: totalIn,
                     latencyMs: Date.now() - t0,
                     attempt,
                     cost: generationCost,
@@ -470,9 +464,9 @@ function streamResponse({
         if (!leakDetected) {
           // Calculate total cost across all spans
           const costBreakdown = {
-            toolDecision: calcCost('claude-sonnet-4-6', tdInputTokens || 0, tdOutputTokens || 0),
+            toolDecision: calcCost('gemini-2.5-flash', tdInputTokens || 0, tdOutputTokens || 0),
             embedding: calcCost('text-embedding-3-small', ragUsage?.embeddingTokens || 0),
-            reranking: calcCost('claude-haiku-4-5-20251001', ragUsage?.rerankInputTokens || 0, ragUsage?.rerankOutputTokens || 0),
+            reranking: calcCost('gemini-2.0-flash-lite', ragUsage?.rerankInputTokens || 0, ragUsage?.rerankOutputTokens || 0),
             generation: generationCost,
           }
           costBreakdown.total = Object.values(costBreakdown).reduce((a, b) => a + b, 0)
@@ -538,11 +532,13 @@ function streamResponse({
         // Graceful degradation: retry without RAG context (just system prompt)
         if (fallbackMessages && !fullOutput) {
           try {
-            const fallbackStream = client.messages.stream({
-              model: 'claude-sonnet-4-6',
-              max_tokens: 800,
-              system: systemBlocks,
-              messages: fallbackMessages,
+            const fallbackStreamResp = await ai.models.generateContentStream({
+              model: 'gemini-2.5-flash',
+              contents: convertMessages(fallbackMessages),
+              config: {
+                systemInstruction: fullSystemPrompt,
+                maxOutputTokens: 1024,
+              },
             })
 
             // Send degraded status so frontend knows RAG failed
@@ -551,15 +547,15 @@ function streamResponse({
             let fallbackOutput = ''
             let fallbackLeakDetected = false
 
-            for await (const event of fallbackStream) {
+            for await (const chunk of fallbackStreamResp) {
               if (fallbackLeakDetected) break
 
-              if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-                const chunk = event.delta.text
-                fallbackOutput += chunk
+              if (chunk.text) {
+                const chunkText = chunk.text
+                fallbackOutput += chunkText
 
                 // Fingerprint + canary check (same as main stream)
-                if (fallbackOutput.length % 200 < chunk.length || fallbackOutput.length < 200) {
+                if (fallbackOutput.length % 200 < chunkText.length || fallbackOutput.length < 200) {
                   if (containsFingerprint(fallbackOutput) || fallbackOutput.includes(canary)) {
                     fallbackLeakDetected = true
                     trace?.update({
@@ -575,7 +571,7 @@ function streamResponse({
                   }
                 }
 
-                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: chunk })}\n\n`))
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: chunkText })}\n\n`))
               }
             }
 
@@ -613,7 +609,7 @@ function streamResponse({
 }
 
 // ---------------------------------------------------------------------------
-// Online Scoring — Claude Haiku scores every response in real-time (Block 2)
+// Online Scoring — Gemini Flash Lite scores every response in real-time (Block 2)
 // Zero added latency: runs after response is sent via waitUntil()
 // ---------------------------------------------------------------------------
 
@@ -622,15 +618,10 @@ async function scoreTrace(traceId, userMessage, response, ragUsed, langfuse) {
     const scoringGen = langfuse.generation({
       traceId,
       name: 'online_scoring',
-      model: 'claude-haiku-4-5-20251001',
+      model: 'gemini-2.0-flash-lite',
     })
 
-    const scoringResponse = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 200,
-      messages: [{
-        role: 'user',
-        content: `Rate this chatbot response (Yash's portfolio chatbot). Respond ONLY with JSON.
+    const scoringPrompt = `Rate this chatbot response (Yash's portfolio chatbot). Respond ONLY with JSON.
 
 User: "${userMessage.slice(0, 300)}"
 Assistant: "${response.slice(0, 500)}"
@@ -641,16 +632,20 @@ Rate (0.0-1.0):
 ${ragUsed ? '- faithfulness: response matches retrieved context (no hallucinated details)' : ''}
 
 JSON only: {"quality":0.0,"safety":0.0${ragUsed ? ',"faithfulness":0.0' : ''}}`
-      }],
+
+    const scoringResponse = await ai.models.generateContent({
+      model: 'gemini-2.0-flash-lite',
+      contents: [{ role: 'user', parts: [{ text: scoringPrompt }] }],
+      config: { maxOutputTokens: 200 },
     })
 
-    const scIn = scoringResponse.usage?.input_tokens || 0
-    const scOut = scoringResponse.usage?.output_tokens || 0
+    const scIn = scoringResponse.usageMetadata?.promptTokenCount || 0
+    const scOut = scoringResponse.usageMetadata?.candidatesTokenCount || 0
     scoringGen.end({
       usage: { input: scIn, output: scOut },
     })
 
-    const text = scoringResponse.content[0]?.type === 'text' ? scoringResponse.content[0].text : ''
+    const text = scoringResponse.text || ''
     const jsonMatch = text.match(/\{[\s\S]*\}/)
     if (!jsonMatch) return
 
