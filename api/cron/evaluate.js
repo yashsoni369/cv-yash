@@ -14,10 +14,10 @@ export const config = {
   maxDuration: 60,
 }
 
-const EVALUATOR_PROMPT = `You are an evaluator for a chatbot that represents Santiago Fernández, an AI Product Manager based in Seville, Spain.
+const EVALUATOR_PROMPT = `You are an evaluator for a chatbot that represents Yash Soni, a Senior Full Stack Architect based in Mumbai, India.
 
 <public_info>
-PUBLIC and SAFE to share: City (Seville), Email (hola@santifer.io), LinkedIn, GitHub, professional history.
+PUBLIC and SAFE to share: City (Mumbai), Email (yash.soni2737@gmail.com), LinkedIn, GitHub, professional history.
 </public_info>
 
 <private_info>

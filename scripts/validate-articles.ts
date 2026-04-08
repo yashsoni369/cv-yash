@@ -26,13 +26,9 @@ const FIX_MODE = process.argv.includes('--fix')
 
 /** Map article id → source file (relative to root) */
 const SOURCE_MAP: Record<string, string> = {
-  'n8n-for-pms': 'src/N8nForPMs.tsx',
-  'jacobo': 'src/JacoboAgent.tsx',
-  'business-os': 'src/BusinessOS.tsx',
-  'programmatic-seo': 'src/ProgrammaticSeo.tsx',
-  'santifer-irepair': 'src/SantiferIRepair.tsx',
-  'self-healing-chatbot': 'src/SelfHealingChatbot.tsx',
-  'career-ops': 'src/CareerOps.tsx',
+  // TODO: Add Yash's article components when created
+  // 'decoverai': 'src/DecoverAI.tsx',
+  // 'speakology-ai': 'src/SpeakologyAI.tsx',
 }
 
 // ---------------------------------------------------------------------------

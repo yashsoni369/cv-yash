@@ -1413,7 +1413,8 @@ function CertLogo({ logo }: { logo: string }) {
 
 function App() {
   const location = useLocation()
-  const lang: Lang = location.pathname === '/en' ? 'en' : 'es'
+  const langMap: Record<string, Lang> = { '/es': 'es', '/zh': 'zh', '/fr': 'fr', '/pt': 'pt', '/hi': 'hi' }
+  const lang: Lang = langMap[location.pathname] || 'en'
   const t = translations[lang]
   const hydrated = useHydrated()
   useHeroStyles()
@@ -1460,7 +1461,7 @@ function App() {
                 {/* Inner border */}
                 <div className="absolute inset-2 rounded-full bg-gradient-theme-50 p-[2px]">
                   <div className="w-full h-full rounded-full overflow-hidden">
-                    <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt="Santiago Fernández de Valderrama" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
+                    <img src="/foto-avatar-sm.webp" srcSet="/foto-avatar-sm.webp 192w, /foto-avatar.webp 384w" sizes="(max-width: 768px) 160px, 192px" alt="Yash Soni" className="w-full h-full object-cover" width={192} height={192} fetchPriority="high" />
                   </div>
                 </div>
               </div>
@@ -1481,7 +1482,7 @@ function App() {
               className="text-center md:text-left"
             >
               <p className="text-lg text-muted-foreground mb-2">
-                {lang === 'es' ? 'Hola, soy' : "Hi, I'm"} <Link to={lang === 'es' ? '/sobre-mi' : '/about'} className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">@santifer</Link>,
+                {lang === 'es' ? 'Hola, soy' : "Hi, I'm"} <Link to={lang === 'es' ? '/sobre-mi' : '/about'} className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">Yash Soni</Link>,
               </p>
               <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
                 <span className="text-gradient-theme">{hydrated ? roleText : t.greetingRoles[0]}</span>
@@ -1565,17 +1566,11 @@ function App() {
             <div className="mb-12">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-[#888] shrink-0">
-                    <picture>
-                      <source srcSet="/logo-santifer.webp" type="image/webp" />
-                      <img src="/logo-santifer.jpg" alt={t.experience.santifer.company} className="w-full h-full object-cover" width={40} height={40} loading="lazy" decoding="async" />
-                    </picture>
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-primary/20 shrink-0 flex items-center justify-center">
+                    <Briefcase className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="font-display text-2xl font-bold">{t.experience.santifer.company}</h3>
                 </div>
-                <Link to={lang === 'en' ? '/santifer-irepair-founder' : '/santifer-irepair'} className="text-sm text-primary hover:underline flex items-center gap-1">
-                  santifer irepair
-                </Link>
                 <span className="text-sm text-muted-foreground">{t.experience.santifer.location}</span>
               </div>
               <p className="text-primary font-medium mb-1">{t.experience.santifer.role}</p>
@@ -1589,27 +1584,31 @@ function App() {
                 ))}
               </ul>
 
-              {/* Trusted By - Corporate Logos */}
-              <div className="pt-4 border-t border-border/50">
-                <p className="text-xs text-muted-foreground/60 uppercase tracking-wider mb-4">{t.experience.santifer.trustedBy.label}</p>
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-8">
-                  {t.experience.santifer.trustedBy.logos.map((logo, i) => (
-                    <div key={i} className="flex items-center gap-2 hover:opacity-90 transition-opacity duration-200">
-                      {'src' in logo ? (
-                        <img src={logo.src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 shrink-0 opacity-60 dark:opacity-70" aria-hidden="true" dangerouslySetInnerHTML={{ __html: logo.icon }} />
-                      )}
-                      <span className="text-sm font-medium opacity-60 dark:opacity-70">{logo.name}</span>
-                    </div>
-                  ))}
+              {/* Trusted By - Corporate Logos (only render when logos exist) */}
+              {t.experience.santifer.trustedBy.logos.length > 0 && (
+                <div className="pt-4 border-t border-border/50">
+                  <p className="text-xs text-muted-foreground/60 uppercase tracking-wider mb-4">{t.experience.santifer.trustedBy.label}</p>
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-3 md:gap-x-8">
+                    {t.experience.santifer.trustedBy.logos.map((logo, i) => (
+                      <div key={i} className="flex items-center gap-2 hover:opacity-90 transition-opacity duration-200">
+                        {'src' in logo ? (
+                          <img src={(logo as any).src} alt={logo.name} className="h-5 w-auto shrink-0 invert opacity-60 hover:opacity-80 dark:invert-0 dark:opacity-70 dark:hover:opacity-90" loading="lazy" width={20} height={20} />
+                        ) : (
+                          <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 shrink-0 opacity-60 dark:opacity-70" aria-hidden="true" dangerouslySetInnerHTML={{ __html: (logo as any).icon || '' }} />
+                        )}
+                        <span className="text-sm font-medium opacity-60 dark:opacity-70">{logo.name}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Deep dive CTA */}
-              <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{t.experience.santifer.caseStudyLabel}</span>
-              </Link>
+              {t.experience.santifer.caseStudyUrl && (
+                <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
+                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{t.experience.santifer.caseStudyLabel}</span>
+                </Link>
+              )}
             </div>
           </AnimatedSection>
 
@@ -1649,10 +1648,10 @@ function App() {
                       )
                     })}
                   </ul>
-                  <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-6 text-sm font-medium text-gold hover:text-gold/80 transition-colors duration-200 group/cta">
+                  {t.experience.santifer.caseStudyUrl && t.experience.santifer.businessOS.footer && <Link to={t.experience.santifer.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-6 text-sm font-medium text-gold hover:text-gold/80 transition-colors duration-200 group/cta">
                     <span className="px-4 py-2 rounded-lg bg-gold/10 border border-gold/30 group-hover/cta:bg-gold/20 group-hover/cta:border-gold/50 transition-all duration-200">{t.experience.santifer.businessOS.footer}</span>
                     <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                  </Link>
+                  </Link>}
                 </div>
                 <div className="grid grid-cols-3 lg:flex lg:flex-col gap-2 lg:gap-3 mt-4 lg:mt-0">
                   {t.experience.santifer.businessOS.metrics.map((metric, i) => (
@@ -1696,10 +1695,12 @@ function App() {
                     )
                   })}
                 </ul>
-                <Link to={t.experience.santifer.jacobo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
-                  <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{t.experience.santifer.jacobo.soldWith}</span>
-                  <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                </Link>
+                {(t.experience.santifer.jacobo as any).caseStudyUrl && (
+                  <Link to={(t.experience.santifer.jacobo as any).caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-primary hover:text-primary/80 transition-colors duration-200 group/cta">
+                    <span className="px-4 py-2 rounded-lg bg-primary/10 border border-primary/30 group-hover/cta:bg-primary/20 group-hover/cta:border-primary/50 transition-all duration-200">{(t.experience.santifer.jacobo as any).soldWith}</span>
+                    <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
+                  </Link>
+                )}
               </div>
             </AnimatedSection>
 
@@ -1731,14 +1732,17 @@ function App() {
                     )
                   })}
                 </ul>
-                <Link to={t.experience.santifer.webSeo.caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta">
-                  <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-all duration-200">{t.experience.santifer.webSeo.codeAvailable}</span>
+                {(t.experience.santifer.webSeo as any).caseStudyUrl && (
+                <Link to={(t.experience.santifer.webSeo as any).caseStudyUrl} className="inline-flex items-center gap-2 mt-auto pt-4 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta">
+                  <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-all duration-200">{(t.experience.santifer.webSeo as any).codeAvailable}</span>
                   <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
                 </Link>
+                )}
               </div>
             </AnimatedSection>
 
             {/* EXIT 2025 - Verde Success para destacar logro/credibilidad */}
+            {t.experience.santifer.exit && (
             <AnimatedSection delay={0.25} className="col-span-2">
               <div className="h-full p-5 rounded-2xl bg-gradient-to-r from-success/10 to-success/5 border border-success/30 hover:border-success/50 transition-colors duration-200">
                 <div className="flex items-center gap-3 mb-2">
@@ -1748,70 +1752,66 @@ function App() {
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.exitDesc}</p>
               </div>
             </AnimatedSection>
+            )}
 
             {/* ERP card */}
             <AnimatedSection delay={0.3}>
-              <Link to={t.experience.santifer.erp.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
                 <Database className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.erp.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.erp.desc}</p>
                 <div className="flex items-center justify-between mt-auto pt-3">
                   <span className="text-xs font-medium text-primary">{t.experience.santifer.erp.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* GPTs card */}
             <AnimatedSection delay={0.35}>
-              <Link to={t.experience.santifer.gpts.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
                 <Bot className="w-5 h-5 text-accent mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.gpts.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.gpts.desc}</p>
                 <div className="flex items-center justify-between mt-auto pt-3">
                   <span className="text-xs font-medium text-primary">{t.experience.santifer.gpts.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* Reservas card */}
             <AnimatedSection delay={0.4}>
-              <Link to={t.experience.santifer.reservas.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
                 <Timer className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.reservas.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.reservas.desc}</p>
                 <div className="flex items-center justify-between mt-auto pt-3">
                   <span className="text-xs font-medium text-accent">{t.experience.santifer.reservas.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* CRM card */}
             <AnimatedSection delay={0.45}>
-              <Link to={t.experience.santifer.crm.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
                 <Users className="w-5 h-5 text-accent mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.crm.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.crm.desc}</p>
                 <div className="flex items-center justify-between mt-auto pt-3">
                   <span className="text-xs font-medium text-primary">{t.experience.santifer.crm.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
 
             {/* GenAI Marketing card */}
             <AnimatedSection delay={0.5}>
-              <Link to={t.experience.santifer.genAI.caseStudyUrl} className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
+              <div className="block h-full p-5 rounded-2xl bg-card border border-border hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-200 flex flex-col group/card">
                 <Sparkles className="w-5 h-5 text-primary mb-3" />
                 <p className="font-medium text-sm mb-1">{t.experience.santifer.genAI.title}</p>
                 <p className="text-sm text-muted-foreground">{t.experience.santifer.genAI.desc}</p>
                 <div className="flex items-center justify-between mt-auto pt-3">
                   <span className="text-xs font-medium text-accent">{t.experience.santifer.genAI.metric}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/0 group-hover/card:text-primary group-hover/card:translate-x-0.5 transition-all duration-200" />
                 </div>
-              </Link>
+              </div>
             </AnimatedSection>
           </div>
 
@@ -1820,42 +1820,31 @@ function App() {
             <div className="mb-6">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-[#F5F3EE] flex items-center justify-center shrink-0">
-                    <picture>
-                      <source srcSet="/logo-lico.webp" type="image/webp" />
-                      <img src="/logo-lico.png" alt={t.experience.lico.company} className="w-full h-full object-contain p-1" width={40} height={40} loading="lazy" decoding="async" />
-                    </picture>
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-primary/20 shrink-0 flex items-center justify-center">
+                    <Briefcase className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="font-display text-2xl font-bold">{t.experience.lico.company}</h3>
                 </div>
-                <a href="https://licocosmetics.es" target="_blank" rel="noopener noreferrer nofollow" className="text-sm text-accent hover:underline flex items-center gap-1">
-                  licocosmetics.es <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                </a>
                 <span className="text-sm text-muted-foreground">{t.experience.lico.location}</span>
               </div>
               <p className="text-accent font-medium mb-1">{t.experience.lico.role}</p>
               <p className="text-sm text-muted-foreground mb-4">{t.experience.lico.period}</p>
               <p className="text-muted-foreground">{t.experience.lico.desc}</p>
 
-              {/* Testimonial */}
-              <a href="https://www.linkedin.com/in/santifer/details/recommendations/" target="_blank" rel="noopener noreferrer" className="block group">
-                <blockquote className="mt-6 p-4 rounded-xl bg-accent/5 border border-accent/10 group-hover:border-[hsl(var(--linkedin)/0.3)] transition-colors">
+              {/* Testimonial — only render when data exists */}
+              {t.experience.lico.testimonial?.quote && (
+                <blockquote className="mt-6 p-4 rounded-xl bg-accent/5 border border-accent/10">
                   <p className="text-sm text-muted-foreground italic mb-4">
                     "{t.experience.lico.testimonial.quote}"
                   </p>
                   <footer className="flex items-center gap-3">
-                    <picture>
-                      <source srcSet="/juan-sabate.webp" type="image/webp" />
-                      <img src="/juan-sabate.jpeg" alt={t.experience.lico.testimonial.author} className="w-10 h-10 rounded-full object-cover" width={40} height={40} loading="lazy" decoding="async" />
-                    </picture>
                     <div className="flex-1">
                       <span className="text-sm font-medium text-foreground block">{t.experience.lico.testimonial.author}</span>
                       <span className="text-xs text-muted-foreground">{t.experience.lico.testimonial.role}</span>
                     </div>
-                    <LinkedInLogo className="w-4 h-4 text-[hsl(var(--linkedin))]" />
                   </footer>
                 </blockquote>
-              </a>
+              )}
             </div>
           </AnimatedSection>
 
@@ -1864,11 +1853,8 @@ function App() {
             <div className="mb-6">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-white flex items-center justify-center shrink-0 p-1.5">
-                    <picture>
-                      <source srcSet="/logo-everis.webp" type="image/webp" />
-                      <img src="/logo-everis.jpg" alt={t.experience.everis.company} className="w-full h-full object-contain" width={40} height={40} loading="lazy" decoding="async" />
-                    </picture>
+                  <div className="w-10 h-10 rounded-xl overflow-hidden bg-primary/20 shrink-0 flex items-center justify-center">
+                    <Briefcase className="w-5 h-5 text-primary" />
                   </div>
                   <h3 className="font-display text-2xl font-bold">{t.experience.everis.company}</h3>
                 </div>
@@ -1890,7 +1876,7 @@ function App() {
             </div>
 
             {/* Testimonial */}
-            <a href="https://www.linkedin.com/in/santifer/details/recommendations/" target="_blank" rel="noopener noreferrer" className="block group">
+            <a href="https://www.linkedin.com/in/yashsoni369/details/recommendations/" target="_blank" rel="noopener noreferrer" className="block group">
               <blockquote className="mt-6 p-4 rounded-xl bg-primary/5 border border-primary/10 group-hover:border-[hsl(var(--linkedin)/0.3)] transition-colors">
                 <p className="text-sm text-muted-foreground italic mb-4">
                   "{t.experience.everis.testimonial.quote}"
@@ -2000,349 +1986,60 @@ function App() {
             </div>
           </AnimatedSection>
 
-          {/* Projects Grid with Dependency Lines */}
+          {/* Projects Grid */}
           {(() => {
-            // Tipo para proyecto
-            type Project = {
-              title: string
-              badge: string
-              badgeBuilding: string
-              desc: string
-              tech: readonly string[]
-              link: string
-              isDependency?: boolean
-              dependencyRole?: string
-              caseStudyUrl?: string
-              caseStudyLabel?: string
-              stars?: string
-              forks?: string
-            }
-
-            // Separar proyectos
+            type Project = (typeof t.projects.items)[number]
             const allProjects = t.projects.items as readonly Project[]
-            const contentDigest = allProjects.find(p => p.title === 'Content Digest')!
-            const lifeOS = allProjects.find(p => p.title === 'Life OS')!
-            const careerOps = allProjects.find(p => p.title === 'Career Ops')!
-            const santiferIo = allProjects.find(p => p.title === 'santifer.io')!
-            const selfHealingChatbot = allProjects.find(p => p.title === 'Self-Healing Chatbot')!
-            // Tools que dependen de santifer.io
-            const claudeEye = allProjects.find(p => p.title === 'Claude Eye')!
-            const claudeable = allProjects.find(p => p.title === 'Claudeable')!
-            // Fila 4: Claude Pulse + ProjectOS Predict
-            const claudePulse = allProjects.find(p => p.title === 'Claude Pulse')!
-            const projectOSPredict = allProjects.find(p => p.title === 'ProjectOS Predict')!
 
-            // Helper para parsear **bold** a elementos con estilo
             const parseBold = (text: string): React.ReactNode[] => {
               return text.split(/\*\*(.*?)\*\*/g).map((part, i) =>
                 i % 2 === 1 ? <strong key={i} className="text-tool font-semibold">{part}</strong> : part
               )
             }
 
-            // Refs para cada tarjeta (para calcular posiciones de conexiones)
-            const containerRef = useRef<HTMLDivElement>(null)
-            const cardRefs = {
-              contentDigest: useRef<HTMLDivElement>(null),
-              lifeOS: useRef<HTMLDivElement>(null),
-              careerOps: useRef<HTMLDivElement>(null),
-              santiferIo: useRef<HTMLDivElement>(null),
-              selfHealingChatbot: useRef<HTMLDivElement>(null),
-              claudeEye: useRef<HTMLDivElement>(null),
-              claudeable: useRef<HTMLDivElement>(null),
-              claudePulse: useRef<HTMLDivElement>(null),
-              projectOSPredict: useRef<HTMLDivElement>(null),
-            }
-
-            // Hook para calcular líneas de conexión SVG
-            const [lines, setLines] = useState<string[]>([])
-            const { ref: visibilityRef, isInView: isVisible } = useInView(0.1)
-
-            useEffect(() => {
-              if (!isVisible || !containerRef.current) return
-
-              const calculate = () => {
-                const container = containerRef.current!.getBoundingClientRect()
-                const isMobile = window.innerWidth < 768 // Tailwind md breakpoint
-
-                type Edge = 'top' | 'bottom' | 'left' | 'right'
-                const getPoint = (ref: React.RefObject<HTMLDivElement | null>, edge: Edge, ratio = 0.5) => {
-                  const rect = ref.current?.getBoundingClientRect()
-                  if (!rect) return null
-                  const x = rect.left - container.left
-                  const y = rect.top - container.top
-                  switch (edge) {
-                    case 'top': return { x: x + rect.width * ratio, y }
-                    case 'bottom': return { x: x + rect.width * ratio, y: y + rect.height }
-                    case 'left': return { x, y: y + rect.height * ratio }
-                    case 'right': return { x: x + rect.width, y: y + rect.height * ratio }
-                  }
-                }
-
-                // Definir conexiones según el grafo
-                type Connection = {
-                  from: React.RefObject<HTMLDivElement | null>
-                  fromEdge: Edge
-                  fromRatio?: number
-                  to: React.RefObject<HTMLDivElement | null>
-                  toEdge: Edge
-                  toRatio?: number
-                }
-
-                // En móvil: conexiones verticales simples (tarjetas apiladas)
-                // En desktop: grafo complejo con conexiones horizontales y diagonales
-                const connections: Connection[] = isMobile ? [
-                  // Móvil: flujo vertical simple
-                  { from: cardRefs.lifeOS, fromEdge: 'bottom', to: cardRefs.careerOps, toEdge: 'top' },
-                  { from: cardRefs.careerOps, fromEdge: 'bottom', to: cardRefs.santiferIo, toEdge: 'top' },
-                  { from: cardRefs.santiferIo, fromEdge: 'bottom', to: cardRefs.selfHealingChatbot, toEdge: 'top' },
-                  { from: cardRefs.selfHealingChatbot, fromEdge: 'bottom', to: cardRefs.claudeEye, toEdge: 'top' },
-                  { from: cardRefs.claudeEye, fromEdge: 'bottom', to: cardRefs.claudeable, toEdge: 'top' },
-                  { from: cardRefs.claudeable, fromEdge: 'bottom', to: cardRefs.claudePulse, toEdge: 'top' },
-                  { from: cardRefs.claudePulse, fromEdge: 'bottom', to: cardRefs.contentDigest, toEdge: 'top' },
-                  { from: cardRefs.contentDigest, fromEdge: 'bottom', to: cardRefs.projectOSPredict, toEdge: 'top' },
-                ] : [
-                  // Desktop: grafo complejo
-                  // Fila 1: Life OS ↔ Career Ops (horizontal)
-                  { from: cardRefs.lifeOS, fromEdge: 'right', to: cardRefs.careerOps, toEdge: 'left' },
-                  // Fila 1 → Fila 2: diagonales hacia santifer.io + chatbot
-                  { from: cardRefs.lifeOS, fromEdge: 'bottom', to: cardRefs.santiferIo, toEdge: 'top' },
-                  { from: cardRefs.careerOps, fromEdge: 'bottom', to: cardRefs.selfHealingChatbot, toEdge: 'top' },
-                  // Fila 2: santifer.io ↔ chatbot (horizontal)
-                  { from: cardRefs.santiferIo, fromEdge: 'right', to: cardRefs.selfHealingChatbot, toEdge: 'left' },
-                  // Fila 2 → Fila 3: hacia tools
-                  { from: cardRefs.santiferIo, fromEdge: 'bottom', to: cardRefs.claudeEye, toEdge: 'top' },
-                  { from: cardRefs.selfHealingChatbot, fromEdge: 'bottom', to: cardRefs.claudeable, toEdge: 'top' },
-                  // Fila 3 → Fila 4
-                  { from: cardRefs.claudeEye, fromEdge: 'bottom', to: cardRefs.claudePulse, toEdge: 'top' },
-                  { from: cardRefs.claudeable, fromEdge: 'bottom', to: cardRefs.contentDigest, toEdge: 'top' },
-                  // Fila 4 → Fila 5: diagonales hacia ProjectOS
-                  { from: cardRefs.claudePulse, fromEdge: 'bottom', to: cardRefs.projectOSPredict, toEdge: 'top', toRatio: 0.25 },
-                  { from: cardRefs.contentDigest, fromEdge: 'bottom', to: cardRefs.projectOSPredict, toEdge: 'top', toRatio: 0.75 },
-                ]
-
-                const paths = connections.map(conn => {
-                  const start = getPoint(conn.from, conn.fromEdge, conn.fromRatio ?? 0.5)
-                  const end = getPoint(conn.to, conn.toEdge, conn.toRatio ?? 0.5)
-                  if (!start || !end) return ''
-
-                  // Móvil: líneas rectas simples | Desktop: curvas Bézier
-                  if (isMobile) {
-                    return `M ${start.x} ${start.y} L ${end.x} ${end.y}`
-                  }
-
-                  // Determinar si es conexión horizontal o vertical
-                  const isHorizontal = conn.fromEdge === 'left' || conn.fromEdge === 'right'
-                  if (isHorizontal) {
-                    // Curva Bézier horizontal
-                    const midX = (start.x + end.x) / 2
-                    return `M ${start.x} ${start.y} C ${midX} ${start.y}, ${midX} ${end.y}, ${end.x} ${end.y}`
-                  } else {
-                    // Curva Bézier vertical
-                    const midY = (start.y + end.y) / 2
-                    return `M ${start.x} ${start.y} C ${start.x} ${midY}, ${end.x} ${midY}, ${end.x} ${end.y}`
-                  }
-                }).filter(Boolean)
-
-                setLines(paths)
-              }
-
-              // Delay para dar tiempo a las animaciones de entrada (AnimatedSection ~0.6s)
-              const initialTimeout = setTimeout(calculate, 700)
-
-              // Debounce para resize
-              let resizeTimeout: ReturnType<typeof setTimeout>
-              const debouncedCalc = () => {
-                clearTimeout(resizeTimeout)
-                resizeTimeout = setTimeout(calculate, 100)
-              }
-              window.addEventListener('resize', debouncedCalc)
-              return () => {
-                window.removeEventListener('resize', debouncedCalc)
-                clearTimeout(initialTimeout)
-                clearTimeout(resizeTimeout)
-              }
-            }, [isVisible, lang])
-
-            // Componente de tarjeta de proyecto
-            const ProjectCard = ({ project, variant = 'default', cardRef }: {
-              project: Project,
-              variant?: 'default' | 'highlight' | 'tool' | 'tool-static',
-              cardRef?: React.RefObject<HTMLDivElement | null> | ((el: HTMLDivElement | null) => void)
+            const ProjectCard = ({ project, variant = 'default' }: {
+              project: Project
+              variant?: 'default' | 'highlight' | 'tool-static'
             }) => {
               const isHighlight = variant === 'highlight'
-              const isTool = variant === 'tool' || variant === 'tool-static'
-              const hasHover = variant !== 'tool-static'
-
               return (
-                <div
-                  ref={cardRef}
-                  className={`h-full p-6 rounded-2xl transition-colors duration-200 flex flex-col ${hasHover ? 'group' : ''} ${
-                    isHighlight
-                      ? 'bg-gradient-to-br from-accent/5 to-transparent border-2 border-accent/50 hover:border-accent/70'
-                      : isTool
-                      ? `bg-card border border-tool/30 ${hasHover ? 'hover:border-tool/50' : ''}`
-                      : 'bg-card border border-border hover:border-primary/30'
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className={`font-display text-xl font-bold transition-colors ${
-                      isTool ? 'group-hover:text-tool' : 'group-hover:text-primary'
-                    }`}>{project.title}</h3>
-                    <div className="flex items-center gap-2">
-                      <span className={`badge px-2 py-0.5 ${
-                        isTool
-                          ? 'bg-tool/10 text-tool'
-                          : isHighlight
-                          ? 'bg-accent/10 text-accent'
-                          : 'bg-primary/10 text-primary'
-                      }`}>{project.badge}</span>
-                      {project.badgeBuilding && (
-                        <span className="badge px-2 py-0.5 bg-success/5 text-success flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse-dot"></span>
-                          {project.badgeBuilding}
-                        </span>
-                      )}
-                    </div>
+                <div className={`group/card relative p-5 rounded-2xl border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg flex flex-col h-full ${
+                  isHighlight
+                    ? 'bg-gradient-to-br from-primary/10 to-accent/10 border-primary/30 hover:border-primary/50 hover:shadow-primary/10'
+                    : 'bg-card border-border hover:border-primary/30 hover:shadow-primary/5'
+                }`}>
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <h4 className="font-display font-bold group-hover/card:text-primary transition-colors">{project.title}</h4>
+                    {project.badge && <span className={`text-[10px] px-2 py-0.5 rounded-full ${isHighlight ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>{project.badge}</span>}
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {parseBold(project.desc)}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
-                      <span key={tech} className={`px-2 py-1 rounded-md text-xs ${
-                        isTool
-                          ? 'bg-tool/10 text-tool'
-                          : 'bg-muted text-muted-foreground'
-                      }`}>{tech}</span>
+                  <p className="text-sm text-muted-foreground mb-3 flex-grow">{parseBold(project.desc)}</p>
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
+                    {project.tech.map((t: string) => (
+                      <span key={t} className="text-[10px] px-2 py-0.5 rounded-md bg-muted/50 text-muted-foreground">{t}</span>
                     ))}
                   </div>
-                  <div className="flex flex-col gap-3 mt-auto">
-                    {project.caseStudyUrl && (
-                      <Link
-                        to={project.caseStudyUrl}
-                        className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors duration-200 group/cta"
-                      >
-                        <span className="px-4 py-2 rounded-lg bg-accent/10 border border-accent/30 group-hover/cta:bg-accent/20 group-hover/cta:border-accent/50 transition-all duration-200">{project.caseStudyLabel}</span>
-                        <ChevronRight className="w-4 h-4 group-hover/cta:translate-x-0.5 transition-transform duration-200" />
-                      </Link>
-                    )}
-                    {project.link && (
-                      <div className="flex items-center gap-3">
-                        <a
-                          href={`https://${project.link}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-2 text-xs ${
-                            isTool ? 'text-tool hover:text-tool' : 'text-primary'
-                          } hover:underline`}
-                        >
-                          {project.link.includes('github.com') ? (
-                            <>
-                              <Github className="w-4 h-4" />
-                              {t.projects.viewCode}
-                            </>
-                          ) : (
-                            <>
-                              <ExternalLink className="w-4 h-4" aria-hidden="true" />
-                              {t.projects.viewPrototype}
-                            </>
-                          )}
-                        </a>
-                        {project.stars && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Star className="w-3.5 h-3.5 text-yellow-500" />
-                            {project.stars}
-                          </span>
-                        )}
-                        {project.forks && (
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <GitFork className="w-3.5 h-3.5" />
-                            {project.forks}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </div>
+                  {project.caseStudyUrl && (
+                    <Link to={project.caseStudyUrl} className="inline-flex items-center gap-1 mt-3 text-xs font-medium text-primary hover:text-primary/80 transition-colors">
+                      {project.caseStudyLabel || 'Read case study'} →
+                    </Link>
+                  )}
                 </div>
               )
             }
 
-
             return (
-              <div ref={(el) => { containerRef.current = el; visibilityRef(el) }} className="mb-12 relative">
-                {/* SVG de conexiones - absoluto, z-0 para quedar detrás */}
-                <svg
-                  className="absolute inset-0 pointer-events-none"
-                  style={{ zIndex: 0, overflow: 'visible' }}
-                >
-                  {lines.map((d, i) => (
-                    <path
-                      key={i}
-                      d={d}
-                      className="dependency-line"
-                      stroke="hsl(var(--primary))"
-                      strokeWidth="1.5"
-                      fill="none"
-                      strokeDasharray="4 4"
-                      style={{
-                        opacity: isVisible ? 0.6 : 0,
-                        transition: `opacity 0.6s ease-out ${i * 0.1}s`
-                      }}
-                    />
-                  ))}
-                </svg>
-
-                {/* Fila 1: Life OS + Career Ops */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
-                  <AnimatedSection delay={0.1}>
-                    <ProjectCard project={lifeOS} cardRef={cardRefs.lifeOS} />
+              <div className="grid md:grid-cols-2 gap-6">
+                {allProjects.map((project, i) => (
+                  <AnimatedSection key={project.title} delay={0.1 + i * 0.05}>
+                    <ProjectCard project={project} variant={i < 2 ? 'highlight' : 'default'} />
                   </AnimatedSection>
-                  <AnimatedSection delay={0.15}>
-                    <ProjectCard project={careerOps} cardRef={cardRefs.careerOps} />
-                  </AnimatedSection>
-                </div>
-
-                {/* Fila 2: santifer.io + Self-Healing Chatbot (highlight) */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
-                  <AnimatedSection delay={0.2}>
-                    <ProjectCard project={santiferIo} variant="highlight" cardRef={cardRefs.santiferIo} />
-                  </AnimatedSection>
-                  <AnimatedSection delay={0.25}>
-                    <ProjectCard project={selfHealingChatbot} variant="highlight" cardRef={cardRefs.selfHealingChatbot} />
-                  </AnimatedSection>
-                </div>
-
-                {/* Fila 3: Claude Eye + Claudeable — tools */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
-                  <AnimatedSection delay={0.25}>
-                    <ProjectCard project={claudeEye} variant="tool-static" cardRef={cardRefs.claudeEye} />
-                  </AnimatedSection>
-                  <AnimatedSection delay={0.3}>
-                    <ProjectCard project={claudeable} variant="tool-static" cardRef={cardRefs.claudeable} />
-                  </AnimatedSection>
-                </div>
-
-                {/* Fila 4: Claude Pulse + Content Digest */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6 relative z-10">
-                  <AnimatedSection delay={0.35}>
-                    <ProjectCard project={claudePulse} variant="tool-static" cardRef={cardRefs.claudePulse} />
-                  </AnimatedSection>
-                  <AnimatedSection delay={0.4}>
-                    <ProjectCard project={contentDigest} cardRef={cardRefs.contentDigest} />
-                  </AnimatedSection>
-                </div>
-
-                {/* Fila 5: ProjectOS Predict (full width) */}
-                <div className="relative z-10">
-                  <AnimatedSection delay={0.45}>
-                    <ProjectCard project={projectOSPredict} cardRef={cardRefs.projectOSPredict} />
-                  </AnimatedSection>
-                </div>
+                ))}
               </div>
             )
           })()}
 
           {/* Claude Code Power User */}
+          {t.claudeCode.title && (
           <AnimatedSection delay={0.3}>
             <div className="p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-primary/10 border border-accent/20">
               <div className="flex items-start gap-4">
@@ -2385,10 +2082,12 @@ function App() {
               </div>
             </div>
           </AnimatedSection>
+          )}
         </div>
       </section>
 
       {/* Sharing — Teaching + LinkedIn */}
+      {t.speaking.items.length > 0 && (
       <section id="speaking" className="py-16 md:py-24 bg-muted/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}>
         <div className="max-w-5xl mx-auto px-6">
           <AnimatedSection>
@@ -2464,7 +2163,7 @@ function App() {
           <div className="my-10 border-t border-border/40" />
 
           {/* Reddit Posts */}
-          {t.redditPosts?.map((rp, i) => (
+          {t.redditPosts && t.redditPosts.length > 0 && t.redditPosts.map((rp, i) => (
             <AnimatedSection key={rp.url} delay={0.15 + i * 0.1}>
               <div className="mb-4">
                 <a
@@ -2505,6 +2204,7 @@ function App() {
           ))}
 
           {/* LinkedIn Posts */}
+          {t.linkedinPosts.items.length > 0 && (
           <div className="grid md:grid-cols-3 gap-6">
             {t.linkedinPosts.items.map((post: { hook: string; reactions: string; comments: string; url: string }, i: number) => (
               <AnimatedSection key={`li-${i}`} delay={0.2 + i * 0.1}>
@@ -2541,6 +2241,7 @@ function App() {
               </AnimatedSection>
             ))}
           </div>
+          )}
 
           {/* AI Fluency Educator card */}
           {t.speaking.aiFluency && (
@@ -2577,6 +2278,7 @@ function App() {
           )}
         </div>
       </section>
+      )}
 
       {/* Education & Certifications */}
       <section id="education" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}>
@@ -2622,7 +2324,7 @@ function App() {
                       </div>
                       {/* Testimonial if exists */}
                       {'testimonial' in item && item.testimonial && (
-                        <a href="https://www.linkedin.com/in/santifer/details/recommendations/" target="_blank" rel="noopener noreferrer" className="block group">
+                        <a href="https://www.linkedin.com/in/yashsoni369/details/recommendations/" target="_blank" rel="noopener noreferrer" className="block group">
                           <blockquote className="mt-4 p-4 rounded-xl bg-primary/5 border border-primary/10 group-hover:border-[hsl(var(--linkedin)/0.3)] transition-colors">
                             <p className="text-sm text-muted-foreground italic mb-4">
                               "{item.testimonial.quote}"
@@ -2783,7 +2485,7 @@ function App() {
                 {t.cta.contact}
               </a>
               <a
-                href="https://linkedin.com/in/santifer/"
+                href="https://linkedin.com/in/yashsoni369/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border hover:border-primary/50 transition-colors duration-200 hover:bg-primary/5"
@@ -2795,7 +2497,7 @@ function App() {
             </div>
           </AnimatedSection>
           <p className="mt-12 text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()} Santiago Fernández de Valderrama
+            &copy; {new Date().getFullYear()} Yash Soni
             <span className="mx-2 text-border">|</span>
             <Link to={lang === 'es' ? '/privacidad' : '/privacy'} className="hover:text-primary transition-colors">
               {lang === 'es' ? 'Privacidad' : 'Privacy'}
