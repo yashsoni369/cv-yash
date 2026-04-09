@@ -869,11 +869,13 @@ export default function FloatingChat({ lang }: FloatingChatProps) {
                           {t.contactCtaTitle}
                         </p>
                         <a
-                          href={`mailto:${translations[lang].email}`}
+                          href="https://cal.com/y-apex36/discovery"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-theme-r text-white text-sm font-medium hover:brightness-110 hover:shadow-lg hover:shadow-primary/25 active:brightness-95 transition-all duration-200"
                         >
                           <Mail className="w-4 h-4" aria-hidden="true" />
-                          {translations[lang].email}
+                          {(translations[lang] as any).cta?.contact || 'Book a Call'}
                         </a>
                       </div>
                     </motion.div>

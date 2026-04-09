@@ -539,7 +539,7 @@ export const translations = {
     cta: {
       title: 'Construyamos Juntos',
       desc: 'Disponible para trabajo freelance y contratos en todo el mundo. Construyo soluciones escalables de IA y SaaS \u2014 desde arquitectura hasta despliegue.',
-      contact: 'Contactar',
+      contact: 'Reservar Llamada',
     },
     ui: {
       languageBanner: 'This site is available in English',
@@ -1109,7 +1109,7 @@ export const translations = {
     cta: {
       title: "Let's Build Together",
       desc: 'Available for freelance and contract work worldwide. I build scalable AI & SaaS solutions \u2014 from architecture to deployment.',
-      contact: 'Contact',
+      contact: 'Book a Call',
     },
     ui: {
       languageBanner: 'Este sitio est\u00e1 disponible en espa\u00f1ol',
@@ -1669,7 +1669,7 @@ export const translations = {
     cta: {
       title: '一起构建',
       desc: '全球范围内可接受自由职业和合同工作。我构建可扩展的AI和SaaS解决方案——从架构到部署。',
-      contact: '联系我',
+      contact: '预约通话',
     },
     ui: {
       languageBanner: 'This site is available in English',
@@ -2229,7 +2229,7 @@ export const translations = {
     cta: {
       title: 'Construisons Ensemble',
       desc: "Disponible pour du freelance et des contrats dans le monde entier. Je construis des solutions IA & SaaS scalables — de l'architecture au deploiement.",
-      contact: 'Contacter',
+      contact: 'Reserver un Appel',
     },
     ui: {
       languageBanner: 'This site is available in English',
@@ -2789,7 +2789,7 @@ export const translations = {
     cta: {
       title: 'Vamos Construir Juntos',
       desc: 'Disponivel para trabalho freelance e contratos no mundo todo. Construo solucoes escalaveis de IA e SaaS — da arquitetura a implantacao.',
-      contact: 'Contato',
+      contact: 'Agendar Chamada',
     },
     ui: {
       languageBanner: 'This site is available in English',
@@ -3349,7 +3349,7 @@ export const translations = {
     cta: {
       title: 'साथ मिलकर बनाएं',
       desc: 'दुनिया भर में फ्रीलांस और कॉन्ट्रैक्ट काम के लिए उपलब्ध। मैं स्केलेबल AI और SaaS सोल्यूशंस बनाता हूँ — आर्किटेक्चर से डिप्लॉयमेंट तक।',
-      contact: 'संपर्क करें',
+      contact: 'कॉल बुक करें',
     },
     ui: {
       languageBanner: 'This site is available in English',
