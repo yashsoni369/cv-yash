@@ -6,7 +6,7 @@ import { Mascot } from 'page-mascot'
 import { WorkExperience } from './WorkExperience'
 import { translations, seo, type Lang } from './i18n'
 import { useHomeSeo } from './articles/use-article-seo'
-import { getTechIcon } from './tech-icons'
+import { TechLabel, ProductLogo } from './TechLabel'
 
 
 function LinkedInLogo({ className = "w-4 h-4" }: { className?: string }) {
@@ -1669,13 +1669,14 @@ function App() {
                     : 'bg-card border-border hover:border-primary/30 hover:shadow-primary/5'
                 }`}>
                   <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <ProductLogo name={project.title} size={24} />
                     <h4 className="font-display font-bold group-hover/card:text-primary transition-colors">{project.title}</h4>
                     {project.badge && <span className={`text-[10px] px-2 py-0.5 rounded-full ${isHighlight ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>{project.badge}</span>}
                   </div>
                   <p className="text-sm text-muted-foreground mb-3 flex-grow">{parseBold(project.desc)}</p>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {project.tech.map((t: string) => (
-                      <span key={t} className="text-[10px] px-2 py-0.5 rounded-md bg-muted/50 text-muted-foreground">{t}</span>
+                      <span key={t} className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-md bg-muted/50 text-muted-foreground"><TechLabel name={t} size={12} /></span>
                     ))}
                   </div>
                   {(project as any).caseStudyUrl && (
@@ -2098,19 +2099,11 @@ function App() {
                   <div key={cat.name} className="p-4 rounded-xl bg-card border border-border">
                     <span className="text-xs font-medium text-primary uppercase tracking-wide">{cat.name}</span>
                     <div className="flex flex-wrap gap-2 mt-3">
-                      {cat.items.map((item) => {
-                        const icon = getTechIcon(item)
-                        return (
-                          <span key={item} className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs bg-muted text-foreground">
-                            {icon && (
-                              <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 shrink-0" fill={icon.color} aria-hidden="true">
-                                <path d={icon.path} />
-                              </svg>
-                            )}
-                            {item}
-                          </span>
-                        )
-                      })}
+                      {cat.items.map((item) => (
+                        <span key={item} className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-xs bg-muted text-foreground">
+                          <TechLabel name={item} />
+                        </span>
+                      ))}
                     </div>
                   </div>
                 ))}

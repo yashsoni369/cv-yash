@@ -50,7 +50,7 @@ export const workExperience: { title: string; jobs: Job[]; clientQuotes: Quote[]
       company: 'Apex36',
       role: 'Founder · Senior Full Stack Architect & AI Developer',
       years: ['2022', 'Now'],
-      when: 'Independent since 2022 · Apex36 from Dec 2023',
+      when: 'Independent since 2022, Apex36 from Dec 2023',
       where: 'Mumbai · Remote for US, UK and EU clients',
       lead: 'My AI and SaaS studio. I build products for funded startups and run my own product line.',
       bullets: [],

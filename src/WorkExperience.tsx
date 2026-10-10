@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react'
 import { workExperience, type Quote } from './work-experience'
+import { TechLabel, ProductLogo } from './TechLabel'
 
 function initials(name: string) {
   return name
@@ -60,10 +61,13 @@ export function WorkExperience() {
           </div>
 
           <div className="min-w-0">
-            <h3 className="font-display text-xl font-bold">{job.company}</h3>
+            <h3 className="font-display text-xl font-bold flex items-center gap-2.5">
+              {job.current && <ProductLogo name={job.company} size={26} />}
+              {job.company}
+            </h3>
             <div className="flex flex-wrap gap-x-3 gap-y-1 mt-0.5">
               <span className="text-primary font-medium">{job.role}</span>
-              <span className="text-sm text-muted-foreground">{job.when} &middot; {job.where}</span>
+              <span className="text-sm text-muted-foreground">{`${job.when} · ${job.where}`}</span>
             </div>
             <p className="text-muted-foreground mt-2">{job.lead}</p>
 
@@ -87,7 +91,10 @@ export function WorkExperience() {
                       key={c.name}
                       className="grid grid-cols-[1fr_auto] sm:grid-cols-[150px_1fr_auto] gap-x-4 gap-y-1 py-2.5 border-b border-border items-baseline"
                     >
-                      <span className="font-semibold">{c.name}</span>
+                      <span className="font-semibold inline-flex items-center gap-2">
+                        <ProductLogo name={c.name} size={20} />
+                        {c.name}
+                      </span>
                       <span className="font-mono text-xs text-primary text-right sm:order-3 whitespace-nowrap">{c.tag}</span>
                       <span className="text-sm text-muted-foreground col-span-2 sm:col-span-1 sm:order-2">{c.desc}</span>
                     </div>
@@ -103,7 +110,10 @@ export function WorkExperience() {
                   {job.products.map(p => (
                     <div key={p.name} className="p-3.5 rounded-xl bg-card border border-border flex flex-col gap-1">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="font-display font-semibold">{p.name}</span>
+                        <span className="font-display font-semibold inline-flex items-center gap-2">
+                          <ProductLogo name={p.name} size={24} />
+                          {p.name}
+                        </span>
                         <span className="text-[11px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded-md bg-primary/10 text-primary whitespace-nowrap">
                           {p.status}
                         </span>
@@ -142,8 +152,8 @@ export function WorkExperience() {
 
             <div className="flex flex-wrap gap-1.5 mt-4">
               {job.stack.map(s => (
-                <span key={s} className="text-xs px-2.5 py-0.5 rounded-full border border-border bg-card text-muted-foreground">
-                  {s}
+                <span key={s} className="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full border border-border bg-card text-muted-foreground">
+                  <TechLabel name={s} />
                 </span>
               ))}
             </div>
