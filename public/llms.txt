@@ -1,95 +1,107 @@
 # Yash Soni
 
-> Senior Full Stack Architect · AI/ML Solution Builder · SaaS Product Engineer
+> Independent AI Architect · Senior Full Stack Architect · Founder of Apex36
 
 ## Contact & Availability
 
 - **Location:** Mumbai, India
 - **Open to:** Freelance & contract work worldwide
 - **Email:** yash.soni2737@gmail.com
-- **Website:** https://yashsoni.dev
+- **Website:** https://www.yashsoni.dev
 - **LinkedIn:** https://linkedin.com/in/yashsoni369
 - **GitHub:** https://github.com/yashsoni369
+- **Upwork:** https://www.upwork.com/freelancers/yashs369 (Top Rated, 100% job success, 19 jobs, 757 hours)
+- **Agency:** https://www.apex36tech.com
 
 ## Professional Summary
 
-Senior Full Stack Architect with 8+ years building scalable AI & SaaS solutions. Led teams of 10+ engineers. Built GenAI platforms deployed in US law firms that helped secure $2M+ in funding. Certified Kubernetes Application Developer (CKAD).
+Independent AI Architect and Senior Full Stack Architect with 9+ years building scalable AI & SaaS solutions, working since January 2017. Founder of Apex36. Helped build the infrastructure and GenAI platform behind DecoverAI, now used in large US law firms, which raised $2M+ in seed funding. Led a COE of 10+ engineers at LTI Mindtree. 12+ AI and SaaS products shipped across 7 industries.
 
 End-to-end ownership across architecture → development → deployment → scaling, collaborating closely with clients and engineering teams worldwide.
 
 ## Services
 
 1. **Full Stack Architecture** - React, Angular, Next.js, Node.js, .NET Core, Python, TypeScript
-2. **AI/ML Engineering** - RAG, Vector DBs, Text2SQL, Semantic Search, AI Agents, Prompt Engineering
+2. **AI/ML Engineering** - RAG, Vector DBs, Text2SQL, Semantic Search, AI Agents, Prompt Engineering, voice AI
 3. **SaaS Product Development** - Multi-tenancy, scalable APIs, microservices, event-driven architecture
-4. **DevOps & Cloud** - AWS, Azure, GCP, Docker, Kubernetes (CKAD certified), CI/CD pipelines
+4. **DevOps & Cloud** - AWS, Azure, GCP, Docker, Kubernetes, CI/CD pipelines
 
-## Key Projects
+## Apex36 Products
 
-### DecoverAI - AI Legal Document Platform ($2M Funded)
-AI-powered legal document management & query platform for US law firms. Built infrastructure and GenAI platform that helped secure $2M+ seed funding from Bay Area VCs. 13 months of development.
-- Tech: Python, React, Node.js, OpenAI, Pinecone, MongoDB
+- **BrandGen** (live, getbrandgen.com) - Brand-aligned AI image generator on Next.js, Gemini and PostgreSQL.
+- **TriageGrid** (GA, triagegrid.com) - AI email triage for US and UK law firms on Microsoft 365.
+- **Convo AI** (live, heyyconvo.com) - AI voice receptionist for hotels, restaurants, clinics, real estate and finance. Vapi, Deepgram, GPT-4o-mini.
+- **CC Logins** (open source, MIT, github.com/yashsoni369/cc-logins) - Rust and Tauri tray app showing Claude Code quota across subscriptions and switching accounts. Adapted from MIT-licensed code by Onur Cetinkol.
+- **AI Tutor** (proof of concept) - AI speaking tutor for schools with a video avatar.
 
-### Speakology AI - AI Language Learning (Bootstrapped)
-First AI Avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in 3 months.
+## Key Client Projects
+
+### DecoverAI - AI Legal Document Platform (US)
+Legal document management and query platform for US law firms. Yash helped build the infrastructure and GenAI platform, about 13 months of work, as the company raised $2M+ in seed funding from Bay Area VCs.
+
+### Speakology AI - AI Language Learning (UK)
+AI Avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in 3 months.
 - Tech: Node.js, React, MongoDB, OpenAI, Prompt Engineering
 
-### United Medical - Healthcare Contract Management
-Hospital-doctor contract management application for a German healthcare startup.
-- Tech: React, Node.js, PostgreSQL, TypeScript
+### United Medical - Healthcare Contract Management (Germany)
+Hospital-doctor contract management application for a German healthcare startup. Active retainer since August 2023.
+- Tech: Next.js, TypeScript, PostgreSQL, Redis
 
 ### Mappie AI - AI Project Management
-Transforms messy requirements into dev-ready user stories. 1 year from idea to execution.
+Built for Nindo Solutions (Belgium). Turns messy requirements into dev-ready user stories. 60-70% reduction in backlog grooming time (Apex36 case-study data); beta expanded to 1,000 users.
 - Tech: React, TypeScript, OpenAI, Node.js
 
 ### Vectro AI - Sales Intelligence
 Actionable insights from sales calls, emails & Slack communications using AI and vector search.
 - Tech: Node.js, OpenAI, Vector DB, TypeScript
 
-### Infinity AIWatch - Enterprise APM (LTI Mindtree)
-Application Performance Monitoring product with AI-driven insights dashboards.
-- Tech: React, Python, OpenAI, PostgreSQL, InfluxDB, Prometheus
+### Water Advisor AI (US, March 2026 - present)
+Consumer water-quality advisor: address, local water report lookup, LLM-parsed structured advice.
+- Tech: Next.js, TypeScript, PostgreSQL, LLM parsing
 
-### Infinity DevOps - DevOps Platform (LTI Mindtree)
-Tech Lead for team of 10 developers building DevOps IP products across AWS and GCP.
-- Tech: Angular, React, Node.js, MongoDB, Docker, Kubernetes, AWS, GCP
+### Stethy - AI Email Triage SaaS (contract from July 2024)
+Invite-only B2B email triage platform. Backend and infrastructure work: Python and TypeScript, AWS CDK multi-account pipelines, Langfuse observability.
+
+### LTI Mindtree products
+- **Infinity DevOps** - DevOps platform across AWS and GCP. Angular, React, Node.js, MongoDB, Docker, Kubernetes, Kafka.
+- **Infinity AIWatch** - APM product with AI-driven dashboards. React, Python, OpenAI, PostgreSQL, InfluxDB, Prometheus.
 
 ## Work Experience
 
-### Freelance Contracts (Dec 2023 - Present)
-Independent contractor for US, UK, and German clients. AI & SaaS full stack architecture.
+### Apex36 (independent since 2022, Apex36 from Dec 2023 - present)
+Founder. Senior Full Stack Architect & AI Developer. Client work for US, UK and German clients plus an own product line. Remote from Mumbai.
 
-### LTI Mindtree (June 2021 - Nov 2023)
-Senior Engineering Specialist. Led COE Team of 10+ Engineers.
+### LTI Mindtree (June 2021 - Nov 2023, Mumbai)
+Senior Software Engineer, then Specialist - Software Engineering. Led a COE of 10+ engineers building DevOps intellectual property and MVPs/POCs across hyperscalers.
 
-### Azentio Software (May 2020 - June 2021)
-Senior Software Engineer. SaaS product engineering with multi-tenancy.
+### Azentio Software (May 2020 - June 2021, Navi Mumbai)
+Senior Software Engineer, ERP Product Development. Led the Enrico SaaS audit application from POC to multi-tenant SaaS.
 
-### Abacus Infosystems (Dec 2018 - Apr 2020)
-Software Developer. .NET Core, Angular, microservices.
+### Abacus Infosystems (Dec 2018 - Apr 2020, Mumbai)
+Software Developer. .NET Core, Angular, microservices for global clients.
 
-### Threepin Infotech (Jan 2017 - Dec 2018)
-Software Developer. .NET to full stack progression.
+### Threepin Infotech (Jan 2017 - Dec 2018, Navi Mumbai)
+Software Developer. .NET desktop to full stack.
 
 ## Tech Stack
 
-- **AI/ML:** OpenAI, Claude, Qdrant, pgVector, RAG, Text2SQL, Prompt Engineering, AWS Sagemaker
+- **AI/ML:** OpenAI, Gemini, Claude, Qdrant, pgVector, Pinecone, RAG, Text2SQL, Prompt Engineering, LiteLLM, Langfuse
 - **Frontend:** React, Angular, Next.js, TypeScript, Tailwind CSS
 - **Backend:** Node.js, .NET Core, Python, FastAPI, NestJS, Express
-- **Databases:** MongoDB, PostgreSQL, MySQL, MSSQL, Redis, Elasticsearch, InfluxDB
-- **Cloud:** AWS (EC2, EKS, Sagemaker), Azure, GCP, Docker, Kubernetes, Nginx, CI/CD
+- **Databases:** MongoDB, PostgreSQL, MySQL, MSSQL, Redis, Elasticsearch, InfluxDB, Supabase
+- **Cloud:** AWS (EC2, EKS, Sagemaker, CDK), Azure, GCP, Docker, Kubernetes, Nginx, CI/CD
 - **Tools:** Git, JIRA, Azure DevOps, Postman, Kafka, Jenkins
 
 ## Certifications
 
-- CKAD: Certified Kubernetes Application Developer (Linux Foundation, 2023)
-- Microsoft Certified: Azure Fundamentals AZ-900 (2021)
-- AWS Certified Cloud Practitioner (2021)
+- CKAD: Certified Kubernetes Application Developer (The Linux Foundation)
+- Microsoft Certified: Azure Fundamentals AZ-900
+- AWS Certified Cloud Practitioner
 
 ## Education
 
-- MCA, Computer Science - CSMU, Kanpur (2021)
-- BCom, Commerce - University of Mumbai (2017)
+- MCA, Computer Science - Nehru P.G. College (CSMU, Kanpur), 2021
+- BCom, Commerce - University of Mumbai, 2017
 
 ## Languages
 

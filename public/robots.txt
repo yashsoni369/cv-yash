@@ -1,5 +1,5 @@
 # Built by Yash Soni — yash.soni2737@gmail.com
-# Stack: React 19 · Claude API · Vercel Edge
+# Stack: React 19 · Gemini API · Vercel
 
 User-agent: *
 Allow: /
