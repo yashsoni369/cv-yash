@@ -410,6 +410,16 @@ function HomeToc({ lang }: { lang: Lang }) {
   )
 }
 
+/** Certificate row: a link only when a verify URL exists, otherwise a plain row. */
+function CertRow({ url, className, children }: { url: string; className: string; children: React.ReactNode }) {
+  if (!url) return <div className={className}>{children}</div>
+  return (
+    <a href={url} target="_blank" rel="noopener noreferrer nofollow" className={className}>
+      {children}
+    </a>
+  )
+}
+
 function AnimatedSection({ children, className = '', delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
   const [ref, setRef] = useState<HTMLElement | null>(null)
   const [isInView, setIsInView] = useState(false)
@@ -1486,7 +1496,7 @@ function App() {
                   </>
                 ) : (
                   <>
-                    {t.greeting} <BeamPill>self-healing</BeamPill>
+                    {t.greeting} <BeamPill>AI-powered</BeamPill>
                     <br />
                     {t.role}
                   </>
@@ -1584,6 +1594,7 @@ function App() {
           </AnimatedSection>
 
           {/* SA Playbook - Premium Card */}
+          {t.projects.saPlaybook.title && (
           <AnimatedSection delay={0.05} className="mb-8">
             <div className="p-8 rounded-2xl bg-gradient-to-br from-gold/15 via-gold/5 to-transparent border border-gold/30 hover:border-gold/50 transition-colors duration-200 group relative overflow-hidden">
               {/* Subtle glow effect */}
@@ -1645,6 +1656,7 @@ function App() {
               </div>
             </div>
           </AnimatedSection>
+          )}
 
           {/* Projects Grid */}
           {(() => {
@@ -2029,13 +2041,10 @@ function App() {
                   const isAlt = group % 2 === 1
                   return (
                   <AnimatedSection key={i} delay={0.1 + i * 0.05}>
-                    <a
-                      href={cert.url}
-                      target="_blank"
-                      rel="noopener noreferrer nofollow"
-                      className={`flex items-center gap-4 p-4 hover:border-accent/30 transition-colors duration-200 group cursor-pointer ${isAlt ? 'bg-muted/40' : 'bg-card'}`}
+                    <CertRow
+                      url={cert.url}
+                      className={`flex items-center gap-4 p-4 hover:border-accent/30 transition-colors duration-200 group ${cert.url ? 'cursor-pointer' : ''} ${isAlt ? 'bg-muted/40' : 'bg-card'}`}
                     >
-                      <span className="text-sm font-mono text-accent font-medium">{cert.year}</span>
                       <div className="flex-1">
                         <p className="font-medium group-hover:text-accent transition-colors">{cert.title}</p>
                         <p className="text-sm text-muted-foreground">{cert.org}</p>
@@ -2043,7 +2052,7 @@ function App() {
                       <div className="opacity-60 group-hover:opacity-100 transition-opacity">
                         <CertLogo logo={cert.logo} />
                       </div>
-                    </a>
+                    </CertRow>
                   </AnimatedSection>
                   )
                 })}
@@ -2078,6 +2087,10 @@ function App() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span>{t.skills.english}</span>
+                  <span className="text-sm text-muted-foreground">{t.skills.professional}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span>Gujarati</span>
                   <span className="text-sm text-muted-foreground">{t.skills.professional}</span>
                 </div>
               </div>
