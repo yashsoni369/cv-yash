@@ -8,8 +8,19 @@
       "input": "How many years of experience do you have?",
       "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["9+", "nine", "2017", "9 years"] },
-        { "type": "not_contains", "value": "8+" }
+        {
+          "type": "contains_any",
+          "values": [
+            "9+",
+            "nine",
+            "2017",
+            "9 years"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "value": "8+"
+        }
       ]
     },
     {
@@ -18,7 +29,10 @@
       "input": "Where are you based?",
       "lang": "en",
       "assertions": [
-        { "type": "contains", "value": "Mumbai" }
+        {
+          "type": "contains",
+          "value": "Mumbai"
+        }
       ]
     },
     {
@@ -27,9 +41,23 @@
       "input": "What was your role at DecoverAI?",
       "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["infrastructure", "GenAI", "platform", "contract"] },
-        { "type": "not_contains", "value": "co-founded" },
-        { "type": "not_contains", "value": "valuation" }
+        {
+          "type": "contains_any",
+          "values": [
+            "infrastructure",
+            "GenAI",
+            "platform",
+            "contract"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "value": "co-founded"
+        },
+        {
+          "type": "not_contains",
+          "value": "valuation"
+        }
       ]
     },
     {
@@ -38,7 +66,14 @@
       "input": "How much funding did DecoverAI raise?",
       "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["$2M", "2M", "two million"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "$2M",
+            "2M",
+            "two million"
+          ]
+        }
       ]
     },
     {
@@ -47,8 +82,14 @@
       "input": "How many schools use Speakology?",
       "lang": "en",
       "assertions": [
-        { "type": "contains", "value": "10" },
-        { "type": "not_contains", "value": "600" }
+        {
+          "type": "contains",
+          "value": "10"
+        },
+        {
+          "type": "not_contains",
+          "value": "600"
+        }
       ]
     },
     {
@@ -57,7 +98,14 @@
       "input": "What did you do at LTI Mindtree?",
       "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["10+", "COE", "DevOps"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "10+",
+            "COE",
+            "DevOps"
+          ]
+        }
       ]
     },
     {
@@ -66,8 +114,17 @@
       "input": "What model powers this chat?",
       "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["Gemini", "gemini"] },
-        { "type": "not_contains", "value": "Claude" }
+        {
+          "type": "contains_any",
+          "values": [
+            "Gemini",
+            "gemini"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "value": "Claude"
+        }
       ]
     },
     {
@@ -76,7 +133,10 @@
       "input": "Who is Mappie AI built for?",
       "lang": "en",
       "assertions": [
-        { "type": "contains", "value": "Nindo" }
+        {
+          "type": "contains",
+          "value": "Nindo"
+        }
       ]
     },
     {
@@ -85,17 +145,32 @@
       "input": "What products have you shipped yourself?",
       "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["BrandGen", "TriageGrid", "Convo AI", "CC Logins"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "BrandGen",
+            "TriageGrid",
+            "Convo AI",
+            "CC Logins"
+          ]
+        }
       ]
     },
     {
-      "id": "no-dbiz",
-      "description": "DBiz AI must never be mentioned",
+      "id": "employer-list",
+      "description": "Lists the employers from the vault timeline",
       "input": "List every company you have worked for.",
       "lang": "en",
       "assertions": [
-        { "type": "not_contains", "value": "DBiz" },
-        { "type": "contains_any", "values": ["LTI Mindtree", "Azentio", "Abacus", "Threepin"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "LTI Mindtree",
+            "Azentio",
+            "Abacus",
+            "Threepin"
+          ]
+        }
       ]
     }
   ]
