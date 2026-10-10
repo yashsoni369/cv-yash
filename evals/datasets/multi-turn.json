@@ -1,81 +1,168 @@
 {
   "name": "multi_turn",
-  "description": "Tests conversation continuity across multiple turns: context retention, topic switching, drill-down",
+  "description": "Tests conversation continuity: context retention, topic switching, drill-down",
   "tests": [
     {
       "id": "multi-context-retention",
-      "description": "Bot retains context from previous turn (Jacobo details)",
-      "input": "¿Qué modelo de IA usa?",
-      "lang": "es",
+      "description": "Bot retains context from the previous turn (Speakology)",
+      "input": "What stack does it use?",
+      "lang": "en",
       "conversation": [
-        { "role": "user", "content": "Háblame del agente Jacobo" },
-        { "role": "assistant", "content": "Jacobo es mi agente de IA omnicanal para atención al cliente. Funciona vía WhatsApp y web, con sub-agentes especializados que manejan presupuestos, citas y pedidos usando tool calling." },
-        { "role": "user", "content": "¿Qué modelo de IA usa?" }
+        {
+          "role": "user",
+          "content": "Tell me about Speakology"
+        },
+        {
+          "role": "assistant",
+          "content": "Speakology is an AI avatar language learning app for UK schools. It reached 10+ school subscriptions in 3 months, fully bootstrapped."
+        },
+        {
+          "role": "user",
+          "content": "What stack does it use?"
+        }
       ],
       "assertions": [
-        { "type": "contains_any", "values": ["claude", "sonnet", "haiku", "gpt", "modelo", "model", "llm"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "Node",
+            "React",
+            "MongoDB",
+            "OpenAI"
+          ]
+        }
       ]
     },
     {
       "id": "multi-topic-switch",
-      "description": "Bot handles topic switch from Jacobo to Business OS",
-      "input": "Y el Business OS, ¿qué es?",
-      "lang": "es",
+      "description": "Bot handles a topic switch from Speakology to DecoverAI",
+      "input": "And DecoverAI?",
+      "lang": "en",
       "conversation": [
-        { "role": "user", "content": "¿Qué es Jacobo?" },
-        { "role": "assistant", "content": "Jacobo es mi agente de IA omnicanal para atención al cliente. Lo construí para mi empresa anterior." },
-        { "role": "user", "content": "Y el Business OS, ¿qué es?" }
+        {
+          "role": "user",
+          "content": "What is Speakology?"
+        },
+        {
+          "role": "assistant",
+          "content": "An AI avatar language app for UK schools. I built it end to end under Apex36."
+        },
+        {
+          "role": "user",
+          "content": "And DecoverAI?"
+        }
       ],
       "assertions": [
-        { "type": "contains_any", "values": ["business os", "erp", "airtable", "operativo", "sistema"] },
-        { "type": "not_contains", "value": "jacobo" }
+        {
+          "type": "contains_any",
+          "values": [
+            "legal",
+            "law firm",
+            "seed",
+            "US"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "value": "avatar"
+        }
       ]
     },
     {
       "id": "multi-drilldown",
-      "description": "Bot provides deeper detail on progressive drill-down",
-      "input": "¿Cómo funciona exactamente el pipeline de SEO?",
-      "lang": "es",
+      "description": "Progressive drill-down gives deeper detail",
+      "input": "What infrastructure exactly?",
+      "lang": "en",
       "conversation": [
-        { "role": "user", "content": "¿Qué proyectos has hecho?" },
-        { "role": "assistant", "content": "He construido varios sistemas: un agente IA llamado Jacobo, un Business OS con 12 bases en Airtable, una web programática con SEO automatizado, y este portfolio con chatbot y RAG." },
-        { "role": "user", "content": "Cuéntame más del SEO programático" },
-        { "role": "assistant", "content": "Construí una arquitectura de SEO programático para generar páginas indexables automáticamente usando un decision engine que evalúa volumen de búsqueda y competencia." },
-        { "role": "user", "content": "¿Cómo funciona exactamente el pipeline de SEO?" }
+        {
+          "role": "user",
+          "content": "What projects have you done?"
+        },
+        {
+          "role": "assistant",
+          "content": "DecoverAI, Speakology, United Medical, Mappie AI, and my own Apex36 products."
+        },
+        {
+          "role": "user",
+          "content": "Tell me more about DecoverAI"
+        },
+        {
+          "role": "assistant",
+          "content": "I helped build the infrastructure and GenAI platform for a US legal AI company that raised $2M+ in seed funding."
+        },
+        {
+          "role": "user",
+          "content": "What infrastructure exactly?"
+        }
       ],
       "assertions": [
-        { "type": "rag_used" },
-        { "type": "min_words", "value": 20 }
+        {
+          "type": "rag_used"
+        },
+        {
+          "type": "min_words",
+          "value": 20
+        }
       ]
     },
     {
       "id": "multi-no-repeat",
-      "description": "Bot doesn't repeat the same formulation across turns",
-      "input": "¿Y qué más puedes contarme?",
-      "lang": "es",
+      "description": "Bot does not repeat itself across turns",
+      "input": "What else can you tell me?",
+      "lang": "en",
       "conversation": [
-        { "role": "user", "content": "¿Qué experiencia tienes con IA?" },
-        { "role": "assistant", "content": "Llevo más de 2 años construyendo sistemas de IA en producción. Desde Jacobo, un agente omnicanal, hasta pipelines de RAG y evals automatizados." },
-        { "role": "user", "content": "¿Y qué más puedes contarme?" }
+        {
+          "role": "user",
+          "content": "What experience do you have?"
+        },
+        {
+          "role": "assistant",
+          "content": "I have 9+ years building production systems, from .NET desktop apps to AI-powered SaaS. I led a COE of 10+ engineers at LTI Mindtree."
+        },
+        {
+          "role": "user",
+          "content": "What else can you tell me?"
+        }
       ],
       "assertions": [
-        { "type": "llm_judge", "criteria": "The response should provide NEW information not already mentioned in the previous assistant message. It should NOT simply restate the same points about Jacobo being omnichannel or mentioning RAG/evals in the same way." }
+        {
+          "type": "llm_judge",
+          "criteria": "The response provides NEW information not already in the previous assistant message (for example Apex36 products or client projects) and does not restate the 9+ years or the LTI Mindtree COE."
+        }
       ]
     },
     {
       "id": "multi-return-topic",
-      "description": "Bot returns to previous topic correctly",
-      "input": "Volviendo a Jacobo, ¿cuántos clientes atiende?",
-      "lang": "es",
+      "description": "Bot returns to a previous topic correctly",
+      "input": "Back to Mappie, who was it built for?",
+      "lang": "en",
       "conversation": [
-        { "role": "user", "content": "Háblame de Jacobo" },
-        { "role": "assistant", "content": "Jacobo es mi agente de IA omnicanal para atención al cliente, funciona vía WhatsApp y web." },
-        { "role": "user", "content": "¿Qué stack usas?" },
-        { "role": "assistant", "content": "Mi stack principal es React, TypeScript, Vite, Tailwind, y para IA uso Claude de Anthropic con RAG sobre Supabase." },
-        { "role": "user", "content": "Volviendo a Jacobo, ¿cuántos clientes atiende?" }
+        {
+          "role": "user",
+          "content": "Tell me about Mappie"
+        },
+        {
+          "role": "assistant",
+          "content": "Mappie AI turns messy requirements into dev-ready user stories."
+        },
+        {
+          "role": "user",
+          "content": "What stack do you usually use?"
+        },
+        {
+          "role": "assistant",
+          "content": "React, Next.js, Node.js and Python on the application side, with OpenAI and Gemini for the AI parts."
+        },
+        {
+          "role": "user",
+          "content": "Back to Mappie, who was it built for?"
+        }
       ],
       "assertions": [
-        { "type": "contains_any", "values": ["jacobo", "agente", "autoservicio", "self-service", "90%", "cliente"] }
+        {
+          "type": "contains",
+          "value": "Nindo"
+        }
       ]
     }
   ]
