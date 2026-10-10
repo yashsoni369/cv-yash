@@ -80,9 +80,9 @@
       ]
     },
     {
-      "id": "apex36-products",
-      "description": "Apex36 product line",
-      "input": "What products does Apex36 ship?",
+      "id": "own-products",
+      "description": "Own product line",
+      "input": "What products have you shipped yourself?",
       "lang": "en",
       "assertions": [
         { "type": "contains_any", "values": ["BrandGen", "TriageGrid", "Convo AI", "CC Logins"] }

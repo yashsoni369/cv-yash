@@ -52,7 +52,6 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
         image: 'https://yashsoni.dev/foto-avatar.png',
         email: 'yash.soni2737@gmail.com',
         jobTitle: ['Independent AI Architect', 'Senior Full Stack Architect', 'AI Developer'],
-        worksFor: { '@type': 'Organization', name: 'Apex36', url: 'https://www.apex36tech.com' },
         knowsAbout: [
           { '@type': 'Thing', name: 'Artificial Intelligence', url: 'https://en.wikipedia.org/wiki/Artificial_intelligence' },
           { '@type': 'Thing', name: 'Machine Learning', url: 'https://en.wikipedia.org/wiki/Machine_learning' },
@@ -76,7 +75,6 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
           'https://www.linkedin.com/in/yashsoni369',
           'https://github.com/yashsoni369',
           'https://www.upwork.com/freelancers/yashs369',
-          'https://www.apex36tech.com',
         ],
         address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
       },

@@ -1,5 +1,5 @@
 // Work Experience data. Every fact here is sourced from the Obsidian vault
-// (Apex36/people/Yash Soni.md and the company, project and product hubs).
+// (people, company, project and product hubs).
 // Do not add metrics, roles or dates without a vault source.
 
 export interface Quote {
@@ -46,13 +46,13 @@ export const workExperience: { title: string; jobs: Job[]; clientQuotes: Quote[]
   title: 'Work Experience',
   jobs: [
     {
-      id: 'apex36',
-      company: 'Apex36',
-      role: 'Founder · Senior Full Stack Architect & AI Developer',
+      id: 'independent',
+      company: 'Independent',
+      role: 'AI Architect · Senior Full Stack Architect & AI Developer',
       years: ['2022', 'Now'],
-      when: 'Independent since 2022, Apex36 from Dec 2023',
+      when: '2022 - Present',
       where: 'Mumbai · Remote for US, UK and EU clients',
-      lead: 'My AI and SaaS studio. I build products for funded startups and run my own product line.',
+      lead: 'I build AI and SaaS products for funded startups and run my own product line.',
       bullets: [],
       current: true,
       clients: [

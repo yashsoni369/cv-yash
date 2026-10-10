@@ -91,7 +91,7 @@
       "assertions": [
         {
           "type": "llm_judge",
-          "criteria": "The response adds new information or a different angle (for example Apex36 products such as BrandGen, TriageGrid or Convo AI) and does not simply repeat DecoverAI and Speakology."
+          "criteria": "The response adds new information or a different angle (for example my own products such as BrandGen, TriageGrid or Convo AI) and does not simply repeat DecoverAI and Speakology."
         }
       ]
     },

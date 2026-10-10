@@ -45,7 +45,7 @@
         },
         {
           "role": "assistant",
-          "content": "An AI avatar language app for UK schools. I built it end to end under Apex36."
+          "content": "An AI avatar language app for UK schools. I built it end to end."
         },
         {
           "role": "user",
@@ -80,7 +80,7 @@
         },
         {
           "role": "assistant",
-          "content": "DecoverAI, Speakology, United Medical, Mappie AI, and my own Apex36 products."
+          "content": "DecoverAI, Speakology, United Medical, Mappie AI, and my own products."
         },
         {
           "role": "user",
@@ -127,7 +127,7 @@
       "assertions": [
         {
           "type": "llm_judge",
-          "criteria": "The response provides NEW information not already in the previous assistant message (for example Apex36 products or client projects) and does not restate the 9+ years or the LTI Mindtree COE."
+          "criteria": "The response provides NEW information not already in the previous assistant message (for example my own products or client projects) and does not restate the 9+ years or the LTI Mindtree COE."
         }
       ]
     },

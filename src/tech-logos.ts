@@ -94,7 +94,6 @@ export function getTechLogo(name: string): Logo | null {
 }
 
 const products: Record<string, string> = {
-  apex36: 'apex36.ico',
   brandgen: 'brandgen.jpg',
   triagegrid: 'triagegrid.svg',
   convoai: 'convo.png',
