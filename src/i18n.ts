@@ -586,6 +586,21 @@ export const translations = {
           items: ['AWS (EC2, EKS, Sagemaker)', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Nginx', 'CI/CD'],
         },
         {
+          name: 'Platforms & Serverless',
+          items: [
+            'Vercel (Functions, Blob)',
+            'Cloudflare R2',
+            'Cloudflare Workers',
+            'Cloudflare Pages',
+            'Render',
+            'Railway',
+            'Neon',
+            'Upstash',
+            'AWS S3',
+            'AWS Lambda',
+          ],
+        },
+        {
           name: 'Tools',
           items: ['Git', 'JIRA', 'Azure DevOps', 'Postman', 'Kafka', 'Jenkins'],
         },

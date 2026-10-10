@@ -89,6 +89,7 @@ Software Developer. .NET desktop to full stack.
 - **Backend:** Node.js, .NET Core, Python, FastAPI, NestJS, Express
 - **Databases:** MongoDB, PostgreSQL, MySQL, MSSQL, Redis, Elasticsearch, InfluxDB, Supabase
 - **Cloud:** AWS (EC2, EKS, Sagemaker, CDK), Azure, GCP, Docker, Kubernetes, Nginx, CI/CD
+- **Platforms & serverless:** Vercel (Functions, Blob), Cloudflare (R2, Workers, Pages), Render, Railway, Neon, Upstash, AWS S3, AWS Lambda
 - **Tools:** Git, JIRA, Azure DevOps, Postman, Kafka, Jenkins
 
 ## Certifications

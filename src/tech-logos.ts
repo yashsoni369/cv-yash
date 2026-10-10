@@ -65,6 +65,15 @@ const tech: Record<string, Logo> = {
   electron: { src: 'electron.svg' },
   langfuse: { src: 'langfuse.svg' },
   litellm: { src: 'litellm.png' },
+  upstash: { src: 'upstash.svg' },
+  neon: { src: 'neon.svg' },
+  render: { src: 'render.svg', dark: true },
+  railway: { src: 'railway.svg', dark: true },
+  cloudflare: { src: 'cloudflare.svg' },
+  cloudflarepages: { src: 'cloudflarepages.svg' },
+  cloudflareworkers: { src: 'cloudflareworkers.svg' },
+  awss3: { src: 'awss3.svg' },
+  lambda: { src: 'lambda.svg' },
 }
 
 // Display-name aliases, keyed by the normalized name (lowercase, a-z0-9 only).
@@ -77,12 +86,15 @@ const alias: Record<string, string> = {
   microsoftgraphapi: 'microsoftgraph',
   googlecloud: 'gcp',
   postgres: 'postgresql',
+  cloudflarer2: 'cloudflare',
+  awslambda: 'lambda',
 }
 
 const normalize = (name: string) => name.toLowerCase().replace(/[^a-z0-9]/g, '')
 
 export function getTechLogo(name: string): Logo | null {
-  let key = normalize(name)
+  // Drop a trailing qualifier such as "Vercel (Functions, Blob)".
+  let key = normalize(name.replace(/\(.*\)/, ''))
   key = alias[key] ?? key
   // "AWS (EC2, EKS, Sagemaker)", "AWS CDK", "Azure DevOps" use their cloud's mark.
   if (!tech[key]) {
