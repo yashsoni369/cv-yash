@@ -49,8 +49,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'decoverai', en: 'decoverai' },
     titles: { es: 'DecoverAI', en: 'DecoverAI' },
     seo: {
-      es: { title: 'DecoverAI: Plataforma Legal con IA — $2M Financiados', description: 'Caso de estudio: plataforma de gestión documental legal con IA desplegada en bufetes de EE.UU.' },
-      en: { title: 'DecoverAI: AI Legal Document Platform — $2M Funded', description: 'Case study: AI-powered legal document management deployed in US law firms. $2M+ seed funding.' },
+      es: { title: 'DecoverAI: AI Legal Document Platform | Yash Soni', description: 'Case study: AI legal document search and RAG platform deployed in 10+ US law firms. I helped build the infrastructure and GenAI platform while the company raised $2M+ in seed funding.' },
+      en: { title: 'DecoverAI: AI Legal Document Platform | Yash Soni', description: 'Case study: AI legal document search and RAG platform deployed in 10+ US law firms. I helped build the infrastructure and GenAI platform while the company raised $2M+ in seed funding.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -65,8 +65,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'speakology-ai', en: 'speakology-ai' },
     titles: { es: 'Speakology AI', en: 'Speakology AI' },
     seo: {
-      es: { title: 'Speakology AI: App de Aprendizaje con Avatar IA', description: 'Primera app de aprendizaje de idiomas con Avatar IA para escuelas del Reino Unido. 10+ suscripciones en 3 meses.' },
-      en: { title: 'Speakology AI: AI Avatar Language Learning App', description: 'First AI Avatar language learning app for UK schools. 10+ subscriptions in 3 months, bootstrapped.' },
+      es: { title: 'Speakology AI: AI Avatar Language Learning App | Yash Soni', description: 'Case study: AI avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in 3 months.' },
+      en: { title: 'Speakology AI: AI Avatar Language Learning App | Yash Soni', description: 'Case study: AI avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in 3 months.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -81,8 +81,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'infinity-devops', en: 'infinity-devops' },
     titles: { es: 'Infinity DevOps', en: 'Infinity DevOps' },
     seo: {
-      es: { title: 'Infinity DevOps: Plataforma DevOps Enterprise', description: 'Tech Lead con equipo de 10+ ingenieros construyendo productos DevOps con AWS y GCP.' },
-      en: { title: 'Infinity DevOps: Enterprise DevOps Platform', description: 'Tech Lead with 10+ engineer team building DevOps IP products across AWS and GCP.' },
+      es: { title: 'Infinity DevOps: Enterprise DevOps Platform | Yash Soni', description: 'Case study: DevOps platform across AWS and GCP, built at LTI Mindtree as the second major product of the DevOps Centre of Excellence.' },
+      en: { title: 'Infinity DevOps: Enterprise DevOps Platform | Yash Soni', description: 'Case study: DevOps platform across AWS and GCP, built at LTI Mindtree as the second major product of the DevOps Centre of Excellence.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -97,8 +97,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'mappie-ai', en: 'mappie-ai' },
     titles: { es: 'Mappie AI', en: 'Mappie AI' },
     seo: {
-      es: { title: 'Mappie AI: Gestión de Proyectos con IA', description: 'Transforma requisitos desordenados en historias de usuario listas para desarrollo con IA.' },
-      en: { title: 'Mappie AI: AI Project Management', description: 'Transforms messy requirements into dev-ready user stories with AI.' },
+      es: { title: 'Mappie AI: AI Project Management | Yash Soni', description: 'Case study: AI project management tool that turns messy requirements into dev-ready user stories, built for Nindo Solutions.' },
+      en: { title: 'Mappie AI: AI Project Management | Yash Soni', description: 'Case study: AI project management tool that turns messy requirements into dev-ready user stories, built for Nindo Solutions.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -113,8 +113,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'vectro-ai', en: 'vectro-ai' },
     titles: { es: 'Vectro AI', en: 'Vectro AI' },
     seo: {
-      es: { title: 'Vectro AI: Inteligencia de Ventas con IA', description: 'Insights accionables de llamadas de ventas, emails y Slack usando búsqueda vectorial.' },
-      en: { title: 'Vectro AI: AI Sales Intelligence', description: 'Actionable insights from sales calls, emails & Slack using vector search and AI.' },
+      es: { title: 'Vectro AI: Sales Intelligence | Yash Soni', description: 'Case study: sales intelligence platform that surfaces insights from sales calls, emails and Slack using AI and vector search.' },
+      en: { title: 'Vectro AI: Sales Intelligence | Yash Soni', description: 'Case study: sales intelligence platform that surfaces insights from sales calls, emails and Slack using AI and vector search.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -129,8 +129,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'united-medical', en: 'united-medical' },
     titles: { es: 'United Medical', en: 'United Medical' },
     seo: {
-      es: { title: 'United Medical: Gestión de Contratos Hospitalarios', description: 'App de gestión de contratos hospital-médico para startup alemana de salud.' },
-      en: { title: 'United Medical: Hospital Contract Management', description: 'Hospital-doctor contract management app for German healthcare startup.' },
+      es: { title: 'United Medical: Hospital-Doctor Contract Management | Yash Soni', description: 'Case study: contract management application for a German healthcare startup, an ongoing retainer since August 2023.' },
+      en: { title: 'United Medical: Hospital-Doctor Contract Management | Yash Soni', description: 'Case study: contract management application for a German healthcare startup, an ongoing retainer since August 2023.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -145,8 +145,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'stethy', en: 'stethy' },
     titles: { es: 'Stethy', en: 'Stethy' },
     seo: {
-      es: { title: 'Stethy: Automatización IA en Salud', description: 'Automatización con IA en healthcare y ciencias de la vida.' },
-      en: { title: 'Stethy: AI Healthcare Automation', description: 'AI-based automation in healthcare & life sciences.' },
+      es: { title: 'Stethy: AI Email Triage SaaS | Yash Soni', description: 'Case study: backend and AWS infrastructure for an invite-only B2B email triage SaaS. Python, TypeScript, AWS CDK, LiteLLM and Langfuse.' },
+      en: { title: 'Stethy: AI Email Triage SaaS | Yash Soni', description: 'Case study: backend and AWS infrastructure for an invite-only B2B email triage SaaS. Python, TypeScript, AWS CDK, LiteLLM and Langfuse.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -161,8 +161,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'noetic', en: 'noetic' },
     titles: { es: 'Noetic', en: 'Noetic' },
     seo: {
-      es: { title: 'Noetic: Evaluación de Neurodiversidad con IA', description: 'Evaluación automatizada de TDAH, autismo, dislexia, dispraxia y discalculia.' },
-      en: { title: 'Noetic: AI Neurodiversity Assessment', description: 'Automated assessment for ADHD, autism, dyslexia, dyspraxia, and dyscalculia.' },
+      es: { title: 'Noetic: Automated Assessment Platform | Yash Soni', description: 'Case study: automated assessment platform for ADHD, autism, dyslexia, dyspraxia and dyscalculia.' },
+      en: { title: 'Noetic: Automated Assessment Platform | Yash Soni', description: 'Case study: automated assessment platform for ADHD, autism, dyslexia, dyspraxia and dyscalculia.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },

@@ -34,6 +34,8 @@ export default function SpeakologyAI({ lang }: { lang: 'es' | 'en' }) {
       <H2 id="solution">{t.sections.solution.title}</H2>
       <Prose>{t.sections.solution.content}</Prose>
 
+      {t.sections.architecture.stack.length > 0 && (
+        <>
       {/* Architecture */}
       <H2 id="architecture">{t.sections.architecture.title}</H2>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-6">
@@ -44,6 +46,8 @@ export default function SpeakologyAI({ lang }: { lang: 'es' | 'en' }) {
           </div>
         ))}
       </div>
+        </>
+      )}
 
       {/* Key Features */}
       <H2 id="features">{t.sections.features.title}</H2>
@@ -54,6 +58,8 @@ export default function SpeakologyAI({ lang }: { lang: 'es' | 'en' }) {
         }))}
       />
 
+      {t.sections.results.metrics.length > 0 && (
+        <>
       {/* Results */}
       <H2 id="results">{t.sections.results.title}</H2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-6">
@@ -64,11 +70,15 @@ export default function SpeakologyAI({ lang }: { lang: 'es' | 'en' }) {
           </div>
         ))}
       </div>
+        </>
+      )}
 
       {/* My Role */}
       <H2 id="my-role">{t.sections.myRole.title}</H2>
       <Prose>{t.sections.myRole.content}</Prose>
 
+      {t.sections.testimonial.quote && (
+        <>
       {/* Testimonial */}
       <Callout>
         <div className="flex gap-3">
@@ -80,11 +90,19 @@ export default function SpeakologyAI({ lang }: { lang: 'es' | 'en' }) {
           </div>
         </div>
       </Callout>
+        </>
+      )}
 
+      {t.sections.lessons.items.length > 0 && (
+        <>
       {/* Lessons */}
       <H2 id="lessons">{t.sections.lessons.title}</H2>
       <BulletList items={t.sections.lessons.items as unknown as React.ReactNode[]} marker="bullet" />
+        </>
+      )}
 
+      {t.sections.faq.length > 0 && (
+        <>
       {/* FAQ */}
       <H2 id="faq">FAQ</H2>
       <Accordion
@@ -93,6 +111,8 @@ export default function SpeakologyAI({ lang }: { lang: 'es' | 'en' }) {
           detail: f.a,
         }))}
       />
+        </>
+      )}
 
       {/* CTA */}
       <div className="mt-12 p-8 rounded-2xl bg-primary/5 border border-primary/20 text-center">
