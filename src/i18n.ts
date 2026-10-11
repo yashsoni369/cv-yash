@@ -211,7 +211,7 @@ export const translations = {
           desc: 'Plataforma de gesti\u00f3n y consulta de documentos legales impulsada por IA para bufetes de abogados en EE.UU. Constru\u00ed la infraestructura y plataforma GenAI que ayud\u00f3 a asegurar $2M+ en financiaci\u00f3n semilla de VCs de Bay Area. 13 meses de desarrollo.',
           tech: ['React', 'Node.js', 'Python', 'OpenAI', 'Pinecone', 'MongoDB'],
           link: '',
-          caseStudyUrl: '/decoverai',
+          caseStudyUrl: '/es/decoverai',
           caseStudyLabel: 'Leer caso de estudio',
         },
         {
@@ -221,7 +221,7 @@ export const translations = {
           desc: 'App de aprendizaje de idiomas con Avatar IA para escuelas del Reino Unido. Bootstrapped de cero a 10+ suscripciones escolares en solo 3 meses. Sin financiación externa.',
           tech: ['React', 'Node.js', 'MongoDB', 'OpenAI', 'Prompt Engineering'],
           link: '',
-          caseStudyUrl: '/speakology-ai',
+          caseStudyUrl: '/es/speakology-ai',
           caseStudyLabel: 'Leer caso de estudio',
         },
         {
@@ -231,7 +231,7 @@ export const translations = {
           desc: 'Aplicación de gestión de contratos hospital-médico para una startup de salud alemana. Retainer activo desde agosto de 2023.',
           tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Redis'],
           link: '',
-          caseStudyUrl: '/united-medical',
+          caseStudyUrl: '/es/united-medical',
           caseStudyLabel: 'Leer caso de estudio',
         },
         {
@@ -241,7 +241,7 @@ export const translations = {
           desc: 'Transforma requisitos desordenados en historias de usuario listas para desarrollo. Gestión de proyectos con IA construida para Nindo Solutions, con una reducción reportada del 60-70% en el tiempo de refinamiento del backlog.',
           tech: ['React', 'TypeScript', 'OpenAI', 'Node.js'],
           link: '',
-          caseStudyUrl: '/mappie-ai',
+          caseStudyUrl: '/es/mappie-ai',
           caseStudyLabel: 'Leer caso de estudio',
         },
         {
@@ -251,7 +251,7 @@ export const translations = {
           desc: 'Plataforma de inteligencia de ventas que proporciona insights accionables de llamadas, emails y comunicaciones de Slack usando IA y b\u00fasqueda vectorial.',
           tech: ['Node.js', 'OpenAI', 'Vector DB', 'TypeScript'],
           link: '',
-          caseStudyUrl: '/vectro-ai',
+          caseStudyUrl: '/es/vectro-ai',
           caseStudyLabel: 'Leer caso de estudio',
         },
         {

@@ -71,5 +71,77 @@ const en = {
   },
 }
 
-// The facts on these pages come from one source, so the Spanish route shows the same content.
-export const vectroContent = { en, es: en }
+const es = {
+  slug: 'vectro-ai',
+  seo: {
+    title: 'Vectro AI: Inteligencia de Ventas | Yash Soni',
+    description: 'Caso de estudio: plataforma de inteligencia de ventas que extrae insights de llamadas, emails y Slack con IA y búsqueda vectorial.',
+  },
+  header: {
+    kicker: 'Caso de Estudio',
+    h1: 'Vectro AI: Inteligencia de Ventas',
+    subtitle: 'Insights accionables de llamadas, emails y Slack sin escuchar cientos de llamadas',
+    date: 'Proyecto para cliente',
+    readingTime: '2 min de lectura',
+  },
+  sections: {
+    problem: {
+      title: 'El Problema',
+      content: 'El cliente quería insights accionables de sus conversaciones de ventas sin escuchar cientos de llamadas.',
+    },
+    solution: {
+      title: 'La Solución',
+      content: 'Vectro procesa llamadas de ventas, emails y mensajes de Slack y usa comprensión semántica con OpenAI y búsqueda vectorial para mostrar insights accionables.',
+    },
+    architecture: {
+      title: 'Arquitectura y Stack Técnico',
+      stack: [
+          { name: 'Backend', items: 'Node.js, TypeScript' },
+          { name: 'IA', items: 'OpenAI' },
+          { name: 'Búsqueda', items: 'Base de datos vectorial' },
+        ],
+    },
+    features: {
+      title: 'Características Clave',
+      items: [
+          { title: 'Ingesta multicanal', desc: 'Llamadas de ventas, emails y mensajes de Slack' },
+          { title: 'Insights semánticos', desc: 'Búsqueda vectorial y OpenAI para mostrar lo importante' },
+        ],
+    },
+    results: {
+      title: 'Resultados e Impacto',
+      metrics: [] as { value: string; label: string }[],
+    },
+    myRole: {
+      title: 'Mi Rol',
+      content: 'Construí la plataforma en un proyecto para un cliente a través de Upwork.',
+    },
+    testimonial: {
+      quote: '',
+      author: '',
+      role: '',
+    },
+    lessons: {
+      title: 'Lecciones Aprendidas',
+      items: [] as string[],
+    },
+    faq: [] as { q: string; a: string }[],
+    cta: {
+      title: '¿Necesitas algo similar?',
+      desc: 'Construyo productos de IA y SaaS listos para producción, desde pipelines RAG hasta plataformas multi-tenant. Hablemos de tu proyecto.',
+      button: 'Contáctame',
+    },
+  },
+  sectionLabels: {
+    'problem': 'El Problema',
+    'solution': 'La Solución',
+    'architecture': 'Arquitectura',
+    'features': 'Características',
+    'results': 'Resultados',
+    'my-role': 'Mi Rol',
+    'lessons': 'Lecciones',
+    'faq': 'FAQ',
+  },
+}
+
+export const vectroContent = { en, es }

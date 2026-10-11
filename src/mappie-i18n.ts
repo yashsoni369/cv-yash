@@ -80,5 +80,86 @@ const en = {
   },
 }
 
-// The facts on these pages come from one source, so the Spanish route shows the same content.
-export const mappieContent = { en, es: en }
+const es = {
+  slug: 'mappie-ai',
+  seo: {
+    title: 'Mappie AI: Gestión de Proyectos con IA | Yash Soni',
+    description: 'Caso de estudio: herramienta de gestión de proyectos con IA que convierte requisitos desordenados en historias de usuario listas para desarrollo, construida para Nindo Solutions.',
+  },
+  header: {
+    kicker: 'Caso de Estudio',
+    h1: 'Mappie AI: De Requisitos Desordenados a Historias Listas',
+    subtitle: 'Una herramienta de gestión de proyectos con IA que construí para Nindo Solutions, disponible en mappie.ai',
+    date: 'Cerca de 1 año de la idea a producción',
+    readingTime: '3 min de lectura',
+  },
+  sections: {
+    problem: {
+      title: 'El Problema',
+      content: 'El refinamiento del backlog es una de las reuniones más caras del software. Personas senior pasan horas reescribiendo tickets vagos para que un ingeniero pueda trabajar con ellos, y los chats genéricos con LLM no tienen el contexto del flujo de trabajo para ayudar.',
+    },
+    solution: {
+      title: 'La Solución',
+      content: 'Mappie convierte requisitos de producto vagos y desestructurados en especificaciones, épicas e historias de usuario claras. Vive dentro del flujo de trabajo del product manager y usa IA con contexto para traducir la idea de un fundador en tickets.',
+    },
+    architecture: {
+      title: 'Arquitectura y Stack Técnico',
+      stack: [
+          { name: 'Frontend', items: 'React, TypeScript, editor nativo en markdown' },
+          { name: 'Backend', items: 'Node.js' },
+          { name: 'IA', items: 'Modelos GPT de OpenAI, plantillas de prompts' },
+          { name: 'Motor de contexto', items: 'Recuperación sobre el grafo de épicas e historias' },
+          { name: 'Infraestructura', items: 'Hosting en la nube con CI/CD' },
+        ],
+    },
+    features: {
+      title: 'Características Clave',
+      items: [
+          { title: 'Generación de épicas e historias', desc: 'Convierte ideas de una línea en elementos de trabajo estructurados' },
+          { title: 'Chat con contexto', desc: 'Chat de IA que ve la épica, la historia y los documentos relacionados' },
+          { title: 'Edición con IA en línea', desc: 'Reescribe, amplía o ajusta cualquier bloque sin salir del editor' },
+          { title: 'Pipeline de requisitos', desc: 'Flujo automático de épica a requisitos a historias con salida estructurada y consistente' },
+          { title: 'Exportación a Markdown', desc: 'La documentación se exporta a las herramientas de gestión existentes' },
+        ],
+    },
+    results: {
+      title: 'Resultados e Impacto',
+      metrics: [
+          { value: '60-70%', label: 'reducción reportada del tiempo de refinamiento del backlog' },
+          { value: '1.000', label: 'usuarios en beta' },
+          { value: '~1 año', label: 'de la idea a producción' },
+        ],
+    },
+    myRole: {
+      title: 'Mi Rol',
+      content: 'Construí Mappie AI para el cliente, Nindo Solutions en Bélgica, durante casi un año.',
+    },
+    testimonial: {
+      quote: '',
+      author: '',
+      role: '',
+    },
+    lessons: {
+      title: 'Lecciones Aprendidas',
+      items: [] as string[],
+    },
+    faq: [] as { q: string; a: string }[],
+    cta: {
+      title: '¿Necesitas algo similar?',
+      desc: 'Construyo productos de IA y SaaS listos para producción, desde pipelines RAG hasta plataformas multi-tenant. Hablemos de tu proyecto.',
+      button: 'Contáctame',
+    },
+  },
+  sectionLabels: {
+    'problem': 'El Problema',
+    'solution': 'La Solución',
+    'architecture': 'Arquitectura',
+    'features': 'Características',
+    'results': 'Resultados',
+    'my-role': 'Mi Rol',
+    'lessons': 'Lecciones',
+    'faq': 'FAQ',
+  },
+}
+
+export const mappieContent = { en, es }

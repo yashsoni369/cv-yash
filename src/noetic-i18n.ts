@@ -66,5 +66,72 @@ const en = {
   },
 }
 
-// The facts on these pages come from one source, so the Spanish route shows the same content.
-export const noeticContent = { en, es: en }
+const es = {
+  slug: 'noetic',
+  seo: {
+    title: 'Noetic: Plataforma de Evaluación Automatizada | Yash Soni',
+    description: 'Caso de estudio: plataforma de evaluación automatizada para TDAH, autismo, dislexia, dispraxia y discalculia.',
+  },
+  header: {
+    kicker: 'Caso de Estudio',
+    h1: 'Noetic: Evaluación Automatizada de la Neurodiversidad',
+    subtitle: 'Una plataforma de evaluación afirmativa automatizada para diferencias del neurodesarrollo y del aprendizaje',
+    date: 'Proyecto para cliente',
+    readingTime: '2 min de lectura',
+  },
+  sections: {
+    problem: {
+      title: 'El Problema',
+      content: 'El cliente quería una forma automatizada de hacer evaluaciones afirmativas de TDAH, autismo, dislexia, dispraxia y discalculia.',
+    },
+    solution: {
+      title: 'La Solución',
+      content: 'Noetic es una plataforma de evaluación afirmativa automatizada que cubre TDAH, autismo, dislexia, dispraxia y discalculia.',
+    },
+    architecture: {
+      title: 'Arquitectura y Stack Técnico',
+      stack: [] as { name: string; items: string }[],
+    },
+    features: {
+      title: 'Características Clave',
+      items: [
+          { title: 'Evaluación automatizada', desc: 'Cribado y evaluación afirmativa de TDAH, autismo, dislexia, dispraxia y discalculia' },
+        ],
+    },
+    results: {
+      title: 'Resultados e Impacto',
+      metrics: [] as { value: string; label: string }[],
+    },
+    myRole: {
+      title: 'Mi Rol',
+      content: 'Construí la plataforma en un proyecto para un cliente a través de Upwork.',
+    },
+    testimonial: {
+      quote: '',
+      author: '',
+      role: '',
+    },
+    lessons: {
+      title: 'Lecciones Aprendidas',
+      items: [] as string[],
+    },
+    faq: [] as { q: string; a: string }[],
+    cta: {
+      title: '¿Necesitas algo similar?',
+      desc: 'Construyo productos de IA y SaaS listos para producción, desde pipelines RAG hasta plataformas multi-tenant. Hablemos de tu proyecto.',
+      button: 'Contáctame',
+    },
+  },
+  sectionLabels: {
+    'problem': 'El Problema',
+    'solution': 'La Solución',
+    'architecture': 'Arquitectura',
+    'features': 'Características',
+    'results': 'Resultados',
+    'my-role': 'Mi Rol',
+    'lessons': 'Lecciones',
+    'faq': 'FAQ',
+  },
+}
+
+export const noeticContent = { en, es }

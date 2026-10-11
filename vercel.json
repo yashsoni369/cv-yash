@@ -62,6 +62,10 @@
   ],
   "rewrites": [
     { "source": "/es", "destination": "/index.html" },
+    { "source": "/zh", "destination": "/index.html" },
+    { "source": "/fr", "destination": "/index.html" },
+    { "source": "/pt", "destination": "/index.html" },
+    { "source": "/hi", "destination": "/index.html" },
     { "source": "/about", "destination": "/index.html" },
     { "source": "/es/about", "destination": "/index.html" },
     { "source": "/privacy", "destination": "/index.html" },
@@ -73,7 +77,15 @@
     { "source": "/vectro-ai", "destination": "/index.html" },
     { "source": "/united-medical", "destination": "/index.html" },
     { "source": "/stethy", "destination": "/index.html" },
-    { "source": "/noetic", "destination": "/index.html" }
+    { "source": "/noetic", "destination": "/index.html" },
+    { "source": "/es/decoverai", "destination": "/index.html" },
+    { "source": "/es/speakology-ai", "destination": "/index.html" },
+    { "source": "/es/infinity-devops", "destination": "/index.html" },
+    { "source": "/es/mappie-ai", "destination": "/index.html" },
+    { "source": "/es/vectro-ai", "destination": "/index.html" },
+    { "source": "/es/united-medical", "destination": "/index.html" },
+    { "source": "/es/stethy", "destination": "/index.html" },
+    { "source": "/es/noetic", "destination": "/index.html" }
   ],
   "crons": [
     {

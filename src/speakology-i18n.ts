@@ -76,5 +76,82 @@ const en = {
   },
 }
 
-// The facts on these pages come from one source, so the Spanish route shows the same content.
-export const speakologyContent = { en, es: en }
+const es = {
+  slug: 'speakology-ai',
+  seo: {
+    title: 'Speakology AI: App de Idiomas con Avatar IA | Yash Soni',
+    description: 'Caso de estudio: app de aprendizaje de idiomas con avatar IA para escuelas del Reino Unido. De cero a 10+ suscripciones escolares en 3 meses, sin financiación externa.',
+  },
+  header: {
+    kicker: 'Caso de Estudio',
+    h1: 'Speakology AI: Aprendizaje de Idiomas con Avatar IA',
+    subtitle: 'De cero a 10+ suscripciones escolares en el Reino Unido en 3 meses, sin financiación externa',
+    date: 'Sin financiación externa, 3 meses hasta las primeras 10+ escuelas',
+    readingTime: '2 min de lectura',
+  },
+  sections: {
+    problem: {
+      title: 'El Problema',
+      content: 'Un proyecto para un cliente: construir una app de aprendizaje de idiomas con avatar IA para escuelas del Reino Unido.',
+    },
+    solution: {
+      title: 'La Solución',
+      content: 'Speakology es una app de aprendizaje de idiomas con avatar IA pensada para estudiantes en edad escolar y vendida a escuelas del Reino Unido por suscripción.',
+    },
+    architecture: {
+      title: 'Arquitectura y Stack Técnico',
+      stack: [
+          { name: 'Frontend', items: 'React' },
+          { name: 'Backend', items: 'Node.js' },
+          { name: 'Base de datos', items: 'MongoDB' },
+          { name: 'IA', items: 'OpenAI, prompt engineering' },
+        ],
+    },
+    features: {
+      title: 'Características Clave',
+      items: [
+          { title: 'Avatar IA', desc: 'Un tutor con avatar para estudiantes de idiomas en edad escolar' },
+          { title: 'Suscripciones escolares', desc: 'Construida para que las escuelas del Reino Unido la desplieguen y se suscriban' },
+        ],
+    },
+    results: {
+      title: 'Resultados e Impacto',
+      metrics: [
+          { value: '10+', label: 'suscripciones de escuelas del Reino Unido' },
+          { value: '3', label: 'meses para conseguirlo' },
+          { value: '0', label: 'financiación externa' },
+        ],
+    },
+    myRole: {
+      title: 'Mi Rol',
+      content: 'Construí el producto de principio a fin como parte de mi trabajo independiente.',
+    },
+    testimonial: {
+      quote: '',
+      author: '',
+      role: '',
+    },
+    lessons: {
+      title: 'Lecciones Aprendidas',
+      items: [] as string[],
+    },
+    faq: [] as { q: string; a: string }[],
+    cta: {
+      title: '¿Necesitas algo similar?',
+      desc: 'Construyo productos de IA y SaaS listos para producción, desde pipelines RAG hasta plataformas multi-tenant. Hablemos de tu proyecto.',
+      button: 'Contáctame',
+    },
+  },
+  sectionLabels: {
+    'problem': 'El Problema',
+    'solution': 'La Solución',
+    'architecture': 'Arquitectura',
+    'features': 'Características',
+    'results': 'Resultados',
+    'my-role': 'Mi Rol',
+    'lessons': 'Lecciones',
+    'faq': 'FAQ',
+  },
+}
+
+export const speakologyContent = { en, es }

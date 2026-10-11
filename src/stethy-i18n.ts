@@ -77,5 +77,83 @@ const en = {
   },
 }
 
-// The facts on these pages come from one source, so the Spanish route shows the same content.
-export const stethyContent = { en, es: en }
+const es = {
+  slug: 'stethy',
+  seo: {
+    title: 'Stethy: SaaS de Triaje de Email con IA | Yash Soni',
+    description: 'Caso de estudio: backend e infraestructura AWS para un SaaS B2B de triaje de email por invitación. Python, TypeScript, AWS CDK, LiteLLM y Langfuse.',
+  },
+  header: {
+    kicker: 'Caso de Estudio',
+    h1: 'Stethy: Triaje de Email con IA',
+    subtitle: 'Backend, infraestructura y herramientas para un SaaS B2B de triaje de email por invitación',
+    date: '2024 a la actualidad',
+    readingTime: '2 min de lectura',
+  },
+  sections: {
+    problem: {
+      title: 'El Problema',
+      content: 'Stethy necesitaba una plataforma de flujos de triaje de email que los usuarios de empresa pudieran conectar a su bandeja de entrada.',
+    },
+    solution: {
+      title: 'La Solución',
+      content: 'Stethy es un SaaS B2B por invitación que se conecta a un buzón, clasifica el correo entrante y lo enruta mediante flujos definidos. Primero clasifica un motor de reglas determinista y versionado, con triaje por IA y puntuaciones de confianza en paralelo.',
+    },
+    architecture: {
+      title: 'Arquitectura y Stack Técnico',
+      stack: [
+          { name: 'Backend', items: 'Python, FastAPI, SQLAlchemy, Alembic' },
+          { name: 'Frontend', items: 'TypeScript, React, Vite' },
+          { name: 'Base de datos', items: 'PostgreSQL' },
+          { name: 'Correo', items: 'Microsoft Outlook y Azure AD, extensión de Gmail' },
+          { name: 'Gateway LLM', items: 'LiteLLM' },
+          { name: 'Infraestructura', items: 'AWS CDK (Python), Lambda, CodePipeline, multicuenta dev, stage y prod' },
+          { name: 'Observabilidad', items: 'Langfuse en Azure Container Apps' },
+        ],
+    },
+    features: {
+      title: 'Características Clave',
+      items: [
+          { title: 'Motor de reglas', desc: 'Reglas versionadas de clasificación y enrutamiento con un dry-run para probar un email antes de activarlas' },
+          { title: 'Conectores', desc: 'Buzones de Outlook, incluidas credenciales de app propias, y una extensión de Gmail' },
+          { title: 'Ejecuciones y auditoría', desc: 'Un registro de ejecución en vivo y un historial de clasificaciones con confianza, regla aplicada y corrección manual' },
+          { title: 'Gestión multi-tenant', desc: 'Espacios de trabajo, usuarios, invitaciones, uso y registros de acceso' },
+        ],
+    },
+    results: {
+      title: 'Resultados e Impacto',
+      metrics: [] as { value: string; label: string }[],
+    },
+    myRole: {
+      title: 'Mi Rol',
+      content: 'Trabajo con Stethy, un cliente con sede en Australia, como contratista en backend, frontend e infraestructura.',
+    },
+    testimonial: {
+      quote: '',
+      author: '',
+      role: '',
+    },
+    lessons: {
+      title: 'Lecciones Aprendidas',
+      items: [] as string[],
+    },
+    faq: [] as { q: string; a: string }[],
+    cta: {
+      title: '¿Necesitas algo similar?',
+      desc: 'Construyo productos de IA y SaaS listos para producción, desde pipelines RAG hasta plataformas multi-tenant. Hablemos de tu proyecto.',
+      button: 'Contáctame',
+    },
+  },
+  sectionLabels: {
+    'problem': 'El Problema',
+    'solution': 'La Solución',
+    'architecture': 'Arquitectura',
+    'features': 'Características',
+    'results': 'Resultados',
+    'my-role': 'Mi Rol',
+    'lessons': 'Lecciones',
+    'faq': 'FAQ',
+  },
+}
+
+export const stethyContent = { en, es }
