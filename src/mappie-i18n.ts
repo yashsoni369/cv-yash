@@ -1,7 +1,7 @@
 const en = {
   slug: 'mappie-ai',
   seo: {
-    title: 'AI Project Management: Requirements to User Stories | Yash Soni',
+    title: 'AI Project Management: Requirements to Stories | Yash Soni',
     description: 'Case study: an AI tool that turns messy requirements into dev-ready user stories, built for Nindo Solutions.',
   },
   header: {
@@ -84,7 +84,7 @@ const es = {
   slug: 'mappie-ai',
   seo: {
     title: 'Mappie AI: Gestión de Proyectos con IA | Yash Soni',
-    description: 'Caso de estudio: herramienta de gestión de proyectos con IA que convierte requisitos desordenados en historias de usuario listas para desarrollo, construida para Nindo Solutions.',
+    description: 'Caso de estudio: herramienta con IA que convierte requisitos en historias de usuario listas para desarrollo, construida para Nindo Solutions.',
   },
   header: {
     kicker: 'Caso de Estudio',

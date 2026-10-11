@@ -6,7 +6,7 @@ export const aboutContent = {
     altSlug: 'about',
     seo: {
       title: 'Yash Soni | Senior Full Stack Architect & AI Developer',
-      description: 'Senior Full Stack Architect & AI Developer con 9+ años de experiencia. Construye productos de IA y SaaS para clientes de todo el mundo. Ayudó a construir la plataforma GenAI de DecoverAI, que levantó $2M+ en financiación semilla. Lideró un COE de 10+ ingenieros en LTI Mindtree.',
+      description: 'Arquitecto de IA independiente en Mumbai con 9+ años de experiencia. Trabaja con clientes de EE.UU., Reino Unido y Alemania en plataformas GenAI, RAG y SaaS.',
     },
     heading: 'Yash Soni',
     subtitle: 'Senior Full Stack Architect & AI Developer',
@@ -57,7 +57,7 @@ export const aboutContent = {
     altSlug: 'es/about',
     seo: {
       title: 'About Yash Soni | AI Architect for Hire, Mumbai',
-      description: 'Independent AI architect and senior full stack architect in Mumbai with 9+ years of experience, working with US, UK and German clients on GenAI, RAG and SaaS platforms.',
+      description: 'Independent AI architect in Mumbai with 9+ years of experience, working with US, UK and German clients on GenAI, RAG and SaaS platforms.',
     },
     heading: 'Yash Soni',
     subtitle: 'Senior Full Stack Architect & AI Developer',

@@ -1,7 +1,7 @@
 export const seo = {
   es: {
     title:
-      'Yash Soni | Senior Full Stack Architect \u00b7 AI Developer \u00b7 Sistemas escalables',
+      'Yash Soni | Arquitecto de IA freelance y Full Stack',
     description:
       'Senior Full Stack Architect con 9+ a\u00f1os construyendo soluciones AI & SaaS escalables. React, Node.js, Python, AWS, Kubernetes, GenAI.',
   },
@@ -9,29 +9,29 @@ export const seo = {
     title:
       'Yash Soni | Freelance AI Architect and Full Stack Developer',
     description:
-      'Independent AI architect with 9+ years building RAG platforms, voice AI and multi-tenant SaaS. Next.js, Node.js, Python, AWS. Open to freelance and contract work worldwide.',
+      'Independent AI architect with 9+ years building RAG platforms, voice AI and multi-tenant SaaS. Next.js, Python, AWS. Open to contract work worldwide.',
   },
   zh: {
     title:
-      'Yash Soni | \u9ad8\u7ea7\u5168\u6808\u67b6\u6784\u5e08 \u00b7 AI\u5f00\u53d1\u8005 \u00b7 \u53ef\u6269\u5c55\u7cfb\u7edf',
+      'Yash Soni | 自由职业AI架构师与全栈开发者',
     description:
       '\u62e5\u67099\u5e74\u4ee5\u4e0a\u7ecf\u9a8c\u7684\u9ad8\u7ea7\u5168\u6808\u67b6\u6784\u5e08\uff0c\u4e13\u6ce8\u4e8e\u6784\u5efa\u53ef\u6269\u5c55\u7684AI\u4e0eSaaS\u89e3\u51b3\u65b9\u6848\u3002React\u3001Node.js\u3001Python\u3001AWS\u3001Kubernetes\u3001GenAI\u3002',
   },
   fr: {
     title:
-      'Yash Soni | Architecte Full Stack Senior \u00b7 D\u00e9veloppeur IA \u00b7 Syst\u00e8mes Scalables',
+      'Yash Soni | Architecte IA freelance et Full Stack',
     description:
       'Architecte Full Stack Senior avec 9+ ans d\'exp\u00e9rience dans la cr\u00e9ation de solutions IA & SaaS scalables. React, Node.js, Python, AWS, Kubernetes, GenAI.',
   },
   pt: {
     title:
-      'Yash Soni | Arquiteto Full Stack S\u00eanior \u00b7 Desenvolvedor IA \u00b7 Sistemas Escal\u00e1veis',
+      'Yash Soni | Arquiteto de IA freelancer e Full Stack',
     description:
       'Arquiteto Full Stack S\u00eanior com 9+ anos construindo solu\u00e7\u00f5es escal\u00e1veis de IA & SaaS. React, Node.js, Python, AWS, Kubernetes, GenAI.',
   },
   hi: {
     title:
-      'Yash Soni | \u0938\u0940\u0928\u093f\u092f\u0930 \u092b\u0941\u0932 \u0938\u094d\u091f\u0948\u0915 \u0906\u0930\u094d\u0915\u093f\u091f\u0947\u0915\u094d\u091f \u00b7 AI \u0921\u0947\u0935\u0932\u092a\u0930 \u00b7 \u0938\u094d\u0915\u0947\u0932\u0947\u092c\u0932 \u0938\u093f\u0938\u094d\u091f\u092e\u094d\u0938',
+      'Yash Soni | फ्रीलांस AI आर्किटेक्ट और फुल स्टैक डेवलपर',
     description:
       '9+ \u0935\u0930\u094d\u0937\u094b\u0902 \u0915\u0947 \u0905\u0928\u0941\u092d\u0935 \u0935\u093e\u0932\u0947 \u0938\u0940\u0928\u093f\u092f\u0930 \u092b\u0941\u0932 \u0938\u094d\u091f\u0948\u0915 \u0906\u0930\u094d\u0915\u093f\u091f\u0947\u0915\u094d\u091f, \u0938\u094d\u0915\u0947\u0932\u0947\u092c\u0932 AI \u0914\u0930 SaaS \u0938\u092e\u093e\u0927\u093e\u0928 \u092c\u0928\u093e\u0928\u0947 \u092e\u0947\u0902 \u0935\u093f\u0936\u0947\u0937\u091c\u094d\u091e\u0964 React, Node.js, Python, AWS, Kubernetes, GenAI\u0964',
   },

@@ -1,6 +1,8 @@
 import { ExternalLink } from 'lucide-react'
 import { getWorkExperience, type Quote } from './work-experience'
 import type { Lang } from './i18n'
+import { Link } from 'react-router-dom'
+import { articleRegistry } from './articles/registry'
 import { TechLabel, ProductLogo } from './TechLabel'
 
 function initials(name: string) {
@@ -168,6 +170,17 @@ export function WorkExperience({ lang }: { lang: Lang }) {
             <div key={q.author} className="min-w-0">
               <QuoteBlock q={q} />
             </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="pb-2">
+        <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground/70 mb-3">{labels.caseStudies}</p>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          {articleRegistry.map(a => (
+            <Link key={a.id} to={`/${a.slugs[lang === 'es' ? 'es' : 'en']}`} className="text-primary hover:underline">
+              {a.titles[lang === 'es' ? 'es' : 'en']}
+            </Link>
           ))}
         </div>
       </div>

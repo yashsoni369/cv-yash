@@ -49,7 +49,7 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'es/decoverai', en: 'decoverai' },
     titles: { es: 'DecoverAI', en: 'DecoverAI' },
     seo: {
-      es: { title: 'DecoverAI: Plataforma Legal con IA | Yash Soni', description: 'Caso de estudio: plataforma de búsqueda de documentos legales con IA y RAG desplegada en 10+ bufetes de EE.UU. Ayudé a construir la infraestructura y la plataforma GenAI mientras la empresa levantaba $2M+ en financiación semilla.' },
+      es: { title: 'DecoverAI: Plataforma Legal con IA | Yash Soni', description: 'Caso de estudio: búsqueda de documentos legales con IA y RAG en 10+ bufetes de EE.UU. La empresa levantó $2M+ en financiación semilla.' },
       en: { title: 'Legal AI RAG Platform Case Study: DecoverAI | Yash Soni', description: 'How I helped build legal document search with RAG, used by 10+ US law firms, while the company raised $2M+ in seed funding.' },
     },
     sectionLabels: {
@@ -65,7 +65,7 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'es/speakology-ai', en: 'speakology-ai' },
     titles: { es: 'Speakology AI', en: 'Speakology AI' },
     seo: {
-      es: { title: 'Speakology AI: App de Idiomas con Avatar IA | Yash Soni', description: 'Caso de estudio: app de aprendizaje de idiomas con avatar IA para escuelas del Reino Unido. De cero a 10+ suscripciones escolares en 3 meses, sin financiación externa.' },
+      es: { title: 'Speakology AI: App de Idiomas con Avatar IA | Yash Soni', description: 'Caso de estudio: app de idiomas con avatar IA para escuelas del Reino Unido. De cero a 10+ suscripciones en 3 meses, sin financiación externa.' },
       en: { title: 'AI Avatar Language Learning App for UK Schools | Yash Soni', description: 'Case study: AI avatar language app taken from zero to 10+ UK school subscriptions in 3 months, bootstrapped.' },
     },
     sectionLabels: {
@@ -97,8 +97,8 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'es/mappie-ai', en: 'mappie-ai' },
     titles: { es: 'Mappie AI', en: 'Mappie AI' },
     seo: {
-      es: { title: 'Mappie AI: Gestión de Proyectos con IA | Yash Soni', description: 'Caso de estudio: herramienta de gestión de proyectos con IA que convierte requisitos desordenados en historias de usuario listas para desarrollo, construida para Nindo Solutions.' },
-      en: { title: 'AI Project Management: Requirements to User Stories | Yash Soni', description: 'Case study: an AI tool that turns messy requirements into dev-ready user stories, built for Nindo Solutions.' },
+      es: { title: 'Mappie AI: Gestión de Proyectos con IA | Yash Soni', description: 'Caso de estudio: herramienta con IA que convierte requisitos en historias de usuario listas para desarrollo, construida para Nindo Solutions.' },
+      en: { title: 'AI Project Management: Requirements to Stories | Yash Soni', description: 'Case study: an AI tool that turns messy requirements into dev-ready user stories, built for Nindo Solutions.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -129,7 +129,7 @@ export const articleRegistry: ArticleConfig[] = [
     slugs: { es: 'es/united-medical', en: 'united-medical' },
     titles: { es: 'United Medical', en: 'United Medical' },
     seo: {
-      es: { title: 'United Medical: Gestión de Contratos Hospital-Médico | Yash Soni', description: 'Caso de estudio: aplicación de gestión de contratos para una startup de salud alemana, un retainer activo desde agosto de 2023.' },
+      es: { title: 'United Medical: Contratos Hospital-Médico | Yash Soni', description: 'Caso de estudio: aplicación de gestión de contratos para una startup de salud alemana, un retainer activo desde agosto de 2023.' },
       en: { title: 'Healthcare Contract Management SaaS, Germany | Yash Soni', description: 'Case study: hospital and doctor contract management for a German healthcare startup, on retainer since August 2023.' },
     },
     sectionLabels: {

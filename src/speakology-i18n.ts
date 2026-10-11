@@ -80,7 +80,7 @@ const es = {
   slug: 'speakology-ai',
   seo: {
     title: 'Speakology AI: App de Idiomas con Avatar IA | Yash Soni',
-    description: 'Caso de estudio: app de aprendizaje de idiomas con avatar IA para escuelas del Reino Unido. De cero a 10+ suscripciones escolares en 3 meses, sin financiación externa.',
+    description: 'Caso de estudio: app de idiomas con avatar IA para escuelas del Reino Unido. De cero a 10+ suscripciones en 3 meses, sin financiación externa.',
   },
   header: {
     kicker: 'Caso de Estudio',

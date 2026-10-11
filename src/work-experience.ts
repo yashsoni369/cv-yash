@@ -171,6 +171,7 @@ export interface WorkLabels {
   clientWork: string
   myProducts: string
   moreFromClients: string
+  caseStudies: string
 }
 
 interface JobCopy {
@@ -191,11 +192,11 @@ interface LocaleCopy {
   quotes: Record<string, [role: string, source?: string]>
 }
 
-const EN_LABELS: WorkLabels = { range: 'to {y}', now: 'Now', clientWork: 'Client work', myProducts: 'My products', moreFromClients: 'More from clients' }
+const EN_LABELS: WorkLabels = { range: 'to {y}', now: 'Now', clientWork: 'Client work', myProducts: 'My products', moreFromClients: 'More from clients', caseStudies: 'Case studies' }
 
 const copies: Record<Exclude<Lang, 'en'>, LocaleCopy> = {
   es: {
-    labels: { range: 'a {y}', now: 'hoy', clientWork: 'Trabajo para clientes', myProducts: 'Mis productos', moreFromClients: 'Más de clientes' },
+    labels: { range: 'a {y}', now: 'hoy', clientWork: 'Trabajo para clientes', myProducts: 'Mis productos', moreFromClients: 'Más de clientes', caseStudies: 'Casos de estudio' },
     jobs: {
       independent: { company: 'Independiente', role: 'Arquitecto de IA · Senior Full Stack Architect & AI Developer', when: '2022 - actualidad', where: 'Mumbai · Remoto para clientes de EE.UU., Reino Unido y la UE', lead: 'Construyo productos de IA y SaaS para startups financiadas y gestiono mi propia línea de productos.' },
       lti: { when: 'jun 2021 - nov 2023', lead: 'Lideré un Centro de Excelencia DevOps de 10+ ingenieros que construía plataformas internas.', bullets: ['Infinity DevOps: una plataforma DevOps sobre AWS y GCP', 'Infinity AIWatch: un producto APM con dashboards basados en IA (OpenAI, Python)', 'Servicios wrapper sobre AWS para que los ingenieros pudieran desplegar sin conocer la plataforma', 'MVPs y POCs en varios hyperscalers'] },
@@ -221,7 +222,7 @@ const copies: Record<Exclude<Lang, 'en'>, LocaleCopy> = {
     quotes: { 'Ravi Tandon': ['CEO y cofundador, DecoverAI', 'Recomendación en LinkedIn'], 'Terry Carson': ['Cliente, Water Advisor AI', 'Upwork, 5.0/5, jul 2026'], 'Naim B.': ['Director general, SaaS médico'], 'Saurabh D.': ['Senior Software Engineer'] },
   },
   zh: {
-    labels: { range: '至{y}', now: '今', clientWork: '客户项目', myProducts: '我的产品', moreFromClients: '更多客户评价' },
+    labels: { range: '至{y}', now: '今', clientWork: '客户项目', myProducts: '我的产品', moreFromClients: '更多客户评价', caseStudies: '案例研究' },
     jobs: {
       independent: { company: '独立执业', role: 'AI架构师 · 高级全栈架构师与AI开发者', when: '2022年 - 至今', where: '孟买 · 远程服务美国、英国和欧盟客户', lead: '我为获得融资的初创公司构建AI和SaaS产品，同时运营自己的产品线。' },
       lti: { when: '2021年6月 - 2023年11月', where: '孟买', lead: '带领10多名工程师组成的DevOps卓越中心，构建内部平台。', bullets: ['Infinity DevOps：横跨AWS和GCP的DevOps平台', 'Infinity AIWatch：带有AI驱动仪表盘的APM产品（OpenAI、Python）', '基于AWS的封装服务，让工程师无需平台知识即可交付', '在多个云厂商上开发MVP和POC'] },
@@ -247,7 +248,7 @@ const copies: Record<Exclude<Lang, 'en'>, LocaleCopy> = {
     quotes: { 'Ravi Tandon': ['DecoverAI首席执行官兼联合创始人', 'LinkedIn推荐'], 'Terry Carson': ['客户，Water Advisor AI', 'Upwork，5.0/5，2026年7月'], 'Naim B.': ['董事总经理，医疗SaaS'], 'Saurabh D.': ['高级软件工程师'] },
   },
   fr: {
-    labels: { range: 'à {y}', now: "aujourd'hui", clientWork: 'Projets clients', myProducts: 'Mes produits', moreFromClients: 'Témoignages clients' },
+    labels: { range: 'à {y}', now: "aujourd'hui", clientWork: 'Projets clients', myProducts: 'Mes produits', moreFromClients: 'Témoignages clients', caseStudies: 'Études de cas' },
     jobs: {
       independent: { company: 'Indépendant', role: 'Architecte IA · Architecte Full Stack Senior & Développeur IA', when: "2022 - aujourd'hui", where: "Mumbai · À distance pour des clients aux États-Unis, au Royaume-Uni et dans l'UE", lead: 'Je construis des produits IA et SaaS pour des startups financées et je gère ma propre gamme de produits.' },
       lti: { when: 'juin 2021 - nov. 2023', lead: "J'ai dirigé un Centre d'Excellence DevOps de 10+ ingénieurs qui construisait des plateformes internes.", bullets: ['Infinity DevOps : une plateforme DevOps sur AWS et GCP', 'Infinity AIWatch : un produit APM avec des tableaux de bord pilotés par IA (OpenAI, Python)', "Des services wrapper autour d'AWS pour livrer sans connaissance de la plateforme", 'Des MVP et POC sur plusieurs hyperscalers'] },
@@ -273,7 +274,7 @@ const copies: Record<Exclude<Lang, 'en'>, LocaleCopy> = {
     quotes: { 'Ravi Tandon': ['PDG et cofondateur, DecoverAI', 'Recommandation LinkedIn'], 'Terry Carson': ['Client, Water Advisor AI', 'Upwork, 5.0/5, juil. 2026'], 'Naim B.': ['Directeur général, SaaS médical'], 'Saurabh D.': ['Ingénieur logiciel senior'] },
   },
   pt: {
-    labels: { range: 'a {y}', now: 'hoje', clientWork: 'Projetos para clientes', myProducts: 'Meus produtos', moreFromClients: 'Mais de clientes' },
+    labels: { range: 'a {y}', now: 'hoje', clientWork: 'Projetos para clientes', myProducts: 'Meus produtos', moreFromClients: 'Mais de clientes', caseStudies: 'Estudos de caso' },
     jobs: {
       independent: { company: 'Independente', role: 'Arquiteto de IA · Arquiteto Full Stack Sênior & Desenvolvedor de IA', when: '2022 - presente', where: 'Mumbai · Remoto para clientes dos EUA, Reino Unido e UE', lead: 'Construo produtos de IA e SaaS para startups financiadas e mantenho minha própria linha de produtos.' },
       lti: { when: 'jun 2021 - nov 2023', lead: 'Liderei um Centro de Excelência DevOps de 10+ engenheiros que criava plataformas internas.', bullets: ['Infinity DevOps: uma plataforma DevOps sobre AWS e GCP', 'Infinity AIWatch: um produto APM com dashboards guiados por IA (OpenAI, Python)', 'Serviços wrapper sobre a AWS para que engenheiros entregassem sem conhecer a plataforma', 'MVPs e POCs em vários hyperscalers'] },
@@ -299,7 +300,7 @@ const copies: Record<Exclude<Lang, 'en'>, LocaleCopy> = {
     quotes: { 'Ravi Tandon': ['CEO e cofundador, DecoverAI', 'Recomendação no LinkedIn'], 'Terry Carson': ['Cliente, Water Advisor AI', 'Upwork, 5.0/5, jul 2026'], 'Naim B.': ['Diretor-geral, SaaS médico'], 'Saurabh D.': ['Engenheiro de software sênior'] },
   },
   hi: {
-    labels: { range: '{y} तक', now: 'अब', clientWork: 'क्लाइंट वर्क', myProducts: 'मेरे प्रोडक्ट्स', moreFromClients: 'क्लाइंट्स की राय' },
+    labels: { range: '{y} तक', now: 'अब', clientWork: 'क्लाइंट वर्क', myProducts: 'मेरे प्रोडक्ट्स', moreFromClients: 'क्लाइंट्स की राय', caseStudies: 'केस स्टडीज़' },
     jobs: {
       independent: { company: 'स्वतंत्र', role: 'AI आर्किटेक्ट · सीनियर फुल स्टैक आर्किटेक्ट और AI डेवलपर', when: '2022 - वर्तमान', where: 'मुंबई · अमेरिका, UK और EU क्लाइंट्स के लिए रिमोट', lead: 'मैं फ़ंडेड स्टार्टअप्स के लिए AI और SaaS प्रोडक्ट्स बनाता हूँ और अपनी प्रोडक्ट लाइन चलाता हूँ।' },
       lti: { when: 'जून 2021 - नवंबर 2023', where: 'मुंबई', lead: 'इंटरनल प्लेटफ़ॉर्म बनाने वाले 10+ इंजीनियरों के DevOps सेंटर ऑफ़ एक्सीलेंस का नेतृत्व किया।', bullets: ['Infinity DevOps: AWS और GCP पर DevOps प्लेटफ़ॉर्म', 'Infinity AIWatch: AI-आधारित डैशबोर्ड वाला APM प्रोडक्ट (OpenAI, Python)', 'AWS पर रैपर सर्विसेज़, ताकि इंजीनियर बिना प्लेटफ़ॉर्म ज्ञान के डिलीवर कर सकें', 'कई हाइपरस्केलर्स पर MVP और POC'] },

@@ -83,7 +83,7 @@ const es = {
   slug: 'decoverai',
   seo: {
     title: 'DecoverAI: Plataforma Legal con IA | Yash Soni',
-    description: 'Caso de estudio: plataforma de búsqueda de documentos legales con IA y RAG desplegada en 10+ bufetes de EE.UU. Ayudé a construir la infraestructura y la plataforma GenAI mientras la empresa levantaba $2M+ en financiación semilla.',
+    description: 'Caso de estudio: búsqueda de documentos legales con IA y RAG en 10+ bufetes de EE.UU. La empresa levantó $2M+ en financiación semilla.',
   },
   header: {
     kicker: 'Caso de Estudio',

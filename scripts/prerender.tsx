@@ -1,506 +1,292 @@
 /**
- * Post-build script: SSR prerender using React's renderToString.
+ * Static prerender. Runs after `vite build` and the sitemap step.
  *
- * Renders the actual App component to HTML so the pre-rendered content
- * matches exactly what React produces. This enables hydrateRoot() on the
- * client to adopt the existing DOM without replacing it (zero CLS).
+ * For every route in src/seo-routes.ts it writes an HTML file whose <head>
+ * carries that route's own title, description, canonical, hreflang and JSON-LD,
+ * and whose #root holds a plain-HTML copy of the page content. Crawlers that do
+ * not run JavaScript see real content; the browser then client-renders the app
+ * over it (see src/main.tsx).
  *
- * Articles are loaded from the article registry. Only articles whose
- * component files exist will be prerendered (new case studies added to the
- * registry but not yet created will be skipped gracefully).
+ *   /            -> dist/index.html
+ *   /es/stethy   -> dist/prerendered/es/stethy.html   (served via vercel.json rewrites)
  *
- * Usage: npx tsx scripts/prerender.tsx  (runs automatically via "npm run build")
+ * The script fails the build if vercel.json has no rewrite for a route.
+ *
+ * Usage:
+ *   npx tsx --tsconfig tsconfig.app.json scripts/prerender.tsx
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import React, { Suspense, type ComponentType } from 'react';
-import { renderToString } from 'react-dom/server';
-import { StaticRouter, Routes, Route } from 'react-router-dom';
-import Critters from 'critters';
-import App from '../src/App.tsx';
-import GlobalNav from '../src/GlobalNav.tsx';
-import { articleRegistry, type ArticleConfig } from '../src/articles/registry.ts';
-import { buildArticleJsonLd } from '../src/articles/json-ld.ts';
-import AboutPage from '../src/AboutPage.tsx';
-import { aboutContent } from '../src/about-i18n.ts';
-import { seo } from '../src/i18n.ts';
-import { n8nContent } from '../src/n8n-i18n.ts';
-import { jacoboContent } from '../src/jacobo-i18n.ts';
-import { businessOsContent } from '../src/business-os-i18n.ts';
-import { pseoContent } from '../src/pseo-i18n.ts';
-import { chatbotContent } from '../src/chatbot-i18n.ts';
-import { careerOpsContent } from '../src/career-ops-i18n.ts';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { resolve, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { seoRoutes, absoluteUrl, ogLocale, SITE, type RouteSeo } from '../src/seo-routes.ts'
+import { translations, type Lang } from '../src/i18n.ts'
+import { getWorkExperience } from '../src/work-experience.ts'
+import { aboutContent } from '../src/about-i18n.ts'
+import { articleRegistry } from '../src/articles/registry.ts'
+import { decoveraiContent } from '../src/decoverai-i18n.ts'
+import { speakologyContent } from '../src/speakology-i18n.ts'
+import { infinityDevopsContent } from '../src/infinity-devops-i18n.ts'
+import { mappieContent } from '../src/mappie-i18n.ts'
+import { vectroContent } from '../src/vectro-i18n.ts'
+import { unitedMedicalContent } from '../src/united-medical-i18n.ts'
+import { stethyContent } from '../src/stethy-i18n.ts'
+import { noeticContent } from '../src/noetic-i18n.ts'
 
-// Map article id → i18n content for JSON-LD generation
-const i18nMap: Record<string, Record<string, { header: { h1: string }; nav: { breadcrumbHome: string; breadcrumbCurrent: string }; faq: { items: readonly { q: string; a: string }[] } }>> = {
-  'n8n-for-pms': n8nContent,
-  'jacobo': jacoboContent,
-  'business-os': businessOsContent,
-  'programmatic-seo': pseoContent,
-  'self-healing-chatbot': chatbotContent,
-  'career-ops': careerOpsContent,
-};
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const root = resolve(__dirname, '..')
+const dist = resolve(root, 'dist')
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = resolve(__dirname, '..');
-
-/** Strip React 19 SSR-injected <link> tags from inside #root to prevent hydration mismatch */
-function stripReactSSRTags(html: string): string {
-  return html.replace(/<link[^>]*>/g, '');
-}
+const ARTICLES = {
+  'decoverai': decoveraiContent,
+  'speakology-ai': speakologyContent,
+  'infinity-devops': infinityDevopsContent,
+  'mappie-ai': mappieContent,
+  'vectro-ai': vectroContent,
+  'united-medical': unitedMedicalContent,
+  'stethy': stethyContent,
+  'noetic': noeticContent,
+} as const
 
 // ---------------------------------------------------------------------------
-// SSR render per language (home page)
-// ---------------------------------------------------------------------------
-function renderApp(lang: 'es' | 'en'): string {
-  const path = lang === 'en' ? '/en' : '/';
-  return stripReactSSRTags(renderToString(
-    <StaticRouter location={path}>
-      <div>
-        <Suspense fallback={null}>
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/en" element={<App />} />
-          </Routes>
-        </Suspense>
-      </div>
-    </StaticRouter>
-  ));
-}
-
-function renderArticlePage(slug: string, ArticleComponent: ComponentType<{ lang: 'es' | 'en' }>, lang: 'es' | 'en'): string {
-  return stripReactSSRTags(renderToString(
-    <StaticRouter location={`/${slug}`}>
-      <GlobalNav />
-      <div>
-        <Suspense fallback={null}>
-          <Routes>
-            <Route path={`/${slug}`} element={<ArticleComponent lang={lang} />} />
-          </Routes>
-        </Suspense>
-      </div>
-    </StaticRouter>
-  ));
-}
-
-function esc(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-// ---------------------------------------------------------------------------
-// Inject into built HTML
-// ---------------------------------------------------------------------------
-const distDir = resolve(root, 'dist');
-const indexPath = resolve(distDir, 'index.html');
-
-let indexHtml: string;
-try {
-  indexHtml = readFileSync(indexPath, 'utf-8');
-} catch {
-  console.error('Error: dist/index.html not found. Run "vite build" first.');
-  process.exit(1);
-}
-
-// --- ES version (inject into existing index.html) ---
-let esHtml: string;
-try {
-  esHtml = renderApp('es');
-} catch (err) {
-  console.error('[prerender] SSR failed for ES, falling back to empty root:', err);
-  esHtml = '';
-}
-
-const esSeo = seo.es;
-
-const injectedEs = indexHtml
-  .replace('<div id="root"></div>', `<div id="root">${esHtml}</div>`)
-  .replace(/<title>[^<]*<\/title>/, `<title>${esc(esSeo.title)}</title>`)
-  .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(esSeo.title)}" />`)
-  .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(esSeo.description)}" />`)
-  .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(esSeo.title)}" />`)
-  .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(esSeo.description)}" />`)
-  .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(esSeo.title)}" />`)
-  .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(esSeo.description)}" />`);
-
-// --- EN version ---
-let enHtml: string;
-try {
-  enHtml = renderApp('en');
-} catch (err) {
-  console.error('[prerender] SSR failed for EN, falling back to empty root:', err);
-  enHtml = '';
-}
-
-const enSeo = seo.en;
-
-let enPage = indexHtml
-  .replace('<div id="root"></div>', `<div id="root">${enHtml}</div>`)
-  .replace('<html lang="es" class="dark">', '<html lang="en" class="dark">')
-  .replace(/<title>[^<]*<\/title>/, `<title>${esc(enSeo.title)}</title>`)
-  .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(enSeo.title)}" />`)
-  .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(enSeo.description)}" />`)
-  .replace(/<link rel="canonical" href="[^"]*" \/>/, '<link rel="canonical" href="https://yashsoni.dev/en" />')
-  .replace(/<meta property="og:url" content="[^"]*" \/>/, '<meta property="og:url" content="https://yashsoni.dev/en" />')
-  .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(enSeo.title)}" />`)
-  .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(enSeo.description)}" />`)
-  .replace(/<meta property="og:locale" content="es_ES" \/>/, '<meta property="og:locale" content="en_US" />')
-  .replace(/<meta property="og:locale:alternate" content="en_US" \/>/, '<meta property="og:locale:alternate" content="es_ES" />')
-  .replace(/<meta name="twitter:url" content="[^"]*" \/>/, '<meta name="twitter:url" content="https://yashsoni.dev/en" />')
-  .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(enSeo.title)}" />`)
-  .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(enSeo.description)}" />`);
-
-// ---------------------------------------------------------------------------
-// About / Entity Home — ES (/sobre-mi) + EN (/about)
+// HTML helpers
 // ---------------------------------------------------------------------------
 
-const aboutJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  dateModified: '2026-03-27',
-  mainEntity: {
-    '@type': 'Person',
-    '@id': 'https://yashsoni.dev/#person',
-    name: 'Yash Soni',
-    alternateName: ['Yash Soni', 'Yash'],
-    url: 'https://yashsoni.dev',
-    image: 'https://yashsoni.dev/foto-avatar.png',
-    email: 'yash.soni2737@gmail.com',
-    jobTitle: ['Senior Full Stack Architect'],
-    knowsAbout: [
-      { '@type': 'Thing', name: 'Artificial Intelligence', url: 'https://en.wikipedia.org/wiki/Artificial_intelligence' },
-      { '@type': 'Thing', name: 'Machine Learning', url: 'https://en.wikipedia.org/wiki/Machine_learning' },
-      { '@type': 'Thing', name: 'Multi-Agent System', url: 'https://en.wikipedia.org/wiki/Multi-agent_system' },
-      { '@type': 'Thing', name: 'Retrieval-Augmented Generation', url: 'https://en.wikipedia.org/wiki/Retrieval-augmented_generation' },
-      { '@type': 'Thing', name: 'No-code development platform', url: 'https://en.wikipedia.org/wiki/No-code_development_platform' },
-      { '@type': 'Thing', name: 'Prompt Engineering' },
-      { '@type': 'SoftwareApplication', name: 'Airtable', url: 'https://airtable.com' },
-      { '@type': 'SoftwareApplication', name: 'n8n', url: 'https://n8n.io' },
-      { '@type': 'SoftwareApplication', name: 'Claude API', url: 'https://docs.anthropic.com' },
-    ],
-    hasCredential: [
-      { '@type': 'EducationalOccupationalCredential', name: 'Introduction to Model Context Protocol', recognizedBy: { '@type': 'Organization', name: 'Anthropic' }, url: 'https://verify.skilljar.com/c/4pxam3irsioq' },
-      { '@type': 'EducationalOccupationalCredential', name: 'Claude Code in Action', recognizedBy: { '@type': 'Organization', name: 'Anthropic' }, url: 'https://verify.skilljar.com/c/eijx7hwc2x89' },
-      { '@type': 'EducationalOccupationalCredential', name: 'Advanced MCP Topics', recognizedBy: { '@type': 'Organization', name: 'Anthropic' }, url: 'https://verify.skilljar.com/c/eiovmq5qaeyd' },
-      { '@type': 'EducationalOccupationalCredential', name: 'Building with the Claude API', recognizedBy: { '@type': 'Organization', name: 'Anthropic' }, url: 'https://verify.skilljar.com/c/s4bu5znz53vm' },
-      { '@type': 'EducationalOccupationalCredential', name: 'AI Fluency: Framework & Foundations', recognizedBy: { '@type': 'Organization', name: 'Anthropic' }, url: 'https://verify.skilljar.com/c/d6rhfox7ktq6' },
-      { '@type': 'EducationalOccupationalCredential', name: 'Teaching AI Fluency', recognizedBy: { '@type': 'Organization', name: 'Anthropic' }, url: 'https://verify.skilljar.com/c/x3bzuoz99rq5' },
-      { '@type': 'EducationalOccupationalCredential', name: 'AI App Builder Certification', recognizedBy: { '@type': 'Organization', name: 'Airtable' }, url: 'https://verify.skilljar.com/c/gwg7ak9qgf7r' },
-      { '@type': 'EducationalOccupationalCredential', name: 'Airtable Builder Certification', recognizedBy: { '@type': 'Organization', name: 'Airtable' }, url: 'https://verify.skilljar.com/c/id2e4zgqtasv' },
-      { '@type': 'EducationalOccupationalCredential', name: 'Airtable Admin Certification', recognizedBy: { '@type': 'Organization', name: 'Airtable' }, url: 'https://verify.skilljar.com/c/u3r8kgn5wdit' },
-      { '@type': 'EducationalOccupationalCredential', name: 'Make Advanced', recognizedBy: { '@type': 'Organization', name: 'Make Academy' }, url: 'https://www.credly.com/badges/d27b8174-ef20-46bd-9d81-ee05e9c349e8' },
-    ],
-    alumniOf: [
-      { '@type': 'EducationalOrganization', name: 'Maven - AI Product Management Bootcamp' },
-      { '@type': 'EducationalOrganization', name: 'BIGSEO - Master en Inteligencia Artificial' },
-      { '@type': 'EducationalOrganization', name: 'ETSI - Universidad de Sevilla' },
-    ],
-    sameAs: [
-      'https://linkedin.com/in/yashsoni369',
-      'https://github.com/yashsoni369',
-    ],
-    address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
-  },
-};
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+/** Strip the inline markers the React app uses for emphasis. */
+const plain = (s: string) => esc(s.replace(/\*\*/g, ''))
+const h1 = (s: string) => `<h1 class="font-display text-3xl font-bold">${plain(s)}</h1>`
+const h2 = (s: string) => `<h2 class="font-display text-xl font-semibold mt-10 mb-3">${plain(s)}</h2>`
+const h3 = (s: string) => `<h3 class="font-display font-semibold mt-5">${plain(s)}</h3>`
+const p = (s: string) => `<p class="text-muted-foreground mt-2">${plain(s)}</p>`
+const ul = (items: string[]) => (items.length ? `<ul class="text-muted-foreground list-disc pl-5 mt-2">${items.map(i => `<li>${i}</li>`).join('')}</ul>` : '')
+const a = (href: string, text: string) => `<a class="text-primary underline" href="${esc(href)}">${plain(text)}</a>`
+const shell = (inner: string) => `<div class="min-h-screen bg-background text-foreground"><main class="max-w-3xl mx-auto px-6 py-16">${inner}</main></div>`
 
-const aboutJsonLdScript = `<script type="application/ld+json">\n${JSON.stringify(aboutJsonLd, null, 2)}\n</script>`;
+const homePath = (l: Lang) => (l === 'en' ? '/' : `/${l}`)
 
-interface AboutPageData {
-  slug: string;
-  html: string;
-}
+// ---------------------------------------------------------------------------
+// Page bodies
+// ---------------------------------------------------------------------------
 
-const aboutPages: AboutPageData[] = [];
+function homeBody(lang: Lang): string {
+  const t = translations[lang]
+  const work = getWorkExperience(lang)
+  const out: string[] = []
+  out.push(h1('Yash Soni'))
+  out.push(p(`${t.greetingRoles[0]} ${t.greeting} ${t.heroPill} ${t.role}`))
+  out.push(p(t.location))
+  out.push(p(`${t.summary.p1} ${t.summary.p1Highlight} ${t.summary.p1End}`))
 
-for (const lang of ['es', 'en'] as const) {
-  const t = aboutContent[lang];
-  const slug = t.slug;
-  const altSlug = t.altSlug;
-  const url = `https://yashsoni.dev/${slug}`;
-  const altUrl = `https://yashsoni.dev/${altSlug}`;
-  const altLang = lang === 'es' ? 'en' : 'es';
-  const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
-  const ogLocaleAlt = lang === 'es' ? 'en_US' : 'es_ES';
+  out.push(h2(t.experience.title))
+  for (const job of work.jobs) {
+    out.push(h3(job.company))
+    out.push(p(`${job.role} · ${job.when} · ${job.where}`))
+    out.push(p(job.lead))
+    out.push(ul(job.bullets.map(plain)))
+    if (job.clients) out.push(ul(job.clients.map(c => `<strong>${plain(c.name)}</strong>: ${plain(c.desc)} (${plain(c.tag)})`)))
+    if (job.products) out.push(ul(job.products.map(pr => `<strong>${plain(pr.name)}</strong> (${plain(pr.status)}): ${plain(pr.desc)}${pr.url ? ` ${a(pr.url, pr.meta)}` : ''}`)))
+    if (job.quote) out.push(`<blockquote class="text-muted-foreground italic mt-3">&ldquo;${plain(job.quote.text)}&rdquo; ${plain(job.quote.author)}, ${plain(job.quote.role)}</blockquote>`)
+  }
+  for (const q of work.clientQuotes) out.push(`<blockquote class="text-muted-foreground italic mt-3">&ldquo;${plain(q.text)}&rdquo; ${plain(q.author)}, ${plain(q.role)}</blockquote>`)
 
-  let renderedHtml: string;
-  try {
-    renderedHtml = stripReactSSRTags(renderToString(
-      <StaticRouter location={`/${slug}`}>
-        <GlobalNav />
-        <div>
-          <Suspense fallback={null}>
-            <Routes>
-              <Route path={`/${slug}`} element={<AboutPage lang={lang} />} />
-            </Routes>
-          </Suspense>
-        </div>
-      </StaticRouter>
-    ));
-  } catch (err) {
-    console.error(`[prerender] SSR failed for ${slug}, falling back to empty root:`, err);
-    renderedHtml = '';
+  out.push(h3(work.labels.caseStudies))
+  out.push(ul(articleRegistry.map(x => a(`/${x.slugs[lang === 'es' ? 'es' : 'en']}`, x.titles[lang === 'es' ? 'es' : 'en']))))
+
+  out.push(h2(t.projects.title))
+  for (const item of t.projects.items as { title: string; desc: string; tech: string[]; link: string; caseStudyUrl?: string; caseStudyLabel?: string }[]) {
+    out.push(h3(item.title))
+    out.push(p(item.desc))
+    out.push(p(item.tech.join(', ')))
+    if (item.caseStudyUrl) out.push(`<p class="mt-1">${a(item.caseStudyUrl, item.caseStudyLabel ?? item.title)}</p>`)
+    else if (item.link) out.push(`<p class="mt-1">${a(`https://${item.link}`, item.link)}</p>`)
   }
 
-  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="${altLang}" href="${altUrl}" /><link rel="alternate" hreflang="x-default" href="https://yashsoni.dev/es/about" />`;
+  out.push(h2(t.techStack.title))
+  out.push(ul(t.techStack.categories.map(c => `<strong>${plain(c.name)}</strong>: ${plain(c.items.join(', '))}`)))
 
-  let result = indexHtml
-    .replace('<div id="root"></div>', `<div id="root">${renderedHtml}</div>`)
-    .replace('<html lang="es" class="dark">', `<html lang="${lang}" class="dark">`)
-    .replace(/<title>[^<]*<\/title>/, `<title>${esc(t.seo.title)}</title>`)
-    .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(t.seo.title)}" />`)
-    .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(t.seo.description)}" />`)
-    .replace(/<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\s*/g, '')
-    .replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />${hreflangLinks}`)
-    .replace(/<meta property="og:type" content="[^"]*" \/>/, '<meta property="og:type" content="profile" />')
-    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`)
-    .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(t.seo.title)}" />`)
-    .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(t.seo.description)}" />`)
-    .replace(/<meta property="og:locale" content="es_ES" \/>/, `<meta property="og:locale" content="${ogLocale}" />`)
-    .replace(/<meta property="og:locale:alternate" content="en_US" \/>/, `<meta property="og:locale:alternate" content="${ogLocaleAlt}" />`)
-    .replace(/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${url}" />`)
-    .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(t.seo.title)}" />`)
-    .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(t.seo.description)}" />`);
+  out.push(h2(t.education.title))
+  out.push(ul(t.education.items.map(e => plain(`${e.title}, ${e.org}, ${e.year}`))))
+  out.push(h2(t.certifications.title))
+  out.push(ul(t.certifications.items.map(c => plain(`${c.title}, ${c.org}`))))
 
-  // Replace homepage JSON-LD with ProfilePage JSON-LD
-  result = result.replace(
-    /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
-    aboutJsonLdScript,
-  );
+  out.push(h2(t.cta.title))
+  out.push(p(t.cta.desc))
+  const langs: Lang[] = ['en', 'es', 'zh', 'fr', 'pt', 'hi']
+  out.push(
+    `<p class="mt-4">${[
+      a(lang === 'es' ? '/es/about' : '/about', aboutContent[lang === 'es' ? 'es' : 'en'].heading),
+      a('https://www.linkedin.com/in/yashsoni369', 'LinkedIn'),
+      a('https://github.com/yashsoni369', 'GitHub'),
+      ...langs.filter(l => l !== lang).map(l => a(homePath(l), l.toUpperCase())),
+    ].join(' · ')}</p>`,
+  )
+  return shell(out.join('\n'))
+}
 
-  aboutPages.push({ slug, html: result });
+function aboutBody(lang: 'en' | 'es'): string {
+  const t = aboutContent[lang]
+  const out: string[] = []
+  out.push(h1(t.heading))
+  out.push(p(`${t.subtitle} · ${t.location}`))
+  for (const b of t.bio) out.push(p(b))
+  out.push(p(t.seeking))
+  out.push(h2(t.timelineHeading))
+  out.push(ul(t.timeline.map(row => `<strong>${plain(row.company)}</strong>, ${plain(row.role)} (${plain(row.period)}): ${plain(row.desc)}`)))
+  out.push(h2(t.certificationsHeading))
+  out.push(ul(t.certifications.map(c => plain(`${c.items.join(', ')}, ${c.org}`))))
+  out.push(h2(t.educationHeading))
+  out.push(ul(t.education.map(plain)))
+  out.push(h2(t.faqHeading))
+  for (const f of t.faq) {
+    out.push(h3(f.q))
+    out.push(p(f.a))
+  }
+  out.push(`<p class="mt-6">${a(lang === 'es' ? '/es' : '/', 'yashsoni.dev')}</p>`)
+  return shell(out.join('\n'))
+}
+
+function articleBody(id: keyof typeof ARTICLES, lang: 'en' | 'es'): string {
+  const t = ARTICLES[id][lang]
+  const s = t.sections
+  const out: string[] = []
+  out.push(`<p class="text-primary text-sm uppercase">${plain(t.header.kicker)}</p>`)
+  out.push(h1(t.header.h1))
+  out.push(p(t.header.subtitle))
+  out.push(p(`Yash Soni · ${t.header.date}`))
+  out.push(h2(s.problem.title), p(s.problem.content))
+  out.push(h2(s.solution.title), p(s.solution.content))
+  if (s.architecture.stack.length) out.push(h2(s.architecture.title), ul(s.architecture.stack.map(x => `<strong>${plain(x.name)}</strong>: ${plain(x.items)}`)))
+  if (s.features.items.length) out.push(h2(s.features.title), ul(s.features.items.map(x => `<strong>${plain(x.title)}</strong>: ${plain(x.desc)}`)))
+  if (s.results.metrics.length) out.push(h2(s.results.title), ul(s.results.metrics.map(x => `<strong>${plain(x.value)}</strong> ${plain(x.label)}`)))
+  out.push(h2(s.myRole.title), p(s.myRole.content))
+  if (s.testimonial.quote) out.push(`<blockquote class="text-muted-foreground italic mt-4">&ldquo;${plain(s.testimonial.quote)}&rdquo; ${plain(s.testimonial.author)}, ${plain(s.testimonial.role)}</blockquote>`)
+  out.push(`<p class="mt-6">${a(lang === 'es' ? '/es' : '/', 'Yash Soni')}</p>`)
+  return shell(out.join('\n'))
+}
+
+function privacyBody(r: RouteSeo): string {
+  return shell(h1(r.title) + p(r.description))
 }
 
 // ---------------------------------------------------------------------------
-// Article pages — build from registry
+// JSON-LD for non-home pages (home keeps the graph from index.html)
 // ---------------------------------------------------------------------------
-interface ArticlePage {
-  slug: string;
-  html: string;
-}
 
-function buildArticlePage(
-  config: ArticleConfig,
-  lang: 'es' | 'en',
-  ArticleComponent: ComponentType<{ lang: 'es' | 'en' }>,
-): string {
-  const slug = config.slugs[lang];
-  const altSlug = config.slugs[lang === 'es' ? 'en' : 'es'];
-  const url = `https://yashsoni.dev/${slug}`;
-  const altUrl = `https://yashsoni.dev/${altSlug}`;
-  const altLang = lang === 'es' ? 'en' : 'es';
-  const htmlLang = lang;
-  const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
-  const ogLocaleAlt = lang === 'es' ? 'en_US' : 'es_ES';
-  const articleSeo = config.seo[lang];
-  const xDefaultHref = `https://yashsoni.dev/${config.xDefaultSlug || config.slugs.es}`;
+const PERSON = { '@type': 'Person', '@id': `${SITE}/#person`, name: 'Yash Soni', url: SITE }
 
-  let renderedHtml: string;
-  try {
-    renderedHtml = renderArticlePage(slug, ArticleComponent, lang);
-  } catch (err) {
-    console.error(`[prerender] SSR failed for ${slug}, falling back to empty root:`, err);
-    renderedHtml = '';
-  }
-
-  const hreflangLinks = `<link rel="alternate" hreflang="${lang}" href="${url}" /><link rel="alternate" hreflang="${altLang}" href="${altUrl}" /><link rel="alternate" hreflang="x-default" href="${xDefaultHref}" />`;
-
-  let result = indexHtml
-    .replace('<div id="root"></div>', `<div id="root">${renderedHtml}</div>`)
-    .replace('<html lang="es" class="dark">', `<html lang="${htmlLang}" class="dark">`)
-    .replace(/<title>[^<]*<\/title>/, `<title>${esc(articleSeo.title)}</title>`)
-    .replace(/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${esc(articleSeo.title)}" />`)
-    .replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${esc(articleSeo.description)}" />`)
-    // Remove home hreflang tags before injecting article-specific ones
-    .replace(/<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>\s*/g, '')
-    .replace(/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />${hreflangLinks}`)
-    .replace(/<meta property="og:type" content="[^"]*" \/>/, '<meta property="og:type" content="article" />')
-    .replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`)
-    .replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${esc(articleSeo.title)}" />`)
-    .replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${esc(articleSeo.description)}" />`)
-    .replace(/<meta property="og:locale" content="es_ES" \/>/, `<meta property="og:locale" content="${ogLocale}" />`)
-    .replace(/<meta property="og:locale:alternate" content="en_US" \/>/, `<meta property="og:locale:alternate" content="${ogLocaleAlt}" />`)
-    .replace(/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${url}" />`)
-    .replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${esc(articleSeo.title)}" />`)
-    .replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${esc(articleSeo.description)}" />`)
-    // OG image — replace with article-specific image if configured
-    .replace(/<meta property="og:image" content="[^"]*" \/>/, `<meta property="og:image" content="${esc(config.ogImage || 'https://yashsoni.dev/og-image.webp')}" />`)
-    .replace(/<meta property="og:image:alt" content="[^"]*" \/>/, `<meta property="og:image:alt" content="${esc(articleSeo.title)}" />`)
-    .replace(/<meta name="twitter:image" content="[^"]*" \/>/, config.ogImage ? `<meta name="twitter:image" content="${esc(config.ogImage)}" />` : '');
-
-  // Inject article:published_time + article:modified_time + article:tag
-  const seoMeta = config.seoMeta;
-  if (seoMeta) {
-    const articleMetaTags = [
-      `<meta property="article:published_time" content="${seoMeta.datePublished}" />`,
-      `<meta property="article:modified_time" content="${seoMeta.dateModified}" />`,
-      `<meta property="article:author" content="https://linkedin.com/in/yashsoni369" />`,
-      `<meta property="article:tag" content="${esc(seoMeta.articleTags)}" />`,
-    ].join('\n    ');
-    result = result.replace('</head>', `    ${articleMetaTags}\n  </head>`);
-  }
-
-  // Inject article JSON-LD (replace homepage Person/WebSite schema)
-  const i18n = i18nMap[config.id];
-  if (seoMeta && i18n) {
-    const t = i18n[lang];
-    if (t) {
-      const jsonLd = buildArticleJsonLd({
-        lang,
-        url: `https://yashsoni.dev/${slug}`,
-        altUrl: `https://yashsoni.dev/${altSlug}`,
-        headline: t.header.h1,
-        alternativeHeadline: articleSeo.title,
-        description: articleSeo.description,
-        datePublished: seoMeta.datePublished,
-        dateModified: seoMeta.dateModified,
-        keywords: seoMeta.keywords,
-        images: config.heroImage ? [config.heroImage] : seoMeta.images,
-        breadcrumbHome: t.nav.breadcrumbHome,
-        breadcrumbCurrent: t.nav.breadcrumbCurrent,
-        faq: t.faq.items,
-        articleType: seoMeta.articleType,
-        about: seoMeta.about,
-        extra: seoMeta.extra,
-        citation: seoMeta.citation,
-        isBasedOn: seoMeta.isBasedOn,
-        mentions: seoMeta.mentions,
-        discussionUrl: seoMeta.discussionUrl,
-        relatedLink: seoMeta.relatedLink,
-      });
-      const jsonLdScript = `<script type="application/ld+json">\n${JSON.stringify(jsonLd, null, 2)}\n</script>`;
-      // Replace the homepage JSON-LD with article-specific one
-      result = result.replace(
-        /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
-        jsonLdScript,
-      );
+function jsonLd(r: RouteSeo): object | null {
+  const url = absoluteUrl(r.path)
+  const crumbs = (name: string) => ({
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Yash Soni', item: `${SITE}/` },
+      { '@type': 'ListItem', position: 2, name, item: url },
+    ],
+  })
+  if (r.kind === 'article') {
+    const t = ARTICLES[r.id as keyof typeof ARTICLES][r.lang as 'en' | 'es']
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'Article', '@id': `${url}#article`, headline: t.header.h1, description: r.description, inLanguage: r.lang, mainEntityOfPage: url, author: PERSON, publisher: PERSON },
+        crumbs(t.header.h1),
+      ],
     }
   }
-
-  return result;
-}
-
-// Load article components and build pages
-const articlePages: ArticlePage[] = [];
-
-for (const config of articleRegistry) {
-  let ArticleComponent: ComponentType<{ lang: 'es' | 'en' }>;
-  try {
-    const mod = await config.component();
-    ArticleComponent = mod.default;
-  } catch {
-    console.log(`[prerender] Skipping ${config.id} — component not found yet`);
-    continue;
+  if (r.kind === 'about') {
+    const t = aboutContent[r.lang as 'en' | 'es']
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        { '@type': 'ProfilePage', '@id': `${url}#profile`, url, inLanguage: r.lang, mainEntity: { ...PERSON, jobTitle: t.roles, address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' }, sameAs: ['https://www.linkedin.com/in/yashsoni369', 'https://github.com/yashsoni369', 'https://www.upwork.com/freelancers/yashs369'] } },
+        { '@type': 'FAQPage', mainEntity: t.faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+        crumbs(t.heading),
+      ],
+    }
   }
-
-  const seen = new Set<string>();
-  for (const lang of ['es', 'en'] as const) {
-    const slug = config.slugs[lang];
-    if (seen.has(slug)) continue; // same slug for both languages
-    seen.add(slug);
-    const html = buildArticlePage(config, lang, ArticleComponent);
-    articlePages.push({ slug, html });
-  }
+  return null
 }
 
 // ---------------------------------------------------------------------------
-// Critical CSS inlining with Critters
+// Head rewriting
 // ---------------------------------------------------------------------------
-const critters = new Critters({
-  path: distDir,
-  publicPath: '/',
-  inlineFonts: false,
-  preload: 'media',
-  compress: true,
-  reduceInlineStyles: true,
-});
 
-function dedupePreloads(html: string): string {
-  return html.replace(/<link rel="preload" as="image" href="\/foto-avatar\.webp">/g, '');
+function replaceOnce(html: string, re: RegExp, value: string, what: string): string {
+  if (!re.test(html)) throw new Error(`[prerender] template is missing ${what}`)
+  return html.replace(re, value)
 }
 
-async function writePage(html: string, outputPath: string, label: string) {
-  const dir = dirname(outputPath);
-  mkdirSync(dir, { recursive: true });
-  try {
-    const processed = dedupePreloads(await critters.process(html));
-    writeFileSync(outputPath, processed, 'utf-8');
-    console.log(`[prerender] ${label} (with critical CSS)`);
-  } catch {
-    writeFileSync(outputPath, html, 'utf-8');
-    console.log(`[prerender] ${label} (no critical CSS)`);
-  }
-}
+function render(template: string, r: RouteSeo, body: string): string {
+  const url = absoluteUrl(r.path)
+  const t = esc(r.title)
+  const d = esc(r.description)
+  let html = template
+  html = replaceOnce(html, /<html lang="[^"]*"/, `<html lang="${r.lang}"`, '<html lang>')
+  html = replaceOnce(html, /<title>[^<]*<\/title>/, `<title>${t}</title>`, '<title>')
+  const metas: [RegExp, string, string][] = [
+    [/<meta name="title" content="[^"]*" \/>/, `<meta name="title" content="${t}" />`, 'meta title'],
+    [/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${d}" />`, 'meta description'],
+    [/<meta name="robots" content="[^"]*" \/>/, `<meta name="robots" content="${r.noindex ? 'noindex, nofollow' : 'index, follow'}" />`, 'meta robots'],
+    [/<link rel="canonical" href="[^"]*" \/>/, `<link rel="canonical" href="${url}" />`, 'canonical'],
+    [/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${url}" />`, 'og:url'],
+    [/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${t}" />`, 'og:title'],
+    [/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${d}" />`, 'og:description'],
+    [/<meta property="og:locale" content="[^"]*" \/>/, `<meta property="og:locale" content="${ogLocale(r.lang)}" />`, 'og:locale'],
+    [/<meta name="twitter:url" content="[^"]*" \/>/, `<meta name="twitter:url" content="${url}" />`, 'twitter:url'],
+    [/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${t}" />`, 'twitter:title'],
+    [/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${d}" />`, 'twitter:description'],
+  ]
+  for (const [re, value, what] of metas) html = replaceOnce(html, re, value, what)
 
-async function inlineCriticalCSS() {
-  // Home pages
-  await writePage(injectedEs, indexPath, 'ES: dist/index.html updated');
-  await writePage(enPage, resolve(distDir, 'en', 'index.html'), 'EN: dist/en/index.html created');
+  // hreflang: drop the template's set, add this route's
+  html = html.replace(/\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*" \/>/g, '')
+  const alts = r.alternates.map(x => `    <link rel="alternate" hreflang="${x.hreflang}" href="${absoluteUrl(x.path)}" />`).join('\n')
+  if (alts) html = html.replace(/(<link rel="canonical" href="[^"]*" \/>)/, `$1\n${alts}`)
 
-  // About pages
-  for (const { slug, html } of aboutPages) {
-    await writePage(html, resolve(distDir, slug, 'index.html'), `${slug}: dist/${slug}/index.html created`);
-  }
-
-  // Article pages
-  for (const { slug, html } of articlePages) {
-    await writePage(html, resolve(distDir, slug, 'index.html'), `${slug}: dist/${slug}/index.html created`);
-  }
-}
-
-await inlineCriticalCSS();
-
-// ---------------------------------------------------------------------------
-// 404 page — Vercel serves this with HTTP 404 status automatically
-// ---------------------------------------------------------------------------
-const notFoundHtml = indexHtml
-  .replace('<div id="root"></div>', `<div id="root"><div style="min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 1.5rem"><p style="font-size:6rem;font-weight:bold;color:var(--primary);margin-bottom:1rem;font-family:var(--font-display)">404</p><h1 style="font-size:1.5rem;font-weight:600;color:var(--foreground);margin-bottom:0.5rem">Page not found</h1><p style="color:var(--muted-foreground);margin-bottom:2rem;max-width:28rem">The page you're looking for doesn't exist or has been moved.</p><a href="/" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.5rem;border-radius:0.75rem;background:var(--primary);color:var(--primary-foreground);font-weight:500;text-decoration:none">← Back to home</a></div></div>`)
-  .replace(/<meta name="robots" content="[^"]*" \/>/, '<meta name="robots" content="noindex, nofollow" />')
-  .replace(/<title>[^<]*<\/title>/, '<title>404 — Page not found | yashsoni.dev</title>');
-
-// Add noindex if no robots meta exists
-if (!notFoundHtml.includes('name="robots"')) {
-  const withNoindex = notFoundHtml.replace('</head>', '<meta name="robots" content="noindex, nofollow" /></head>');
-  writeFileSync(resolve(distDir, '404.html'), withNoindex, 'utf-8');
-} else {
-  writeFileSync(resolve(distDir, '404.html'), notFoundHtml, 'utf-8');
-}
-console.log('[prerender] 404: dist/404.html created');
-
-// ---------------------------------------------------------------------------
-// Hydration structure validation
-// ---------------------------------------------------------------------------
-function validateHydrationStructure(html: string, label: string) {
-  const rootMatch = html.match(/<div id="root">([\s\S]*?)<\/div>\s*<script/);
-  if (!rootMatch || !rootMatch[1].trim()) return; // empty root = OK (fallback)
-  const content = rootMatch[1];
-
-  // Must NOT contain <link> tags (React 19 SSR artifacts)
-  if (/<link\s/.test(content)) {
-    console.error(`[hydration-check] FAIL ${label}: <link> tags found inside #root — will cause hydration mismatch`);
-    process.exit(1);
+  if (r.kind !== 'home') {
+    const ld = jsonLd(r)
+    const block = ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : ''
+    html = replaceOnce(html, /<script type="application\/ld\+json">[\s\S]*?<\/script>/, block, 'JSON-LD block')
   }
 
-  // Must have <div> wrapper (PageTransition)
-  if (!content.includes('<div')) {
-    console.error(`[hydration-check] FAIL ${label}: missing <div> wrapper (PageTransition) inside #root`);
-    process.exit(1);
+  return replaceOnce(html, /<div id="root"><\/div>/, `<div id="root">${body}</div>`, '#root')
+}
+
+// ---------------------------------------------------------------------------
+// Run
+// ---------------------------------------------------------------------------
+
+const template = readFileSync(resolve(dist, 'index.html'), 'utf-8')
+const rewrites: { source: string; destination: string }[] = JSON.parse(readFileSync(resolve(root, 'vercel.json'), 'utf-8')).rewrites ?? []
+
+const fileFor = (path: string) => `/prerendered${path}.html`
+let home = ''
+let count = 0
+
+for (const r of seoRoutes) {
+  const body =
+    r.kind === 'home' ? homeBody(r.lang)
+    : r.kind === 'about' ? aboutBody(r.lang as 'en' | 'es')
+    : r.kind === 'article' ? articleBody(r.id as keyof typeof ARTICLES, r.lang as 'en' | 'es')
+    : privacyBody(r)
+  const html = render(template, r, body)
+
+  if (r.path === '/') {
+    home = html
+    continue
   }
+  const dest = fileFor(r.path)
+  const rule = rewrites.find(x => x.source === r.path)
+  if (!rule || rule.destination !== dest) {
+    throw new Error(`[prerender] vercel.json needs a rewrite { "source": "${r.path}", "destination": "${dest}" }`)
+  }
+  const out = resolve(dist, `.${dest}`)
+  mkdirSync(dirname(out), { recursive: true })
+  writeFileSync(out, html, 'utf-8')
+  count++
 }
 
-// Validate home pages
-validateHydrationStructure(injectedEs, 'home-es');
-validateHydrationStructure(enPage, 'home-en');
-
-// Validate about pages
-for (const { slug, html } of aboutPages) {
-  validateHydrationStructure(html, slug);
-}
-
-// Validate article pages
-for (const { slug, html } of articlePages) {
-  validateHydrationStructure(html, slug);
-}
-
-console.log('[hydration-check] All pages pass structural validation');
-console.log('[prerender] Done.');
+// Home last: every other page was rendered from the untouched template.
+writeFileSync(resolve(dist, 'index.html'), home, 'utf-8')
+console.log(`[prerender] Wrote ${count + 1} pages`)

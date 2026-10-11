@@ -76,7 +76,7 @@ const en = {
 const es = {
   slug: 'united-medical',
   seo: {
-    title: 'United Medical: Gestión de Contratos Hospital-Médico | Yash Soni',
+    title: 'United Medical: Contratos Hospital-Médico | Yash Soni',
     description: 'Caso de estudio: aplicación de gestión de contratos para una startup de salud alemana, un retainer activo desde agosto de 2023.',
   },
   header: {
