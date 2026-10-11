@@ -1,6 +1,19 @@
 # Yash Soni
 
-> Independent AI Architect · Senior Full Stack Architect
+> Independent AI architect and senior full stack architect in Mumbai, India, with 9+ years of experience. Builds RAG platforms, voice AI and multi-tenant SaaS for clients in the US, UK and Germany. Available for freelance and contract work worldwide.
+
+## Key pages
+
+- [Home](https://www.yashsoni.dev/): work experience, products, projects, tech stack and FAQ
+- [About](https://www.yashsoni.dev/about): bio, career timeline, certifications and education
+- [DecoverAI case study](https://www.yashsoni.dev/decoverai): legal document search with RAG, used by 10+ US law firms
+- [Stethy case study](https://www.yashsoni.dev/stethy): backend and AWS infrastructure for a B2B AI email triage SaaS
+- [Speakology AI case study](https://www.yashsoni.dev/speakology-ai): AI avatar language app, zero to 10+ UK school subscriptions in 3 months
+- [United Medical case study](https://www.yashsoni.dev/united-medical): hospital and doctor contract management for a German healthcare startup
+- [Mappie AI case study](https://www.yashsoni.dev/mappie-ai): AI tool that turns requirements into dev-ready user stories, built for Nindo Solutions
+- [Vectro AI case study](https://www.yashsoni.dev/vectro-ai): sales insights from calls, email and Slack with vector search
+- [Infinity DevOps case study](https://www.yashsoni.dev/infinity-devops): multi-cloud DevOps platform built at LTI Mindtree
+- [Noetic case study](https://www.yashsoni.dev/noetic): automated assessment platform for ADHD, autism, dyslexia, dyspraxia and dyscalculia
 
 ## Contact & Availability
 

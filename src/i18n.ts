@@ -425,6 +425,17 @@ export const translations = {
         'Colaboraci\u00f3n con Clientes',
       ],
     },
+    faq: {
+      title: 'Preguntas frecuentes',
+      items: [
+        { q: '¿Quién es Yash Soni?', a: 'Yash Soni es un arquitecto de IA independiente y Senior Full Stack Architect con sede en Mumbai, India. Construye software en producción desde enero de 2017, más de 9 años, y hoy trabaja con startups financiadas de EE.UU., Reino Unido y Alemania en productos de IA y SaaS, además de lanzar los suyos.' },
+        { q: '¿Qué construye Yash Soni?', a: 'Plataformas RAG y de búsqueda documental, agentes de voz con IA y productos SaaS multi-tenant. Por ejemplo, la plataforma GenAI de DecoverAI, usada en bufetes de EE.UU., Speakology, una app de idiomas con avatar IA para escuelas del Reino Unido, y sus propios productos BrandGen, TriageGrid, Convo AI y CC Logins.' },
+        { q: '¿Yash está disponible para trabajo freelance o por contrato?', a: 'Sí. Yash acepta trabajo freelance, por contrato y en modalidad retainer con clientes de todo el mundo, y trabaja en remoto desde Mumbai. La forma más rápida de empezar es reservar una llamada desde la sección de contacto de este sitio o escribir a yash.soni2737@gmail.com.' },
+        { q: '¿Con qué tecnologías trabaja Yash?', a: 'En aplicaciones: Next.js, React, Angular, Node.js, Python y .NET Core. En IA: modelos de OpenAI, Gemini y Claude, pipelines RAG y bases de datos vectoriales como Pinecone, Qdrant y pgVector. En infraestructura: AWS, GCP, Azure, Docker y Kubernetes.' },
+        { q: '¿Con qué sectores y clientes ha trabajado Yash?', a: 'Legal tech, salud, educación y software de ventas. Entre sus clientes están DecoverAI, una empresa de IA legal de EE.UU. que levantó $2M+ en financiación semilla, United Medical en Alemania, Speakology en el Reino Unido y Nindo Solutions, para quien construyó Mappie AI. Antes lideró un equipo DevOps de 10+ ingenieros en LTI Mindtree.' },
+        { q: '¿Dónde está Yash y cómo trabaja?', a: 'Yash vive en Mumbai, India, y trabaja en remoto con equipos de EE.UU., Reino Unido y Europa. Es Top Rated en Upwork, con un 100% de éxito en 19 trabajos y 757 horas, y suele encargarse del proyecto de principio a fin, de la arquitectura al despliegue.' },
+      ],
+    },
     cta: {
       title: 'Construyamos Juntos',
       desc: 'Disponible para trabajo freelance y por contrato en todo el mundo. Construyo soluciones escalables de IA y SaaS, desde la arquitectura hasta el despliegue.',
@@ -872,6 +883,17 @@ export const translations = {
         'Solution Design',
         'Agile/Scrum',
         'Client Collaboration',
+      ],
+    },
+    faq: {
+      title: 'Frequently Asked Questions',
+      items: [
+        { q: 'Who is Yash Soni?', a: 'Yash Soni is an independent AI architect and senior full stack architect based in Mumbai, India. He has built production software since January 2017, more than 9 years, and now works with funded startups in the US, UK and Germany on AI and SaaS products while shipping his own.' },
+        { q: 'What does Yash Soni build?', a: 'RAG and document-search platforms, AI voice agents and multi-tenant SaaS products. Examples include the GenAI platform behind DecoverAI, used in US law firms, Speakology, an AI avatar language app for UK schools, and his own products BrandGen, TriageGrid, Convo AI and CC Logins.' },
+        { q: 'Is Yash available for freelance or contract work?', a: 'Yes. Yash takes freelance, contract and retainer work with clients worldwide and works remotely from Mumbai. The fastest way to start is to book a discovery call from the contact section of this site, or to email yash.soni2737@gmail.com.' },
+        { q: 'Which technologies does Yash work with?', a: 'For applications: Next.js, React, Angular, Node.js, Python and .NET Core. For AI: OpenAI, Gemini and Claude models, RAG pipelines, and vector databases such as Pinecone, Qdrant and pgVector. For infrastructure: AWS, GCP, Azure, Docker and Kubernetes.' },
+        { q: 'Which industries and clients has Yash worked with?', a: 'Legal tech, healthcare, education and sales software. Clients include DecoverAI, a US legal AI company that raised $2M+ in seed funding, United Medical in Germany, Speakology in the UK and Nindo Solutions, for whom he built Mappie AI. Earlier he led a DevOps team of 10+ engineers at LTI Mindtree.' },
+        { q: 'Where is Yash based and how does he work?', a: 'Yash is based in Mumbai, India, and works remotely with teams in the US, UK and Europe. He is Top Rated on Upwork with a 100% job success score across 19 jobs and 757 hours, and usually owns a project end to end, from architecture to deployment.' },
       ],
     },
     cta: {
@@ -1323,6 +1345,17 @@ export const translations = {
         '客户协作',
       ],
     },
+    faq: {
+      title: '常见问题',
+      items: [
+        { q: 'Yash Soni是谁？', a: 'Yash Soni是一位常驻印度孟买的独立AI架构师和高级全栈架构师。他自2017年1月起构建生产级软件，已有9年以上经验，目前为美国、英国和德国的融资初创公司开发AI和SaaS产品，同时发布自己的产品。' },
+        { q: 'Yash Soni构建什么？', a: 'RAG与文档搜索平台、AI语音助手以及多租户SaaS产品。例如被美国律所使用的DecoverAI GenAI平台、面向英国学校的AI虚拟形象语言应用Speakology，以及他自己的产品BrandGen、TriageGrid、Convo AI和CC Logins。' },
+        { q: 'Yash接受自由职业或合同工作吗？', a: '接受。Yash承接全球客户的自由职业、合同和长期合作项目，在孟买远程工作。最快的开始方式是在本站联系部分预约沟通电话，或发送邮件至yash.soni2737@gmail.com。' },
+        { q: 'Yash使用哪些技术？', a: '应用开发：Next.js、React、Angular、Node.js、Python和.NET Core。AI方面：OpenAI、Gemini和Claude模型、RAG流程，以及Pinecone、Qdrant、pgVector等向量数据库。基础设施：AWS、GCP、Azure、Docker和Kubernetes。' },
+        { q: 'Yash服务过哪些行业和客户？', a: '法律科技、医疗、教育和销售软件。客户包括获得超过200万美元种子轮融资的美国法律AI公司DecoverAI、德国的United Medical、英国的Speakology，以及委托他构建Mappie AI的Nindo Solutions。此前他在LTI Mindtree带领10多名工程师的DevOps团队。' },
+        { q: 'Yash在哪里，如何合作？', a: 'Yash常驻印度孟买，与美国、英国和欧洲的团队远程协作。他是Upwork的Top Rated自由职业者，19个项目、757小时，工作成功率100%，通常从架构到部署全程负责项目。' },
+      ],
+    },
     cta: {
       title: '一起构建',
       desc: '全球范围内可承接自由职业和合同工作。我构建可扩展的AI和SaaS解决方案，从架构到部署。',
@@ -1770,6 +1803,17 @@ export const translations = {
         'Conception de solutions',
         'Agile/Scrum',
         'Collaboration client',
+      ],
+    },
+    faq: {
+      title: 'Questions fréquentes',
+      items: [
+        { q: 'Qui est Yash Soni ?', a: 'Yash Soni est un architecte IA indépendant et architecte full stack senior basé à Mumbai, en Inde. Il construit des logiciels en production depuis janvier 2017, soit plus de 9 ans, et travaille aujourd\'hui avec des startups financées aux États-Unis, au Royaume-Uni et en Allemagne sur des produits IA et SaaS, tout en lançant les siens.' },
+        { q: 'Que construit Yash Soni ?', a: 'Des plateformes RAG et de recherche documentaire, des agents vocaux IA et des produits SaaS multi-tenant. Par exemple la plateforme GenAI de DecoverAI, utilisée par des cabinets d\'avocats américains, Speakology, une application de langues avec avatar IA pour les écoles britanniques, et ses propres produits BrandGen, TriageGrid, Convo AI et CC Logins.' },
+        { q: 'Yash est-il disponible en freelance ou en contrat ?', a: 'Oui. Yash accepte des missions freelance, des contrats et des missions récurrentes avec des clients du monde entier, et travaille à distance depuis Mumbai. Le plus rapide est de réserver un appel depuis la section contact de ce site ou d\'écrire à yash.soni2737@gmail.com.' },
+        { q: 'Avec quelles technologies Yash travaille-t-il ?', a: 'Côté applications : Next.js, React, Angular, Node.js, Python et .NET Core. Côté IA : les modèles OpenAI, Gemini et Claude, des pipelines RAG et des bases vectorielles comme Pinecone, Qdrant et pgVector. Côté infrastructure : AWS, GCP, Azure, Docker et Kubernetes.' },
+        { q: 'Pour quels secteurs et clients Yash a-t-il travaillé ?', a: 'La legal tech, la santé, l\'éducation et les logiciels de vente. Parmi ses clients : DecoverAI, une société américaine d\'IA juridique qui a levé plus de 2 M$ en amorçage, United Medical en Allemagne, Speakology au Royaume-Uni et Nindo Solutions, pour qui il a construit Mappie AI. Auparavant, il a dirigé une équipe DevOps de 10+ ingénieurs chez LTI Mindtree.' },
+        { q: 'Où Yash est-il basé et comment travaille-t-il ?', a: 'Yash est basé à Mumbai, en Inde, et travaille à distance avec des équipes aux États-Unis, au Royaume-Uni et en Europe. Il est Top Rated sur Upwork avec 100 % de réussite sur 19 missions et 757 heures, et prend généralement un projet en charge de bout en bout, de l\'architecture au déploiement.' },
       ],
     },
     cta: {
@@ -2221,6 +2265,17 @@ export const translations = {
         'Colaboracao com Clientes',
       ],
     },
+    faq: {
+      title: 'Perguntas frequentes',
+      items: [
+        { q: 'Quem é Yash Soni?', a: 'Yash Soni é um arquiteto de IA independente e arquiteto full stack sênior baseado em Mumbai, Índia. Constrói software em produção desde janeiro de 2017, mais de 9 anos, e hoje trabalha com startups financiadas dos EUA, Reino Unido e Alemanha em produtos de IA e SaaS, além de lançar os seus próprios.' },
+        { q: 'O que Yash Soni constrói?', a: 'Plataformas RAG e de busca em documentos, agentes de voz com IA e produtos SaaS multi-tenant. Por exemplo, a plataforma GenAI da DecoverAI, usada em escritórios de advocacia dos EUA, o Speakology, um app de idiomas com avatar de IA para escolas do Reino Unido, e seus próprios produtos BrandGen, TriageGrid, Convo AI e CC Logins.' },
+        { q: 'Yash está disponível para trabalho freelance ou por contrato?', a: 'Sim. Yash aceita trabalho freelance, por contrato e em regime contínuo com clientes do mundo todo, e trabalha remotamente de Mumbai. O jeito mais rápido de começar é agendar uma chamada na seção de contato deste site ou escrever para yash.soni2737@gmail.com.' },
+        { q: 'Com quais tecnologias Yash trabalha?', a: 'Em aplicações: Next.js, React, Angular, Node.js, Python e .NET Core. Em IA: modelos da OpenAI, Gemini e Claude, pipelines RAG e bancos vetoriais como Pinecone, Qdrant e pgVector. Em infraestrutura: AWS, GCP, Azure, Docker e Kubernetes.' },
+        { q: 'Com quais setores e clientes Yash já trabalhou?', a: 'Legal tech, saúde, educação e software de vendas. Entre os clientes estão a DecoverAI, empresa americana de IA jurídica que captou mais de US$ 2M em rodada seed, a United Medical na Alemanha, o Speakology no Reino Unido e a Nindo Solutions, para quem construiu o Mappie AI. Antes, liderou uma equipe DevOps de 10+ engenheiros na LTI Mindtree.' },
+        { q: 'Onde Yash está e como trabalha?', a: 'Yash mora em Mumbai, Índia, e trabalha remotamente com equipes dos EUA, Reino Unido e Europa. É Top Rated no Upwork, com 100% de sucesso em 19 trabalhos e 757 horas, e costuma assumir o projeto de ponta a ponta, da arquitetura à implantação.' },
+      ],
+    },
     cta: {
       title: 'Vamos Construir Juntos',
       desc: 'Disponível para trabalho freelance e por contrato no mundo todo. Construo soluções escaláveis de IA e SaaS, da arquitetura à implantação.',
@@ -2668,6 +2723,17 @@ export const translations = {
         'सोल्यूशन डिज़ाइन',
         'Agile/Scrum',
         'क्लाइंट सहयोग',
+      ],
+    },
+    faq: {
+      title: 'अक्सर पूछे जाने वाले प्रश्न',
+      items: [
+        { q: 'Yash Soni कौन हैं?', a: 'Yash Soni मुंबई, भारत में रहने वाले एक स्वतंत्र AI आर्किटेक्ट और सीनियर फुल स्टैक आर्किटेक्ट हैं। वे जनवरी 2017 से, यानी 9 साल से ज़्यादा समय से, प्रोडक्शन सॉफ़्टवेयर बना रहे हैं और आज अमेरिका, UK और जर्मनी के फ़ंडेड स्टार्टअप्स के लिए AI और SaaS प्रोडक्ट्स बनाते हैं, साथ ही अपने प्रोडक्ट्स भी लॉन्च करते हैं।' },
+        { q: 'Yash Soni क्या बनाते हैं?', a: 'RAG और डॉक्यूमेंट-सर्च प्लेटफ़ॉर्म, AI वॉइस एजेंट और मल्टी-टेनेंट SaaS प्रोडक्ट्स। उदाहरण: अमेरिकी लॉ फ़र्मों में इस्तेमाल होने वाला DecoverAI का GenAI प्लेटफ़ॉर्म, UK के स्कूलों के लिए AI अवतार भाषा ऐप Speakology, और उनके अपने प्रोडक्ट्स BrandGen, TriageGrid, Convo AI और CC Logins।' },
+        { q: 'क्या Yash फ़्रीलांस या कॉन्ट्रैक्ट काम के लिए उपलब्ध हैं?', a: 'हाँ। Yash दुनिया भर के क्लाइंट्स के साथ फ़्रीलांस, कॉन्ट्रैक्ट और रिटेनर काम लेते हैं और मुंबई से रिमोट काम करते हैं। शुरू करने का सबसे तेज़ तरीका इस साइट के कॉन्टैक्ट सेक्शन से कॉल बुक करना या yash.soni2737@gmail.com पर ईमेल करना है।' },
+        { q: 'Yash किन टेक्नोलॉजी पर काम करते हैं?', a: 'ऐप्लिकेशन के लिए: Next.js, React, Angular, Node.js, Python और .NET Core। AI के लिए: OpenAI, Gemini और Claude मॉडल, RAG पाइपलाइन, और Pinecone, Qdrant व pgVector जैसे वेक्टर डेटाबेस। इंफ्रास्ट्रक्चर के लिए: AWS, GCP, Azure, Docker और Kubernetes।' },
+        { q: 'Yash ने किन इंडस्ट्री और क्लाइंट्स के साथ काम किया है?', a: 'लीगल टेक, हेल्थकेयर, एजुकेशन और सेल्स सॉफ़्टवेयर। क्लाइंट्स में DecoverAI (अमेरिकी लीगल AI कंपनी जिसने $2M+ की सीड फ़ंडिंग जुटाई), जर्मनी की United Medical, UK की Speakology और Nindo Solutions शामिल हैं, जिनके लिए उन्होंने Mappie AI बनाया। इससे पहले उन्होंने LTI Mindtree में 10+ इंजीनियरों की DevOps टीम का नेतृत्व किया।' },
+        { q: 'Yash कहाँ रहते हैं और कैसे काम करते हैं?', a: 'Yash मुंबई, भारत में रहते हैं और अमेरिका, UK और यूरोप की टीमों के साथ रिमोट काम करते हैं। वे Upwork पर Top Rated हैं, 19 जॉब्स और 757 घंटों में 100% जॉब सक्सेस के साथ, और आम तौर पर आर्किटेक्चर से डिप्लॉयमेंट तक पूरा प्रोजेक्ट संभालते हैं।' },
       ],
     },
     cta: {

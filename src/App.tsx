@@ -1482,7 +1482,7 @@ function App() {
               className="text-center md:text-left"
             >
               <p className="text-lg text-muted-foreground mb-2">
-                {lang === 'es' ? 'Hola, soy' : "Hi, I'm"} <Link to={lang === 'es' ? '/sobre-mi' : '/about'} className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">Yash Soni</Link>,
+                {lang === 'es' ? 'Hola, soy' : "Hi, I'm"} <Link to={lang === 'es' ? '/es/about' : '/about'} className="text-gradient-theme font-semibold hover:opacity-80 transition-opacity">Yash Soni</Link>,
               </p>
               <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
                 <span className="text-gradient-theme">{hydrated ? roleText : t.greetingRoles[0]}</span>
@@ -2112,6 +2112,26 @@ function App() {
                 ))}
               </div>
             </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ: same questions as the FAQPage JSON-LD written by scripts/prerender.tsx */}
+      <section id="faq" className="py-16 md:py-24" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}>
+        <div className="max-w-3xl mx-auto px-6">
+          <AnimatedSection>
+            <h2 className="font-display text-2xl font-semibold mb-8">{t.faq.title}</h2>
+          </AnimatedSection>
+          <div className="space-y-3">
+            {t.faq.items.map((item) => (
+              <details key={item.q} className="group bg-card border border-border rounded-lg">
+                <summary className="px-5 py-4 cursor-pointer font-medium text-foreground flex items-center justify-between gap-4">
+                  {item.q}
+                  <ChevronRight className="w-4 h-4 text-muted-foreground group-open:rotate-90 transition-transform shrink-0" />
+                </summary>
+                <p className="px-5 pb-4 pt-3 border-t border-border text-sm text-muted-foreground">{item.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

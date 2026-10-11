@@ -23,7 +23,7 @@ import { seoRoutes, absoluteUrl, ogLocale, SITE, type RouteSeo } from '../src/se
 import { translations, type Lang } from '../src/i18n.ts'
 import { getWorkExperience } from '../src/work-experience.ts'
 import { aboutContent } from '../src/about-i18n.ts'
-import { articleRegistry } from '../src/articles/registry.ts'
+import { articleRegistry, CASE_STUDIES_UPDATED } from '../src/articles/registry.ts'
 import { decoveraiContent } from '../src/decoverai-i18n.ts'
 import { speakologyContent } from '../src/speakology-i18n.ts'
 import { infinityDevopsContent } from '../src/infinity-devops-i18n.ts'
@@ -61,7 +61,9 @@ const h3 = (s: string) => `<h3 class="font-display font-semibold mt-5">${plain(s
 const p = (s: string) => `<p class="text-muted-foreground mt-2">${plain(s)}</p>`
 const ul = (items: string[]) => (items.length ? `<ul class="text-muted-foreground list-disc pl-5 mt-2">${items.map(i => `<li>${i}</li>`).join('')}</ul>` : '')
 const a = (href: string, text: string) => `<a class="text-primary underline" href="${esc(href)}">${plain(text)}</a>`
-const shell = (inner: string) => `<div class="min-h-screen bg-background text-foreground"><main class="max-w-3xl mx-auto px-6 py-16">${inner}</main></div>`
+const shell = (inner: string) => `<div class="min-h-screen bg-background text-foreground"><main class="max-w-3xl mx-auto px-6 py-16"><article>${inner}</article></main></div>`
+const section = (inner: string[]) => `<section>${inner.join('\n')}</section>`
+const nav = (label: string, inner: string) => `<nav aria-label="${esc(label)}" class="mt-6">${inner}</nav>`
 
 const homePath = (l: Lang) => (l === 'en' ? '/' : `/${l}`)
 
@@ -110,16 +112,18 @@ function homeBody(lang: Lang): string {
   out.push(h2(t.certifications.title))
   out.push(ul(t.certifications.items.map(c => plain(`${c.title}, ${c.org}`))))
 
+  out.push(section([h2(t.faq.title), ...t.faq.items.flatMap(f => [h3(f.q), p(f.a)])]))
+
   out.push(h2(t.cta.title))
   out.push(p(t.cta.desc))
   const langs: Lang[] = ['en', 'es', 'zh', 'fr', 'pt', 'hi']
   out.push(
-    `<p class="mt-4">${[
+    nav('Site', `<p>${[
       a(lang === 'es' ? '/es/about' : '/about', aboutContent[lang === 'es' ? 'es' : 'en'].heading),
       a('https://www.linkedin.com/in/yashsoni369', 'LinkedIn'),
       a('https://github.com/yashsoni369', 'GitHub'),
       ...langs.filter(l => l !== lang).map(l => a(homePath(l), l.toUpperCase())),
-    ].join(' · ')}</p>`,
+    ].join(' · ')}</p>`),
   )
   return shell(out.join('\n'))
 }
@@ -153,7 +157,7 @@ function articleBody(id: keyof typeof ARTICLES, lang: 'en' | 'es'): string {
   out.push(`<p class="text-primary text-sm uppercase">${plain(t.header.kicker)}</p>`)
   out.push(h1(t.header.h1))
   out.push(p(t.header.subtitle))
-  out.push(p(`Yash Soni · ${t.header.date}`))
+  out.push(`<p class="text-muted-foreground mt-2">${a(lang === 'es' ? '/es/about' : '/about', 'Yash Soni')} · ${plain(t.header.date)}</p>`)
   out.push(h2(s.problem.title), p(s.problem.content))
   out.push(h2(s.solution.title), p(s.solution.content))
   if (s.architecture.stack.length) out.push(h2(s.architecture.title), ul(s.architecture.stack.map(x => `<strong>${plain(x.name)}</strong>: ${plain(x.items)}`)))
@@ -161,7 +165,16 @@ function articleBody(id: keyof typeof ARTICLES, lang: 'en' | 'es'): string {
   if (s.results.metrics.length) out.push(h2(s.results.title), ul(s.results.metrics.map(x => `<strong>${plain(x.value)}</strong> ${plain(x.label)}`)))
   out.push(h2(s.myRole.title), p(s.myRole.content))
   if (s.testimonial.quote) out.push(`<blockquote class="text-muted-foreground italic mt-4">&ldquo;${plain(s.testimonial.quote)}&rdquo; ${plain(s.testimonial.author)}, ${plain(s.testimonial.role)}</blockquote>`)
-  out.push(`<p class="mt-6">${a(lang === 'es' ? '/es' : '/', 'Yash Soni')}</p>`)
+  const es = lang === 'es'
+  out.push(p(`${es ? 'Última actualización' : 'Last updated'}: ${CASE_STUDIES_UPDATED}`))
+  out.push(
+    nav(
+      es ? 'Más casos de estudio' : 'More case studies',
+      h2(es ? 'Más casos de estudio' : 'More case studies') +
+        ul(articleRegistry.filter(x => x.id !== id).map(x => a(`/${x.slugs[lang]}`, x.titles[lang]))) +
+        `<p class="mt-4">${a(es ? '/es' : '/', 'Yash Soni')} · ${a(es ? '/es/about' : '/about', aboutContent[lang].heading)}</p>`,
+    ),
+  )
   return shell(out.join('\n'))
 }
 
@@ -170,7 +183,8 @@ function privacyBody(r: RouteSeo): string {
 }
 
 // ---------------------------------------------------------------------------
-// JSON-LD for non-home pages (home keeps the graph from index.html)
+// JSON-LD. Home keeps the WebSite/ProfilePage/Person graph from index.html and
+// gains a FAQPage built from the FAQ shown on the page.
 // ---------------------------------------------------------------------------
 
 const PERSON = { '@type': 'Person', '@id': `${SITE}/#person`, name: 'Yash Soni', url: SITE }
@@ -189,7 +203,19 @@ function jsonLd(r: RouteSeo): object | null {
     return {
       '@context': 'https://schema.org',
       '@graph': [
-        { '@type': 'Article', '@id': `${url}#article`, headline: t.header.h1, description: r.description, inLanguage: r.lang, mainEntityOfPage: url, author: PERSON, publisher: PERSON },
+        {
+          '@type': 'Article',
+          '@id': `${url}#article`,
+          headline: t.header.h1,
+          description: r.description,
+          image: `${SITE}/og-image.webp`,
+          datePublished: CASE_STUDIES_UPDATED,
+          dateModified: CASE_STUDIES_UPDATED,
+          inLanguage: r.lang,
+          mainEntityOfPage: url,
+          author: PERSON,
+          publisher: PERSON,
+        },
         crumbs(t.header.h1),
       ],
     }
@@ -244,10 +270,21 @@ function render(template: string, r: RouteSeo, body: string): string {
   const alts = r.alternates.map(x => `    <link rel="alternate" hreflang="${x.hreflang}" href="${absoluteUrl(x.path)}" />`).join('\n')
   if (alts) html = html.replace(/(<link rel="canonical" href="[^"]*" \/>)/, `$1\n${alts}`)
 
-  if (r.kind !== 'home') {
-    const ld = jsonLd(r)
-    const block = ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : ''
-    html = replaceOnce(html, /<script type="application\/ld\+json">[\s\S]*?<\/script>/, block, 'JSON-LD block')
+  const LD_RE = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/
+  const ldBlock = (ld: object | null) => (ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : '')
+  if (r.kind === 'home') {
+    const m = html.match(LD_RE)
+    if (!m) throw new Error('[prerender] template is missing JSON-LD block')
+    const graph = JSON.parse(m[1]) as { '@graph': Record<string, unknown>[] }
+    const faq = translations[r.lang].faq.items
+    graph['@graph'] = [
+      ...graph['@graph'].map(n => (n['@type'] === 'WebSite' || n['@type'] === 'ProfilePage' ? { ...n, inLanguage: r.lang } : n)),
+      { '@type': 'FAQPage', '@id': `${url}#faq`, inLanguage: r.lang, mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+    ]
+    html = html.replace(LD_RE, () => ldBlock(graph))
+  } else {
+    if (!LD_RE.test(html)) throw new Error('[prerender] template is missing JSON-LD block')
+    html = html.replace(LD_RE, () => ldBlock(jsonLd(r)))
   }
 
   return replaceOnce(html, /<div id="root"><\/div>/, `<div id="root">${body}</div>`, '#root')

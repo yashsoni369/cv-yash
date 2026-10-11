@@ -15,52 +15,6 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
 
   useEffect(() => {
     applyRouteSeo(`/${t.slug}`)
-
-    let script = document.querySelector('script[data-about-jsonld]') as HTMLScriptElement
-    if (!script) { script = document.createElement('script'); script.type = 'application/ld+json'; script.dataset.aboutJsonld = ''; document.head.appendChild(script) }
-    script.textContent = JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'ProfilePage',
-      dateModified: '2026-10-10',
-      mainEntity: {
-        '@type': 'Person',
-        '@id': 'https://www.yashsoni.dev/#person',
-        name: 'Yash Soni',
-        url: 'https://www.yashsoni.dev',
-        image: 'https://www.yashsoni.dev/foto-avatar.png',
-        email: 'yash.soni2737@gmail.com',
-        jobTitle: ['Independent AI Architect', 'Senior Full Stack Architect', 'AI Developer'],
-        knowsAbout: [
-          { '@type': 'Thing', name: 'Artificial Intelligence', url: 'https://en.wikipedia.org/wiki/Artificial_intelligence' },
-          { '@type': 'Thing', name: 'Machine Learning', url: 'https://en.wikipedia.org/wiki/Machine_learning' },
-          { '@type': 'Thing', name: 'Full-Stack Development' },
-          { '@type': 'Thing', name: 'Cloud-Native Architecture' },
-          { '@type': 'Thing', name: 'Kubernetes', url: 'https://en.wikipedia.org/wiki/Kubernetes' },
-          { '@type': 'SoftwareApplication', name: 'React', url: 'https://react.dev' },
-          { '@type': 'SoftwareApplication', name: 'Node.js', url: 'https://nodejs.org' },
-          { '@type': 'SoftwareApplication', name: 'Python', url: 'https://python.org' },
-        ],
-        hasCredential: [
-          { '@type': 'EducationalOccupationalCredential', name: 'Certified Kubernetes Application Developer (CKAD)', recognizedBy: { '@type': 'Organization', name: 'The Linux Foundation' } },
-          { '@type': 'EducationalOccupationalCredential', name: 'Azure Fundamentals (AZ-900)', recognizedBy: { '@type': 'Organization', name: 'Microsoft' } },
-          { '@type': 'EducationalOccupationalCredential', name: 'AWS Certified Cloud Practitioner', recognizedBy: { '@type': 'Organization', name: 'Amazon' } },
-        ],
-        alumniOf: [
-          { '@type': 'EducationalOrganization', name: 'Nehru P.G. College (CSMU Kanpur) - MCA' },
-          { '@type': 'EducationalOrganization', name: 'University of Mumbai - BCom' },
-        ],
-        sameAs: [
-          'https://www.linkedin.com/in/yashsoni369',
-          'https://github.com/yashsoni369',
-          'https://www.upwork.com/freelancers/yashs369',
-        ],
-        address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
-      },
-    })
-
-    return () => {
-      script?.remove()
-    }
   }, [lang, t])
 
   return (

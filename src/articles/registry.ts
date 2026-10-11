@@ -43,6 +43,9 @@ export interface ArticleConfig {
   seoMeta?: ArticleSeoMeta
 }
 
+/** Date the case-study content was last revised (shown on the pages and used as JSON-LD dateModified). */
+export const CASE_STUDIES_UPDATED = '2026-10-11'
+
 export const articleRegistry: ArticleConfig[] = [
   {
     id: 'decoverai',
@@ -196,7 +199,8 @@ export function getPageTitles(): Record<string, string> {
   const map: Record<string, string> = {
     '/': "Yash Soni's Portfolio",
     '/en': "Yash Soni's Portfolio",
-    '/sobre-mi': 'Sobre Mí',
+    '/es': "Yash Soni's Portfolio",
+    '/es/about': 'Sobre Mí',
     '/about': 'About',
   }
   for (const article of articleRegistry) {

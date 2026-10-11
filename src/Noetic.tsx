@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Bot, Database, Search, Shield, FileText, Quote, Lightbulb, Mail, ArrowRight } from 'lucide-react'
-import { ArticleLayout, ArticleHeader, MetricsGrid } from './articles/components'
+import { ArticleLayout, ArticleHeader, ArticleRelated } from './articles/components'
 import { H2, Prose, Callout, CardStack, BulletList, Accordion, FloatingToc } from './articles/content-types'
 import { noeticContent } from './noetic-i18n'
 
@@ -127,9 +127,11 @@ export default function Noetic({ lang }: { lang: 'es' | 'en' }) {
         </a>
       </div>
 
+      <ArticleRelated currentSlug={t.slug} lang={lang} />
+
       {/* Footer */}
       <div className="mt-12 pt-8 border-t border-border text-center">
-        <Link to="/" className="text-sm text-primary hover:underline flex items-center justify-center gap-1">
+        <Link to={lang === 'es' ? '/es' : '/'} className="text-sm text-primary hover:underline flex items-center justify-center gap-1">
           <ArrowRight className="w-3 h-3 rotate-180" />
           {lang === 'es' ? 'Volver al portfolio' : 'Back to portfolio'}
         </Link>
