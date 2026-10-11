@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { articleRegistry, CASE_STUDIES_UPDATED } from './registry'
 import { Download, Copy, Check, ExternalLink, Clock } from 'lucide-react'
 import { EditorModeProvider, EditorLabel, H2, StepList, Accordion } from './content-types'
 
@@ -96,7 +97,7 @@ export function ArticleHeader({
   avatarSrc = '/foto-avatar-sm.webp',
   lang,
 }: ArticleHeaderProps) {
-  const resolvedAuthorUrl = authorUrl ?? (lang === 'es' ? '/sobre-mi' : '/about')
+  const resolvedAuthorUrl = authorUrl ?? (lang === 'es' ? '/es/about' : '/about')
   return (
     <header className="mb-10">
       <p className="text-primary font-medium text-sm mb-3 tracking-wide uppercase">
@@ -201,7 +202,7 @@ export function ArticleFooter({ lang, utmCampaign }: ArticleFooterProps) {
       </div>
       <p className="text-sm text-muted-foreground leading-relaxed mb-1">{f.bio}</p>
       <Link
-        to={lang === 'es' ? '/sobre-mi' : '/about'}
+        to={lang === 'es' ? '/es/about' : '/about'}
         className="inline-block text-sm text-primary hover:underline transition-colors mb-6"
       >
         {lang === 'es' ? 'Más sobre el autor →' : 'More about the author →'}
@@ -603,5 +604,28 @@ export function GitHubRepoBadge({ repo, stars, forks, lang }: GitHubRepoBadgePro
         <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
       </span>
     </a>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// ArticleRelated: last-updated line plus links to the other case studies
+// ---------------------------------------------------------------------------
+
+export function ArticleRelated({ currentSlug, lang }: { currentSlug: string; lang: 'es' | 'en' }) {
+  const es = lang === 'es'
+  const others = articleRegistry.filter(a => a.slugs.en !== currentSlug)
+  const updated = new Date(`${CASE_STUDIES_UPDATED}T00:00:00Z`).toLocaleDateString(es ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+  return (
+    <nav aria-label={es ? 'Más casos de estudio' : 'More case studies'} className="mt-12 pt-8 border-t border-border">
+      <p className="text-xs text-muted-foreground mb-4">{es ? `Última actualización: ${updated}` : `Last updated: ${updated}`}</p>
+      <h2 className="font-display text-lg font-semibold mb-3">{es ? 'Más casos de estudio' : 'More case studies'}</h2>
+      <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+        {others.map(a => (
+          <li key={a.id}>
+            <Link to={`/${a.slugs[lang]}`} className="text-primary hover:underline">{a.titles[lang]}</Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   )
 }

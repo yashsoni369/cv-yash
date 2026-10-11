@@ -37,9 +37,9 @@ interface JsonLdOptions {
 
 const PERSON = {
   '@type': 'Person',
-  '@id': 'https://yashsoni.dev/#person',
+  '@id': 'https://www.yashsoni.dev/#person',
   name: 'Yash Soni',
-  url: 'https://yashsoni.dev',
+  url: 'https://www.yashsoni.dev',
   jobTitle: 'Senior Full Stack Architect & AI Developer',
   sameAs: [
     'https://www.linkedin.com/in/yashsoni369',
@@ -49,9 +49,9 @@ const PERSON = {
 
 const WEBSITE = {
   '@type': 'WebSite',
-  '@id': 'https://yashsoni.dev/#website',
+  '@id': 'https://www.yashsoni.dev/#website',
   name: 'yashsoni.dev',
-  url: 'https://yashsoni.dev',
+  url: 'https://www.yashsoni.dev',
 }
 
 export function buildArticleJsonLd(opts: JsonLdOptions) {
@@ -64,7 +64,7 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
       headline: opts.headline,
       alternativeHeadline: opts.alternativeHeadline,
       description: opts.description,
-      author: { '@id': 'https://yashsoni.dev/#person' },
+      author: { '@id': 'https://www.yashsoni.dev/#person' },
       ...(opts.publisher ? {
         publisher: {
           '@type': 'Organization',
@@ -79,7 +79,7 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
       mainEntityOfPage: opts.url,
       image: opts.images,
       inLanguage,
-      isPartOf: { '@id': 'https://yashsoni.dev/#website' },
+      isPartOf: { '@id': 'https://www.yashsoni.dev/#website' },
       ...(opts.about ? { about: opts.about } : {}),
       ...(opts.extra || {}),
       ...(opts.citation ? { citation: opts.citation } : {}),
@@ -94,7 +94,7 @@ export function buildArticleJsonLd(opts: JsonLdOptions) {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: opts.breadcrumbHome, item: 'https://yashsoni.dev' },
+        { '@type': 'ListItem', position: 1, name: opts.breadcrumbHome, item: 'https://www.yashsoni.dev' },
         { '@type': 'ListItem', position: 2, name: opts.breadcrumbCurrent, item: opts.url },
       ],
     },

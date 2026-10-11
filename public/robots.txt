@@ -1,4 +1,4 @@
-# Built by Yash Soni — yash.soni2737@gmail.com
+# Built by Yash Soni (yash.soni2737@gmail.com)
 # Stack: React 19 · Gemini API · Vercel
 
 User-agent: *
@@ -6,23 +6,24 @@ Allow: /
 Disallow: /api/
 Disallow: /ops
 
-# AI Crawlers (GEO)
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
+# AI search and retrieval crawlers. A named group replaces the * group for
+# that crawler, so the disallows are repeated in each one.
 User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
 Allow: /
+Disallow: /api/
+Disallow: /ops
 
+# AI training crawlers (allowed)
+User-agent: GPTBot
+User-agent: ClaudeBot
 User-agent: Google-Extended
 Allow: /
+Disallow: /api/
+Disallow: /ops
 
-Sitemap: https://yashsoni.dev/sitemap.xml
+Sitemap: https://www.yashsoni.dev/sitemap.xml

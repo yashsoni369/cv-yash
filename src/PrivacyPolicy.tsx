@@ -123,7 +123,7 @@ export default function PrivacyPolicy({ lang = 'es' }: { lang?: 'es' | 'en' }) {
 
     // Fix canonical (SPA fallback serves homepage canonical — override it)
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement
-    if (canonical) canonical.href = `https://yashsoni.dev/${lang === 'es' ? 'privacidad' : 'privacy'}`
+    if (canonical) canonical.href = `https://www.yashsoni.dev/${lang === 'es' ? 'es/privacy' : 'privacy'}`
 
     // Fix meta description
     let desc = document.querySelector('meta[name="description"]') as HTMLMetaElement

@@ -1,8 +1,8 @@
 const en = {
   slug: 'united-medical',
   seo: {
-    title: 'United Medical: Hospital-Doctor Contract Management | Yash Soni',
-    description: 'Case study: contract management application for a German healthcare startup, an ongoing retainer since August 2023.',
+    title: 'Healthcare Contract Management SaaS, Germany | Yash Soni',
+    description: 'Case study: hospital and doctor contract management for a German healthcare startup, on retainer since August 2023.',
   },
   header: {
     kicker: 'Case Study',
@@ -73,5 +73,79 @@ const en = {
   },
 }
 
-// The facts on these pages come from one source, so the Spanish route shows the same content.
-export const unitedMedicalContent = { en, es: en }
+const es = {
+  slug: 'united-medical',
+  seo: {
+    title: 'United Medical: Contratos Hospital-Médico | Yash Soni',
+    description: 'Caso de estudio: aplicación de gestión de contratos para una startup de salud alemana, un retainer activo desde agosto de 2023.',
+  },
+  header: {
+    kicker: 'Caso de Estudio',
+    h1: 'United Medical: Gestión de Contratos Hospital-Médico',
+    subtitle: 'Una aplicación de gestión de contratos para una startup de salud alemana',
+    date: 'Retainer activo desde agosto de 2023',
+    readingTime: '2 min de lectura',
+  },
+  sections: {
+    problem: {
+      title: 'El Problema',
+      content: 'Una startup de salud alemana necesitaba una aplicación para gestionar los contratos entre hospitales y médicos.',
+    },
+    solution: {
+      title: 'La Solución',
+      content: 'United Medical es una aplicación de gestión de contratos hospital-médico que automatiza los flujos de trabajo de los contratos médicos.',
+    },
+    architecture: {
+      title: 'Arquitectura y Stack Técnico',
+      stack: [
+          { name: 'Aplicación', items: 'Next.js, TypeScript' },
+          { name: 'Estructura', items: 'Monorepo con paquetes de API, web, escaneo y tipos compartidos' },
+          { name: 'Base de datos', items: 'PostgreSQL' },
+          { name: 'Caché', items: 'Redis' },
+          { name: 'Testing', items: 'Pruebas cross-browser con BrowserStack' },
+        ],
+    },
+    features: {
+      title: 'Características Clave',
+      items: [
+          { title: 'Gestión de contratos', desc: 'Gestiona los contratos entre hospitales y médicos' },
+          { title: 'Automatización de flujos', desc: 'Automatiza los flujos complejos de los contratos médicos' },
+        ],
+    },
+    results: {
+      title: 'Resultados e Impacto',
+      metrics: [] as { value: string; label: string }[],
+    },
+    myRole: {
+      title: 'Mi Rol',
+      content: 'Trabajo en este proyecto como retainer continuo con una startup de salud alemana.',
+    },
+    testimonial: {
+      quote: '',
+      author: '',
+      role: '',
+    },
+    lessons: {
+      title: 'Lecciones Aprendidas',
+      items: [] as string[],
+    },
+    faq: [] as { q: string; a: string }[],
+    cta: {
+      title: '¿Necesitas algo similar?',
+      desc: 'Construyo productos de IA y SaaS listos para producción, desde pipelines RAG hasta plataformas multi-tenant. Hablemos de tu proyecto.',
+      button: 'Contáctame',
+    },
+  },
+  sectionLabels: {
+    'problem': 'El Problema',
+    'solution': 'La Solución',
+    'architecture': 'Arquitectura',
+    'features': 'Características',
+    'results': 'Resultados',
+    'my-role': 'Mi Rol',
+    'lessons': 'Lecciones',
+    'faq': 'FAQ',
+  },
+}
+
+export const unitedMedicalContent = { en, es }

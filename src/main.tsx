@@ -1,11 +1,12 @@
 import { StrictMode, lazy, Suspense, useState, useEffect, useRef, Component, type ReactNode, type ComponentType } from 'react'
-import { hydrateRoot, createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useLocation, Link } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import App from './App.tsx'
 import GlobalNav from './GlobalNav.tsx'
 import { articleRegistry, getEsSlugs } from './articles/registry'
+import { applyRouteSeo } from './seo-routes'
 
 const FloatingChat = lazy(() => import('./FloatingChat'))
 const MusicToggle = lazy(() => import('./MusicToggle'))
@@ -65,6 +66,13 @@ function PageTransition({ children }: { children: ReactNode }) {
       {children}
     </div>
   )
+}
+
+/** Keeps title, description, canonical and hreflang in step with the current route. */
+function RouteSeoSync() {
+  const { pathname } = useLocation()
+  useEffect(() => applyRouteSeo(pathname), [pathname])
+  return null
 }
 
 function GlobalChat() {
@@ -193,15 +201,12 @@ const app = (
         </Suspense>
       </PageTransition>
       <GlobalChat />
+      <RouteSeoSync />
       <GlobalMusic />
       <Analytics />
     </BrowserRouter>
   </StrictMode>
 )
 
-// Hydrate if pre-rendered content exists, createRoot for dev mode
-if (root.hasChildNodes()) {
-  hydrateRoot(root, app)
-} else {
-  createRoot(root).render(app)
-}
+// The prerendered HTML in #root is static content for crawlers, not React output, so render fresh.
+createRoot(root).render(app)

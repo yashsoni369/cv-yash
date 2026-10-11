@@ -2,7 +2,7 @@
 Builder: Yash Soni
 Role: Senior Full Stack Architect · AI Developer · SaaS Product Engineer
 Contact: yash.soni2737@gmail.com
-Site: https://yashsoni.dev
+Site: https://www.yashsoni.dev
 Location: Mumbai, India
 LinkedIn: https://linkedin.com/in/yashsoni369
 GitHub: https://github.com/yashsoni369
