@@ -83,7 +83,7 @@ Voice mode → useVoiceMode.ts → api/voice-token.js → OpenAI Realtime WebSoc
 | **Vectro AI** | Sales intelligence from calls, emails & Slack | Vector search + OpenAI |
 | **Infinity DevOps** | Enterprise DevOps platform (LTI Mindtree) | Led team of 10+ engineers |
 | **Infinity AIWatch** | APM product with AI-driven dashboards | OpenAI + Prometheus |
-| **Stethy** | AI automation in healthcare & life sciences | Enterprise healthcare |
+| **Stethy** | AI email triage SaaS (backend and infrastructure) | B2B SaaS |
 | **Noetic** | Automated neurodiversity assessment | ADHD, autism, dyslexia |
 
 ---

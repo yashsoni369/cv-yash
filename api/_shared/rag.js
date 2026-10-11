@@ -27,7 +27,7 @@ export function isRagEnabled() {
 
 export const PORTFOLIO_TOOL = {
   name: 'search_portfolio',
-  description: "Search your own published case studies for project details. You wrote these articles — they are YOUR words about YOUR projects. The system prompt only has brief summaries; this tool has the FULL content you authored: architectures, sub-agents, workflows, Airtable structures, metrics, technical decisions, pipeline details, code patterns, and lessons learned. Use this whenever the user asks for specifics about any project. Remember: speak from this content as your own experience, never cite it as an external source.",
+  description: "Search your own published case studies for project details. You wrote these articles - they are YOUR words about YOUR projects. The system prompt only has brief summaries; this tool has the FULL content you authored: architectures, stacks, workflows, technical decisions, and delivery details. Use this whenever the user asks for specifics about any project. Remember: speak from this content as your own experience, never cite it as an external source.",
   input_schema: {
     type: 'object',
     properties: {
@@ -228,11 +228,14 @@ export function extractSources(chunks) {
 
 // Keywords that signal the response actually references a given article
 export const ARTICLE_KEYWORDS = {
-  'n8n-for-pms':          ['n8n', 'nodemation'],
-  'jacobo':               ['jacobo', 'agente ia', 'ai agent', 'whatsapp', 'multi-agent', 'multiagent'],
-  'business-os':          ['business os', 'erp', 'airtable bases', 'crm', 'inventory'],
-  'programmatic-seo':     ['seo programático', 'programmatic seo', 'web programática', 'programmatic web', 'decision engine', 'indexable', 'dataforseo', 'seo pipeline', 'seo automatizado', 'automated seo'],
-  'self-healing-chatbot': ['chatbot', 'this chat', 'este chat', 'evals', 'self-healing', 'closed-loop', 'langfuse', 'rag'],
+  'decoverai':       ['decoverai', 'legal', 'law firm', 'seed funding'],
+  'speakology-ai':   ['speakology', 'avatar', 'uk school', 'language learning'],
+  'infinity-devops': ['infinity devops', 'infinity aiwatch', 'lti mindtree', 'coe'],
+  'mappie-ai':       ['mappie', 'nindo', 'user stories', 'backlog grooming'],
+  'vectro-ai':       ['vectro', 'sales intelligence'],
+  'united-medical':  ['united medical', 'hospital', 'doctor contract'],
+  'stethy':          ['stethy', 'email triage'],
+  'noetic':          ['noetic', 'adhd', 'assessment'],
 }
 
 /** Filter RAG sources to only articles actually mentioned in the response, max 3 */
@@ -248,11 +251,14 @@ export function filterSourcesByResponse(sources, responseText) {
 
 // Static article routes — used to generate badges from keywords regardless of RAG
 export const ARTICLE_ROUTES = {
-  'n8n-for-pms':          { page_path_es: '/n8n-para-pms', page_path_en: '/n8n-for-pms' },
-  'jacobo':               { page_path_es: '/agente-ia-jacobo', page_path_en: '/ai-agent-jacobo' },
-  'business-os':          { page_path_es: '/business-os-para-airtable', page_path_en: '/business-os-for-airtable' },
-  'programmatic-seo':     { page_path_es: '/seo-programatico', page_path_en: '/programmatic-seo' },
-  'self-healing-chatbot': { page_path_es: '/chatbot-que-se-cura-solo', page_path_en: '/self-healing-chatbot' },
+  'decoverai':       { page_path_es: '/decoverai', page_path_en: '/decoverai' },
+  'speakology-ai':   { page_path_es: '/speakology-ai', page_path_en: '/speakology-ai' },
+  'infinity-devops': { page_path_es: '/infinity-devops', page_path_en: '/infinity-devops' },
+  'mappie-ai':       { page_path_es: '/mappie-ai', page_path_en: '/mappie-ai' },
+  'vectro-ai':       { page_path_es: '/vectro-ai', page_path_en: '/vectro-ai' },
+  'united-medical':  { page_path_es: '/united-medical', page_path_en: '/united-medical' },
+  'stethy':          { page_path_es: '/stethy', page_path_en: '/stethy' },
+  'noetic':          { page_path_es: '/noetic', page_path_en: '/noetic' },
 }
 
 // Home fallback

@@ -43,7 +43,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
     script.textContent = JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'ProfilePage',
-      dateModified: '2026-04-08',
+      dateModified: '2026-10-10',
       mainEntity: {
         '@type': 'Person',
         '@id': 'https://yashsoni.dev/#person',
@@ -51,7 +51,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
         url: 'https://yashsoni.dev',
         image: 'https://yashsoni.dev/foto-avatar.png',
         email: 'yash.soni2737@gmail.com',
-        jobTitle: ['Senior Full Stack Architect', 'AI Developer', 'Solutions Architect'],
+        jobTitle: ['Independent AI Architect', 'Senior Full Stack Architect', 'AI Developer'],
         knowsAbout: [
           { '@type': 'Thing', name: 'Artificial Intelligence', url: 'https://en.wikipedia.org/wiki/Artificial_intelligence' },
           { '@type': 'Thing', name: 'Machine Learning', url: 'https://en.wikipedia.org/wiki/Machine_learning' },
@@ -63,17 +63,18 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
           { '@type': 'SoftwareApplication', name: 'Python', url: 'https://python.org' },
         ],
         hasCredential: [
-          { '@type': 'EducationalOccupationalCredential', name: 'Certified Kubernetes Application Developer (CKAD)', recognizedBy: { '@type': 'Organization', name: 'CNCF' } },
+          { '@type': 'EducationalOccupationalCredential', name: 'Certified Kubernetes Application Developer (CKAD)', recognizedBy: { '@type': 'Organization', name: 'The Linux Foundation' } },
           { '@type': 'EducationalOccupationalCredential', name: 'Azure Fundamentals (AZ-900)', recognizedBy: { '@type': 'Organization', name: 'Microsoft' } },
           { '@type': 'EducationalOccupationalCredential', name: 'AWS Certified Cloud Practitioner', recognizedBy: { '@type': 'Organization', name: 'Amazon' } },
         ],
         alumniOf: [
-          { '@type': 'EducationalOrganization', name: 'CSMU Kanpur - MCA' },
+          { '@type': 'EducationalOrganization', name: 'Nehru P.G. College (CSMU Kanpur) - MCA' },
           { '@type': 'EducationalOrganization', name: 'University of Mumbai - BCom' },
         ],
         sameAs: [
           'https://www.linkedin.com/in/yashsoni369',
           'https://github.com/yashsoni369',
+          'https://www.upwork.com/freelancers/yashs369',
         ],
         address: { '@type': 'PostalAddress', addressLocality: 'Mumbai', addressCountry: 'IN' },
       },
@@ -159,6 +160,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
         </section>
 
         {/* Projects */}
+        {(t.projects as unknown as unknown[]).length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Briefcase className="w-4 h-4 text-primary" />
@@ -180,6 +182,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
             ))}
           </div>
         </section>
+        )}
 
         {/* Certifications */}
         <section className="mb-10">
@@ -215,6 +218,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
         </section>
 
         {/* Press */}
+        {(t.press as unknown as unknown[]).length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Newspaper className="w-4 h-4 text-primary" />
@@ -236,8 +240,10 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
             </a>
           ))}
         </section>
+        )}
 
         {/* Community */}
+        {(t.community as unknown as unknown[]).length > 0 && (
         <section className="mb-10">
           <h2 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
             <Users className="w-4 h-4 text-primary" />
@@ -261,6 +267,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
             ))}
           </div>
         </section>
+        )}
 
         {/* FAQ */}
         <section className="mb-10">

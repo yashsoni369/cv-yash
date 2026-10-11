@@ -9,7 +9,7 @@ export const seo = {
     title:
       'Yash Soni | Senior Full Stack Architect \u00b7 AI Developer \u00b7 Scalable Systems',
     description:
-      'Senior Full Stack Architect with 8+ years building scalable AI & SaaS solutions. React, Node.js, Python, AWS, Kubernetes, GenAI.',
+      'Senior Full Stack Architect with 9+ years building scalable AI & SaaS solutions. React, Node.js, Python, AWS, Kubernetes, GenAI.',
   },
   zh: {
     title:
@@ -304,157 +304,6 @@ export const translations = {
     },
     experience: {
       title: 'Experiencia Laboral',
-      santifer: {
-        company: 'Contratos Freelance (Apex36)',
-        location: 'EE.UU. / Reino Unido / Alemania \u00b7 Remoto',
-        role: 'Senior Full Stack Architect & AI Developer',
-        period: 'Dic 2023 - Presente \u00b7 AI & SaaS',
-        caseStudyUrl: '',
-        caseStudyLabel: '',
-        exit: '',
-        exitDesc: '',
-        highlights: [
-          'DecoverAI: Plataforma legal con IA para bufetes de EE.UU. \u2014 ayud\u00f3 a asegurar $2M+ en financiaci\u00f3n VC',
-          'United Medical: Gesti\u00f3n de contratos hospital-m\u00e9dico para startup de salud alemana',
-          'Speakology AI: Primera app de aprendizaje con Avatar IA \u2014 10+ suscripciones escolares en Reino Unido en 3 meses',
-          'Mappie AI: Gesti\u00f3n de proyectos con IA \u2014 de requisitos a historias listas para desarrollo',
-          'Vectro AI: Inteligencia de ventas desde llamadas, emails y Slack usando b\u00fasqueda vectorial',
-          'Stethy: Automatizaci\u00f3n con IA en salud y ciencias de la vida',
-          'Noetic: Evaluaci\u00f3n automatizada para TDAH, autismo, dislexia, dispraxia, discalculia',
-        ],
-        trustedBy: {
-          label: '',
-          logos: [] as { name: string; icon?: string; src?: string }[],
-        },
-        businessOS: {
-          title: 'Plataforma DecoverAI',
-          badge: 'AI \u00b7 $2M Financiado',
-          desc: 'Plataforma de gesti\u00f3n de documentos legales y b\u00fasqueda sem\u00e1ntica impulsada por IA, desplegada en grandes bufetes de abogados de EE.UU.',
-          metrics: [
-            { value: '$2M+', label: 'financiaci\u00f3n obtenida' },
-            { value: '13', label: 'meses de desarrollo' },
-            { value: '10+', label: 'bufetes desplegados' },
-          ],
-          modules: [
-            {
-              icon: 'database',
-              text: 'Base de datos vectorial para b\u00fasqueda sem\u00e1ntica de documentos',
-            },
-            {
-              icon: 'bot',
-              text: 'Motor de consultas con IA e integraci\u00f3n LLM',
-            },
-            {
-              icon: 'shield',
-              text: 'Seguridad enterprise para manejo de documentos legales',
-            },
-            {
-              icon: 'users',
-              text: 'Arquitectura multi-tenant para bufetes de abogados',
-            },
-          ],
-          footer: '',
-        },
-        jacobo: {
-          title: 'Speakology AI',
-          badge: '10+ Suscripciones Escolares',
-          desc: 'App de aprendizaje de idiomas con Avatar IA para escuelas del Reino Unido. Primera en su tipo, bootstrapped en 3 meses.',
-          items: [
-            {
-              icon: 'bot',
-              text: 'Avatar IA para pr\u00e1ctica interactiva de idiomas',
-            },
-            {
-              icon: 'users',
-              text: '10+ escuelas suscritas sin financiaci\u00f3n',
-            },
-            {
-              icon: 'timer',
-              text: 'Bootstrapped de cero a producci\u00f3n en 3 meses',
-            },
-            {
-              icon: 'globe',
-              text: 'Soporte multi-idioma para curr\u00edculos diversos',
-            },
-          ],
-        },
-        webSeo: {
-          title: 'Plataforma Infinity DevOps',
-          badge: 'Enterprise \u00b7 Equipo de 10',
-          desc: 'Tech Lead gestionando 10 desarrolladores e ingenieros cloud construyendo productos IP de DevOps en AWS y GCP.',
-          items: [
-            {
-              icon: 'users',
-              text: 'Lider\u00e9 equipo de 10 desarrolladores e ingenieros cloud',
-            },
-            {
-              icon: 'cloud',
-              text: 'Multi-cloud: AWS EC2, GCP CloudBuild',
-            },
-            {
-              icon: 'container',
-              text: 'Orquestaci\u00f3n con Docker y Kubernetes',
-            },
-            {
-              icon: 'gitBranch',
-              text: 'Automatizaci\u00f3n de pipelines CI/CD',
-            },
-          ],
-        },
-        erp: {
-          title: 'Infinity AIWatch',
-          desc: 'Producto APM con dashboards de monitoreo impulsados por IA',
-          metric: 'OpenAI + Python',
-        },
-        gpts: {
-          title: 'Enrico Audit App',
-          desc: 'Aplicaci\u00f3n SaaS de auditor\u00eda con stack MEAN',
-          metric: 'Multi-tenant',
-        },
-        reservas: {
-          title: 'eOxygen Insurance',
-          desc: 'App de seguros con MEAN Stack + despliegue AWS',
-          metric: 'Full Stack',
-        },
-        crm: {
-          title: 'Contratos Upwork',
-          desc: 'Proyectos NextJS, MERN, Angular para clientes globales',
-          metric: '16+ trabajos',
-        },
-        genAI: {
-          title: 'Integraciones IA',
-          desc: 'OpenAI, RAG, Vector DBs, Prompt Engineering en todos los proyectos',
-          metric: '8+ proyectos',
-        },
-      },
-      lico: {
-        company: 'LTI Mindtree',
-        location: 'Mumbai, India',
-        role: 'Senior Engineering Specialist',
-        period: 'Junio 2021 - Nov 2023 \u00b7 Productos Enterprise',
-        desc: 'Lider\u00e9 el equipo COE de 10+ ingenieros gestionando propiedades intelectuales de DevOps y desarrollando MVPs/POCs en m\u00faltiples HyperScalers con stack MEAN. Constru\u00ed producto APM impulsado por IA con integraci\u00f3n OpenAI.',
-        testimonial: {
-          quote: '',
-          author: '',
-          role: '',
-        },
-      },
-      everis: {
-        company: 'Azentio Software \u2192 Abacus \u2192 Threepin',
-        role: 'Senior Software Engineer \u2192 Software Developer',
-        period: 'Ene 2017 - Junio 2021 \u00b7 SaaS & Enterprise',
-        desc: 'Carrera progresiva de desarrollador .NET a Senior Engineer. Lider\u00e9 ingenier\u00eda de productos SaaS con multi-tenancy. Desarroll\u00e9 aplicaciones web complejas, microservicios e integraciones enterprise en m\u00faltiples stacks tecnol\u00f3gicos.',
-        tesauro: {
-          title: 'Arquitectura SaaS Multi-Tenancy',
-          desc: 'Dise\u00f1\u00e9 aplicaciones multi-tenant escalables con capacidad bajo demanda. Enfoque POC-first para ganar confianza del mercado antes de escalar.',
-        },
-        testimonial: {
-          quote:
-            'Yash es uno de los ingenieros m\u00e1s trabajadores y meticulosos que he conocido. Trabajamos estrechamente en DecoverAI... Finalmente recaudamos $2M+ en financiaci\u00f3n con la ayuda de sus esfuerzos.',
-          author: 'Ravi Tandon',
-          role: 'CEO, Co-Fundador - DecoverAI',
-        },
-      },
     },
     linkedinPosts: {
       title: 'Publicaciones',
@@ -604,8 +453,8 @@ export const translations = {
     email: 'yash.soni2737@gmail.com',
     role: 'scalable systems.',
     story: {
-      context: '+8 years building+ production systems from scratch.',
-      reflections: ['Ships on time. Scales to millions.', '...what\'s next?'],
+      context: '+9 years building+ production systems from scratch.',
+      reflections: ['Ships fast. POC to production in weeks.', '...what\'s next?'],
       hookParagraphs: [
         ['From enterprise to independence. I chose *freedom.*'],
         [
@@ -613,11 +462,11 @@ export const translations = {
           '*Architecting* +systems that scale+.',
         ],
       ],
-      why: 'At LTI Mindtree I led a team of 10+ engineers building DevOps products. Then went independent \u2014 built AI platforms for US law firms that helped raise $2M+ in funding.',
+      why: 'At LTI Mindtree I led a team of 10+ engineers building DevOps products. Then went independent and helped build the GenAI platform behind DecoverAI, now used in US law firms. They raised $2M+ in seed funding.',
       seeking: [
         'I build what others spec.',
         'AI-powered. Production-grade. End-to-end.',
-        'Ready for the next challenge.',
+        'Available for freelance and contract work.',
       ],
       nav: [
         { icon: 'briefcase', label: 'My path', href: '#experience' },
@@ -647,7 +496,7 @@ export const translations = {
       p1: 'Senior Full Stack Architect specializing in',
       p1Highlight: 'AI-powered SaaS solutions',
       p1End:
-        'with 8+ years shipping production systems across React, Node.js, .NET, Python. Led teams of 10+ engineers. Built GenAI platforms deployed in US law firms that helped secure $2M+ in funding.',
+        'with 9+ years shipping production systems across React, Node.js, .NET, Python. Led a COE of 10+ engineers. Helped build the GenAI platform behind DecoverAI, deployed in US law firms, which raised $2M+ in seed funding.',
       p2: 'End-to-end ownership across',
       p2Highlight: 'architecture \u2192 development \u2192 deployment \u2192 scaling',
       p2End: ', collaborating closely with clients and engineering teams worldwide.',
@@ -658,7 +507,7 @@ export const translations = {
         },
         {
           title: 'Enterprise Scale',
-          desc: 'Multi-tenant SaaS, microservices, Kubernetes orchestration at scale',
+          desc: 'Multi-tenant SaaS, microservices, Kubernetes, AWS and GCP',
         },
         {
           title: 'AI/ML Fluency',
@@ -687,11 +536,11 @@ export const translations = {
         },
         {
           title: 'Technical Leadership',
-          desc: 'Teams of 10+ engineers, agile methodologies, mentoring & code review',
+          desc: 'Led a COE of 10+ engineers, estimates and delivery, code review',
         },
         {
           title: 'GenAI Solutions',
-          desc: 'OpenAI, Claude, LangChain, prompt engineering, voice assistants, document AI',
+          desc: 'OpenAI, Gemini, Claude, LiteLLM, prompt engineering, voice assistants, document AI',
         },
       ],
     },
@@ -737,6 +586,21 @@ export const translations = {
           items: ['AWS (EC2, EKS, Sagemaker)', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Nginx', 'CI/CD'],
         },
         {
+          name: 'Platforms & Serverless',
+          items: [
+            'Vercel (Functions, Blob)',
+            'Cloudflare R2',
+            'Cloudflare Workers',
+            'Cloudflare Pages',
+            'Render',
+            'Railway',
+            'Neon',
+            'Upstash',
+            'AWS S3',
+            'AWS Lambda',
+          ],
+        },
+        {
           name: 'Tools',
           items: ['Git', 'JIRA', 'Azure DevOps', 'Postman', 'Kafka', 'Jenkins'],
         },
@@ -762,7 +626,7 @@ export const translations = {
           title: 'Speakology AI',
           badge: 'Bootstrapped',
           badgeBuilding: '',
-          desc: 'First AI Avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in just 3 months. No funding required.',
+          desc: 'AI Avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in just 3 months. No funding required.',
           tech: ['React', 'Node.js', 'MongoDB', 'OpenAI', 'Prompt Engineering'],
           link: '',
           caseStudyUrl: '/speakology-ai',
@@ -770,19 +634,19 @@ export const translations = {
         },
         {
           title: 'United Medical',
-          badge: 'In Development',
+          badge: 'Active Retainer',
           badgeBuilding: '',
-          desc: 'Hospital-doctor contract management application for a German healthcare startup. Full stack architecture with complex workflow automation.',
-          tech: ['React', 'Node.js', 'PostgreSQL', 'TypeScript'],
+          desc: 'Hospital-doctor contract management application for a German healthcare startup. Active retainer since Aug 2023.',
+          tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Redis'],
           link: '',
           caseStudyUrl: '/united-medical',
           caseStudyLabel: 'Read case study',
         },
         {
           title: 'Mappie AI',
-          badge: 'AI Product',
+          badge: 'Client Project',
           badgeBuilding: '',
-          desc: 'Transforms messy requirements into dev-ready user stories. AI-powered project management built from idea to execution over 1 year.',
+          desc: 'Transforms messy requirements into dev-ready user stories. AI-powered project management built for Nindo Solutions, with a 60-70% reduction in backlog grooming time (reported figure).',
           tech: ['React', 'TypeScript', 'OpenAI', 'Node.js'],
           link: '',
           caseStudyUrl: '/mappie-ai',
@@ -810,32 +674,48 @@ export const translations = {
           title: 'This Portfolio',
           badge: 'This Site',
           badgeBuilding: '',
-          desc: 'Interactive CV with AI chatbot powered by Claude. Built with React 19, TypeScript, Tailwind CSS v4, and deployed on Vercel Edge.',
-          tech: ['React 19', 'TypeScript', 'Tailwind', 'Claude API', 'Vercel'],
+          desc: 'Interactive CV with an AI chatbot powered by Gemini 2.5 Flash. Built with React 19, TypeScript and Tailwind CSS v4, and deployed on Vercel.',
+          tech: ['React 19', 'TypeScript', 'Tailwind', 'Gemini API', 'Vercel'],
           link: '',
         },
         {
           title: 'BrandGen',
-          badge: 'AI Image Gen',
+          badge: 'Live',
           badgeBuilding: '',
-          desc: 'Brand-aligned image generator. Supply brand context via image or text guidelines, describe what you want, and the app generates images matching your brand — colors, style, and composition.',
-          tech: ['React', 'Node.js', 'OpenAI', 'Image Generation', 'TypeScript'],
-          link: '',
+          desc: 'Brand-aligned image generator. Supply brand context via image or text guidelines, describe what you want, and the app generates images matching your brand: colors, style, and composition.',
+          tech: ['Next.js', 'Gemini', 'PostgreSQL', 'Supabase', 'TypeScript'],
+          link: 'getbrandgen.com',
         },
         {
           title: 'Convo AI',
-          badge: 'Voice AI',
+          badge: 'Live',
           badgeBuilding: '',
-          desc: 'Inbound AI Voice Assistant for multi-domain and multi-industry use cases. Natural conversation, intent routing, and domain-specific knowledge.',
-          tech: ['Node.js', 'OpenAI', 'Voice AI', 'WebSocket', 'TypeScript'],
-          link: '',
+          desc: 'AI voice receptionist that answers calls around the clock, schedules appointments and manages bookings. Built for hotels, restaurants, clinics, real estate and finance. Live at heyyconvo.com.',
+          tech: ['Next.js', 'Vapi', 'Deepgram', 'GPT-4o-mini', 'Google Calendar'],
+          link: 'heyyconvo.com',
+        },
+        {
+          title: 'TriageGrid',
+          badge: 'GA',
+          badgeBuilding: '',
+          desc: 'AI email triage for US and UK law firms on Microsoft 365. Classifies inbound Outlook email, flags court deadlines and runs action chains so attorneys do not hand-sort their inboxes.',
+          tech: ['Microsoft Graph', 'Claude', 'OpenAI', 'PostgreSQL', 'Slack', 'Teams'],
+          link: 'triagegrid.com',
+        },
+        {
+          title: 'CC Logins',
+          badge: 'Open Source',
+          badgeBuilding: '',
+          desc: 'Tray app that shows Claude Code quota across multiple subscriptions and switches the active account. My first open-source product, MIT licensed. Adapted from MIT-licensed code by Onur Cetinkol.',
+          tech: ['Rust', 'Tauri', 'TypeScript', 'SQLite'],
+          link: 'github.com/yashsoni369/cc-logins',
         },
         {
           title: 'AI Tutor',
-          badge: 'EdTech AI',
+          badge: 'POC',
           badgeBuilding: '',
-          desc: 'AI-powered language teacher for individuals, schools, and institutions. Personalized learning, real-time conversation practice, and adaptive difficulty.',
-          tech: ['React', 'Node.js', 'OpenAI', 'MongoDB', 'TypeScript'],
+          desc: 'AI speaking tutor for schools and institutes. A teacher assigns a timed session, the student practises with a video avatar, and both see a basic assessment. Proof of concept.',
+          tech: ['Next.js', 'PostgreSQL', 'Drizzle', 'OpenAI', 'Streaming Avatar'],
           link: '',
         },
         {
@@ -874,157 +754,6 @@ export const translations = {
     },
     experience: {
       title: 'Work Experience',
-      santifer: {
-        company: 'Freelance Contracts (Apex36)',
-        location: 'USA / UK / Germany \u00b7 Remote',
-        role: 'Senior Full Stack Architect & AI Developer',
-        period: 'Dec 2023 - Present \u00b7 AI & SaaS',
-        caseStudyUrl: '',
-        caseStudyLabel: '',
-        exit: '',
-        exitDesc: '',
-        highlights: [
-          'DecoverAI: AI legal platform for US law firms \u2014 helped secure $2M+ in VC funding',
-          'United Medical: Hospital-doctor contract management for German healthcare startup',
-          'Speakology AI: First AI Avatar language learning app \u2014 10+ UK school subscriptions in 3 months',
-          'Mappie AI: AI project management \u2014 requirements to dev-ready stories',
-          'Vectro AI: Sales intelligence from calls, emails & Slack using vector search',
-          'Stethy: AI automation in healthcare & life sciences',
-          'Noetic: Automated assessment for ADHD, autism, dyslexia, dyspraxia, dyscalculia',
-        ],
-        trustedBy: {
-          label: '',
-          logos: [] as { name: string; icon?: string; src?: string }[],
-        },
-        businessOS: {
-          title: 'DecoverAI Platform',
-          badge: 'AI \u00b7 $2M Funded',
-          desc: 'AI-powered legal document management and semantic search platform deployed in major US law firms.',
-          metrics: [
-            { value: '$2M+', label: 'funding raised' },
-            { value: '13', label: 'months of development' },
-            { value: '10+', label: 'law firms deployed' },
-          ],
-          modules: [
-            {
-              icon: 'database',
-              text: 'Vector database for semantic document search',
-            },
-            {
-              icon: 'bot',
-              text: 'AI-powered query engine with LLM integration',
-            },
-            {
-              icon: 'shield',
-              text: 'Enterprise security for legal document handling',
-            },
-            {
-              icon: 'users',
-              text: 'Multi-tenant architecture for law firms',
-            },
-          ],
-          footer: '',
-        },
-        jacobo: {
-          title: 'Speakology AI',
-          badge: '10+ School Subscriptions',
-          desc: 'AI Avatar language learning app for UK schools. First-of-its-kind, bootstrapped in 3 months.',
-          items: [
-            {
-              icon: 'bot',
-              text: 'AI Avatar for interactive language practice',
-            },
-            {
-              icon: 'users',
-              text: '10+ schools subscribed without funding',
-            },
-            {
-              icon: 'timer',
-              text: 'Bootstrapped from zero to production in 3 months',
-            },
-            {
-              icon: 'globe',
-              text: 'Multi-language support for diverse curricula',
-            },
-          ],
-        },
-        webSeo: {
-          title: 'Infinity DevOps Platform',
-          badge: 'Enterprise \u00b7 Team of 10',
-          desc: 'Tech Lead managing 10 developers and cloud engineers building DevOps IP products across AWS and GCP.',
-          items: [
-            {
-              icon: 'users',
-              text: 'Led team of 10 developers and cloud engineers',
-            },
-            {
-              icon: 'cloud',
-              text: 'Multi-cloud: AWS EC2, GCP CloudBuild',
-            },
-            {
-              icon: 'container',
-              text: 'Docker, Kubernetes orchestration',
-            },
-            {
-              icon: 'gitBranch',
-              text: 'CI/CD pipeline automation',
-            },
-          ],
-        },
-        erp: {
-          title: 'Infinity AIWatch',
-          desc: 'APM product with AI-driven monitoring dashboards',
-          metric: 'OpenAI + Python',
-        },
-        gpts: {
-          title: 'Enrico Audit App',
-          desc: 'SaaS audit application with MEAN stack',
-          metric: 'Multi-tenant',
-        },
-        reservas: {
-          title: 'eOxygen Insurance',
-          desc: 'Insurance app with MEAN Stack + AWS deployment',
-          metric: 'Full Stack',
-        },
-        crm: {
-          title: 'Upwork Contracts',
-          desc: 'NextJS, MERN, Angular projects for global clients',
-          metric: '16+ jobs',
-        },
-        genAI: {
-          title: 'AI Integrations',
-          desc: 'OpenAI, RAG, Vector DBs, Prompt Engineering across all projects',
-          metric: '8+ projects',
-        },
-      },
-      lico: {
-        company: 'LTI Mindtree',
-        location: 'Mumbai, India',
-        role: 'Senior Engineering Specialist',
-        period: 'June 2021 - Nov 2023 \u00b7 Enterprise Products',
-        desc: 'Led COE Team of 10+ Engineers managing DevOps intellectual properties and developing MVPs/POCs around multiple HyperScalers using MEAN stack. Built AI-powered APM product with OpenAI integration.',
-        testimonial: {
-          quote: '',
-          author: '',
-          role: '',
-        },
-      },
-      everis: {
-        company: 'Azentio Software \u2192 Abacus \u2192 Threepin',
-        role: 'Senior Software Engineer \u2192 Software Developer',
-        period: 'Jan 2017 - June 2021 \u00b7 SaaS & Enterprise',
-        desc: 'Progressive career from .NET developer to Senior Engineer. Led SaaS product engineering with multi-tenancy. Developed complex web applications, microservices, and enterprise integrations across multiple tech stacks.',
-        tesauro: {
-          title: 'SaaS Multi-Tenancy Architecture',
-          desc: 'Designed scalable multi-tenant applications with on-demand capacity. POC-first approach to gain market trust before scaling.',
-        },
-        testimonial: {
-          quote:
-            'Yash is one of the hardest-working and meticulous engineers I have encountered. We worked closely on DecoverAI... We eventually raised 2M+ in funding with the help of his efforts.',
-          author: 'Ravi Tandon',
-          role: 'CEO, Co-Founder - DecoverAI',
-        },
-      },
     },
     linkedinPosts: {
       title: 'Writing',
@@ -1039,7 +768,7 @@ export const translations = {
       aiFluency: {
         title: 'AI & Cloud',
         badge: 'Kubernetes \u00b7 AWS \u00b7 AI',
-        desc: 'CKAD certified, AWS Cloud Practitioner, and Azure Fundamentals. Hands-on experience building and deploying AI solutions in production.',
+        desc: 'CKAD, AWS Cloud Practitioner and Azure Fundamentals certifications. Hands-on experience building and deploying AI solutions in production.',
         certs: [] as { title: string; url: string }[],
       },
       items: [] as { year: string; event: string; eventUrl: string; title: string; desc: string; pdf: string; featured: boolean }[],
@@ -1049,7 +778,7 @@ export const translations = {
       items: [
         {
           year: '2021',
-          org: 'CSMU, Kanpur',
+          org: 'Nehru P.G. College \u00b7 CSMU, Kanpur',
           title: 'Master of Computer Applications (MCA)',
           desc: 'Computer Science',
         },
@@ -1065,21 +794,18 @@ export const translations = {
       title: 'Certifications',
       items: [
         {
-          year: '2023',
           title: 'CKAD: Certified Kubernetes Application Developer',
           org: 'The Linux Foundation',
           logo: 'kubernetes',
           url: '',
         },
         {
-          year: '2021',
           title: 'Microsoft Certified: Azure Fundamentals (AZ-900)',
           org: 'Microsoft',
           logo: 'azure',
           url: '',
         },
         {
-          year: '2021',
           title: 'AWS Certified Cloud Practitioner',
           org: 'Amazon Web Services',
           logo: 'aws',
@@ -1108,7 +834,7 @@ export const translations = {
     },
     cta: {
       title: "Let's Build Together",
-      desc: 'Available for freelance and contract work worldwide. I build scalable AI & SaaS solutions \u2014 from architecture to deployment.',
+      desc: 'Available for freelance and contract work worldwide. I build scalable AI & SaaS solutions, from architecture to deployment.',
       contact: 'Book a Call',
     },
     ui: {
@@ -1434,157 +1160,6 @@ export const translations = {
     },
     experience: {
       title: '工作经历',
-      santifer: {
-        company: '自由合同 (Apex36)',
-        location: '美国 / 英国 / 德国 · 远程',
-        role: 'Senior Full Stack Architect & AI Developer',
-        period: '2023年12月 - 至今 · AI & SaaS',
-        caseStudyUrl: '',
-        caseStudyLabel: '',
-        exit: '',
-        exitDesc: '',
-        highlights: [
-          'DecoverAI：面向美国律所的AI法律平台——帮助获得200万美元以上VC融资',
-          'United Medical：德国医疗初创公司的医院-医生合同管理',
-          'Speakology AI：首款AI虚拟形象语言学习应用——3个月内获10多个英国学校订阅',
-          'Mappie AI：AI项目管理——从需求到可开发的用户故事',
-          'Vectro AI：利用向量搜索从电话、邮件和Slack中获取销售情报',
-          'Stethy：医疗与生命科学领域的AI自动化',
-          'Noetic：ADHD、自闭症、阅读障碍、运动协调障碍、计算障碍的自动化评估',
-        ],
-        trustedBy: {
-          label: '',
-          logos: [] as { name: string; icon?: string; src?: string }[],
-        },
-        businessOS: {
-          title: 'DecoverAI平台',
-          badge: 'AI · 获融200万美元',
-          desc: 'AI驱动的法律文档管理与语义搜索平台，部署在美国大型律所。',
-          metrics: [
-            { value: '$2M+', label: '获得融资' },
-            { value: '13', label: '个月开发' },
-            { value: '10+', label: '律所部署' },
-          ],
-          modules: [
-            {
-              icon: 'database',
-              text: '用于语义文档搜索的向量数据库',
-            },
-            {
-              icon: 'bot',
-              text: '集成LLM的AI查询引擎',
-            },
-            {
-              icon: 'shield',
-              text: '法律文档处理的企业级安全',
-            },
-            {
-              icon: 'users',
-              text: '面向律所的多租户架构',
-            },
-          ],
-          footer: '',
-        },
-        jacobo: {
-          title: 'Speakology AI',
-          badge: '10+学校订阅',
-          desc: '面向英国学校的AI虚拟形象语言学习应用。首创，3个月内自力更生上线。',
-          items: [
-            {
-              icon: 'bot',
-              text: '用于互动语言练习的AI虚拟形象',
-            },
-            {
-              icon: 'users',
-              text: '10多所学校无需融资即订阅',
-            },
-            {
-              icon: 'timer',
-              text: '3个月内从零到生产上线',
-            },
-            {
-              icon: 'globe',
-              text: '支持多种语言的多元课程',
-            },
-          ],
-        },
-        webSeo: {
-          title: 'Infinity DevOps平台',
-          badge: '企业级 · 10人团队',
-          desc: '技术负责人，管理10名开发者和云工程师，在AWS和GCP上构建DevOps知识产权产品。',
-          items: [
-            {
-              icon: 'users',
-              text: '领导10名开发者和云工程师的团队',
-            },
-            {
-              icon: 'cloud',
-              text: '多云：AWS EC2, GCP CloudBuild',
-            },
-            {
-              icon: 'container',
-              text: 'Docker、Kubernetes编排',
-            },
-            {
-              icon: 'gitBranch',
-              text: 'CI/CD流水线自动化',
-            },
-          ],
-        },
-        erp: {
-          title: 'Infinity AIWatch',
-          desc: '带有AI驱动监控仪表板的APM产品',
-          metric: 'OpenAI + Python',
-        },
-        gpts: {
-          title: 'Enrico Audit App',
-          desc: '使用MEAN技术栈的SaaS审计应用',
-          metric: '多租户',
-        },
-        reservas: {
-          title: 'eOxygen Insurance',
-          desc: '使用MEAN Stack + AWS部署的保险应用',
-          metric: '全栈',
-        },
-        crm: {
-          title: 'Upwork合同',
-          desc: '为全球客户提供NextJS、MERN、Angular项目',
-          metric: '16+个项目',
-        },
-        genAI: {
-          title: 'AI集成',
-          desc: '在所有项目中使用OpenAI、RAG、Vector DBs、Prompt Engineering',
-          metric: '8+个项目',
-        },
-      },
-      lico: {
-        company: 'LTI Mindtree',
-        location: '孟买，印度',
-        role: 'Senior Engineering Specialist',
-        period: '2021年6月 - 2023年11月 · 企业级产品',
-        desc: '领导10多名工程师的COE团队，管理DevOps知识产权并使用MEAN技术栈在多个超大规模云平台上开发MVP/POC。构建了集成OpenAI的AI驱动APM产品。',
-        testimonial: {
-          quote: '',
-          author: '',
-          role: '',
-        },
-      },
-      everis: {
-        company: 'Azentio Software → Abacus → Threepin',
-        role: 'Senior Software Engineer → Software Developer',
-        period: '2017年1月 - 2021年6月 · SaaS与企业级',
-        desc: '从.NET开发者逐步成长为高级工程师。主导多租户SaaS产品工程。在多个技术栈中开发复杂的Web应用、微服务和企业集成。',
-        tesauro: {
-          title: 'SaaS多租户架构',
-          desc: '设计了具有按需容量的可扩展多租户应用。以概念验证为先的方法，在扩展前赢得市场信任。',
-        },
-        testimonial: {
-          quote:
-            'Yash是我见过的最勤奋、最细致的工程师之一。我们在DecoverAI上紧密合作……最终在他的帮助下筹集了200万美元以上的融资。',
-          author: 'Ravi Tandon',
-          role: 'CEO, Co-Founder - DecoverAI',
-        },
-      },
     },
     linkedinPosts: {
       title: '文章',
@@ -1994,157 +1569,6 @@ export const translations = {
     },
     experience: {
       title: 'Experience Professionnelle',
-      santifer: {
-        company: 'Contrats Freelance (Apex36)',
-        location: 'USA / UK / Allemagne · Teletravail',
-        role: 'Senior Full Stack Architect & AI Developer',
-        period: 'Dec 2023 - Present · AI & SaaS',
-        caseStudyUrl: '',
-        caseStudyLabel: '',
-        exit: '',
-        exitDesc: '',
-        highlights: [
-          "DecoverAI : Plateforme juridique IA pour cabinets americains — aide a obtenir 2M$+ de financement VC",
-          'United Medical : Gestion de contrats hopital-medecin pour startup sante allemande',
-          'Speakology AI : Premiere app Avatar IA pour langues — 10+ abonnements scolaires UK en 3 mois',
-          'Mappie AI : Gestion de projet IA — des exigences aux stories pretes pour le dev',
-          "Vectro AI : Intelligence commerciale depuis appels, emails et Slack via recherche vectorielle",
-          "Stethy : Automatisation IA dans la sante et les sciences de la vie",
-          "Noetic : Evaluation automatisee pour TDAH, autisme, dyslexie, dyspraxie, dyscalculie",
-        ],
-        trustedBy: {
-          label: '',
-          logos: [] as { name: string; icon?: string; src?: string }[],
-        },
-        businessOS: {
-          title: 'Plateforme DecoverAI',
-          badge: 'AI · 2M$ Leves',
-          desc: "Plateforme de gestion de documents juridiques et recherche semantique propulsee par IA, deployee dans de grands cabinets d'avocats americains.",
-          metrics: [
-            { value: '$2M+', label: 'financement obtenu' },
-            { value: '13', label: 'mois de developpement' },
-            { value: '10+', label: 'cabinets deployes' },
-          ],
-          modules: [
-            {
-              icon: 'database',
-              text: 'Base de donnees vectorielle pour recherche semantique de documents',
-            },
-            {
-              icon: 'bot',
-              text: "Moteur de requetes IA avec integration LLM",
-            },
-            {
-              icon: 'shield',
-              text: 'Securite enterprise pour le traitement de documents juridiques',
-            },
-            {
-              icon: 'users',
-              text: "Architecture multi-tenant pour cabinets d'avocats",
-            },
-          ],
-          footer: '',
-        },
-        jacobo: {
-          title: 'Speakology AI',
-          badge: '10+ Abonnements Scolaires',
-          desc: "App d'apprentissage des langues avec Avatar IA pour les ecoles britanniques. Premiere du genre, autofinancee en 3 mois.",
-          items: [
-            {
-              icon: 'bot',
-              text: 'Avatar IA pour la pratique interactive des langues',
-            },
-            {
-              icon: 'users',
-              text: '10+ ecoles abonnees sans financement',
-            },
-            {
-              icon: 'timer',
-              text: 'De zero a production en 3 mois sans financement',
-            },
-            {
-              icon: 'globe',
-              text: 'Support multilingue pour des programmes diversifies',
-            },
-          ],
-        },
-        webSeo: {
-          title: 'Plateforme Infinity DevOps',
-          badge: 'Enterprise · Equipe de 10',
-          desc: "Tech Lead gerant 10 developpeurs et ingenieurs cloud construisant des produits IP DevOps sur AWS et GCP.",
-          items: [
-            {
-              icon: 'users',
-              text: "Direction d'une equipe de 10 developpeurs et ingenieurs cloud",
-            },
-            {
-              icon: 'cloud',
-              text: 'Multi-cloud : AWS EC2, GCP CloudBuild',
-            },
-            {
-              icon: 'container',
-              text: 'Orchestration Docker et Kubernetes',
-            },
-            {
-              icon: 'gitBranch',
-              text: 'Automatisation de pipelines CI/CD',
-            },
-          ],
-        },
-        erp: {
-          title: 'Infinity AIWatch',
-          desc: 'Produit APM avec tableaux de bord de monitoring propulses par IA',
-          metric: 'OpenAI + Python',
-        },
-        gpts: {
-          title: 'Enrico Audit App',
-          desc: "Application SaaS d'audit avec stack MEAN",
-          metric: 'Multi-tenant',
-        },
-        reservas: {
-          title: 'eOxygen Insurance',
-          desc: "App d'assurance avec MEAN Stack + deploiement AWS",
-          metric: 'Full Stack',
-        },
-        crm: {
-          title: 'Contrats Upwork',
-          desc: 'Projets NextJS, MERN, Angular pour des clients internationaux',
-          metric: '16+ missions',
-        },
-        genAI: {
-          title: 'Integrations IA',
-          desc: 'OpenAI, RAG, Vector DBs, Prompt Engineering dans tous les projets',
-          metric: '8+ projets',
-        },
-      },
-      lico: {
-        company: 'LTI Mindtree',
-        location: 'Mumbai, Inde',
-        role: 'Senior Engineering Specialist',
-        period: 'Juin 2021 - Nov 2023 · Produits Enterprise',
-        desc: "Direction de l'equipe COE de 10+ ingenieurs gerant les proprietes intellectuelles DevOps et developpant des MVPs/POCs sur plusieurs HyperScalers avec le stack MEAN. Construction d'un produit APM propulse par IA avec integration OpenAI.",
-        testimonial: {
-          quote: '',
-          author: '',
-          role: '',
-        },
-      },
-      everis: {
-        company: 'Azentio Software → Abacus → Threepin',
-        role: 'Senior Software Engineer → Software Developer',
-        period: 'Jan 2017 - Juin 2021 · SaaS & Enterprise',
-        desc: "Carriere progressive de developpeur .NET a ingenieur senior. Direction de l'ingenierie de produits SaaS avec multi-tenancy. Developpement d'applications web complexes, microservices et integrations enterprise sur plusieurs stacks technologiques.",
-        tesauro: {
-          title: 'Architecture SaaS Multi-Tenancy',
-          desc: "Conception d'applications multi-tenant scalables avec capacite a la demande. Approche POC-first pour gagner la confiance du marche avant de passer a l'echelle.",
-        },
-        testimonial: {
-          quote:
-            "Yash est l'un des ingenieurs les plus travailleurs et les plus meticuleux que j'aie rencontres. Nous avons travaille en etroite collaboration sur DecoverAI... Nous avons finalement leve 2M$+ de financement grace a ses efforts.",
-          author: 'Ravi Tandon',
-          role: 'CEO, Co-Founder - DecoverAI',
-        },
-      },
     },
     linkedinPosts: {
       title: 'Publications',
@@ -2554,157 +1978,6 @@ export const translations = {
     },
     experience: {
       title: 'Experiencia Profissional',
-      santifer: {
-        company: 'Contratos Freelance (Apex36)',
-        location: 'EUA / UK / Alemanha · Remoto',
-        role: 'Senior Full Stack Architect & AI Developer',
-        period: 'Dez 2023 - Presente · AI & SaaS',
-        caseStudyUrl: '',
-        caseStudyLabel: '',
-        exit: '',
-        exitDesc: '',
-        highlights: [
-          'DecoverAI: Plataforma juridica IA para escritorios nos EUA — ajudou a garantir US$2M+ em financiamento VC',
-          'United Medical: Gestao de contratos hospital-medico para startup de saude alema',
-          'Speakology AI: Primeiro app Avatar IA para idiomas — 10+ assinaturas escolares no UK em 3 meses',
-          'Mappie AI: Gestao de projetos com IA — de requisitos a stories prontas para dev',
-          'Vectro AI: Inteligencia de vendas de chamadas, emails e Slack via busca vetorial',
-          'Stethy: Automacao com IA em saude e ciencias da vida',
-          'Noetic: Avaliacao automatizada para TDAH, autismo, dislexia, dispraxia, discalculia',
-        ],
-        trustedBy: {
-          label: '',
-          logos: [] as { name: string; icon?: string; src?: string }[],
-        },
-        businessOS: {
-          title: 'Plataforma DecoverAI',
-          badge: 'AI · US$2M Captados',
-          desc: 'Plataforma de gestao de documentos juridicos e busca semantica impulsionada por IA, implantada em grandes escritorios de advocacia nos EUA.',
-          metrics: [
-            { value: '$2M+', label: 'financiamento captado' },
-            { value: '13', label: 'meses de desenvolvimento' },
-            { value: '10+', label: 'escritorios implantados' },
-          ],
-          modules: [
-            {
-              icon: 'database',
-              text: 'Banco de dados vetorial para busca semantica de documentos',
-            },
-            {
-              icon: 'bot',
-              text: 'Motor de consultas IA com integracao LLM',
-            },
-            {
-              icon: 'shield',
-              text: 'Seguranca enterprise para manuseio de documentos juridicos',
-            },
-            {
-              icon: 'users',
-              text: 'Arquitetura multi-tenant para escritorios de advocacia',
-            },
-          ],
-          footer: '',
-        },
-        jacobo: {
-          title: 'Speakology AI',
-          badge: '10+ Assinaturas Escolares',
-          desc: 'App de aprendizado de idiomas com Avatar IA para escolas do UK. Primeiro do tipo, autofinanciado em 3 meses.',
-          items: [
-            {
-              icon: 'bot',
-              text: 'Avatar IA para pratica interativa de idiomas',
-            },
-            {
-              icon: 'users',
-              text: '10+ escolas assinaram sem financiamento',
-            },
-            {
-              icon: 'timer',
-              text: 'De zero a producao em 3 meses sem financiamento',
-            },
-            {
-              icon: 'globe',
-              text: 'Suporte multi-idioma para curriculos diversificados',
-            },
-          ],
-        },
-        webSeo: {
-          title: 'Plataforma Infinity DevOps',
-          badge: 'Enterprise · Equipe de 10',
-          desc: 'Tech Lead gerenciando 10 desenvolvedores e engenheiros cloud construindo produtos IP DevOps em AWS e GCP.',
-          items: [
-            {
-              icon: 'users',
-              text: 'Liderou equipe de 10 desenvolvedores e engenheiros cloud',
-            },
-            {
-              icon: 'cloud',
-              text: 'Multi-cloud: AWS EC2, GCP CloudBuild',
-            },
-            {
-              icon: 'container',
-              text: 'Orquestracao Docker e Kubernetes',
-            },
-            {
-              icon: 'gitBranch',
-              text: 'Automacao de pipelines CI/CD',
-            },
-          ],
-        },
-        erp: {
-          title: 'Infinity AIWatch',
-          desc: 'Produto APM com dashboards de monitoramento impulsionados por IA',
-          metric: 'OpenAI + Python',
-        },
-        gpts: {
-          title: 'Enrico Audit App',
-          desc: 'Aplicacao SaaS de auditoria com stack MEAN',
-          metric: 'Multi-tenant',
-        },
-        reservas: {
-          title: 'eOxygen Insurance',
-          desc: 'App de seguros com MEAN Stack + implantacao AWS',
-          metric: 'Full Stack',
-        },
-        crm: {
-          title: 'Contratos Upwork',
-          desc: 'Projetos NextJS, MERN, Angular para clientes globais',
-          metric: '16+ trabalhos',
-        },
-        genAI: {
-          title: 'Integracoes IA',
-          desc: 'OpenAI, RAG, Vector DBs, Prompt Engineering em todos os projetos',
-          metric: '8+ projetos',
-        },
-      },
-      lico: {
-        company: 'LTI Mindtree',
-        location: 'Mumbai, India',
-        role: 'Senior Engineering Specialist',
-        period: 'Jun 2021 - Nov 2023 · Produtos Enterprise',
-        desc: 'Liderou a equipe COE de 10+ engenheiros gerenciando propriedades intelectuais DevOps e desenvolvendo MVPs/POCs em multiplos HyperScalers usando stack MEAN. Construiu produto APM impulsionado por IA com integracao OpenAI.',
-        testimonial: {
-          quote: '',
-          author: '',
-          role: '',
-        },
-      },
-      everis: {
-        company: 'Azentio Software → Abacus → Threepin',
-        role: 'Senior Software Engineer → Software Developer',
-        period: 'Jan 2017 - Jun 2021 · SaaS & Enterprise',
-        desc: 'Carreira progressiva de desenvolvedor .NET a Engenheiro Senior. Liderou engenharia de produtos SaaS com multi-tenancy. Desenvolveu aplicacoes web complexas, microsservicos e integracoes enterprise em multiplos stacks tecnologicos.',
-        tesauro: {
-          title: 'Arquitetura SaaS Multi-Tenancy',
-          desc: 'Projetou aplicacoes multi-tenant escalaveis com capacidade sob demanda. Abordagem POC-first para ganhar confianca do mercado antes de escalar.',
-        },
-        testimonial: {
-          quote:
-            'Yash e um dos engenheiros mais trabalhadores e meticulosos que ja conheci. Trabalhamos de perto no DecoverAI... No final, levantamos US$2M+ em financiamento gracas aos esforcos dele.',
-          author: 'Ravi Tandon',
-          role: 'CEO, Co-Founder - DecoverAI',
-        },
-      },
     },
     linkedinPosts: {
       title: 'Publicacoes',
@@ -3114,157 +2387,6 @@ export const translations = {
     },
     experience: {
       title: 'कार्य अनुभव',
-      santifer: {
-        company: 'फ्रीलांस कॉन्ट्रैक्ट्स (Apex36)',
-        location: 'USA / UK / जर्मनी · रिमोट',
-        role: 'Senior Full Stack Architect & AI Developer',
-        period: 'दिसंबर 2023 - वर्तमान · AI & SaaS',
-        caseStudyUrl: '',
-        caseStudyLabel: '',
-        exit: '',
-        exitDesc: '',
-        highlights: [
-          'DecoverAI: अमेरिकी लॉ फर्मों के लिए AI कानूनी प्लेटफॉर्म — $2M+ VC फंडिंग सुरक्षित करने में मदद',
-          'United Medical: जर्मन हेल्थकेयर स्टार्टअप के लिए हॉस्पिटल-डॉक्टर कॉन्ट्रैक्ट मैनेजमेंट',
-          'Speakology AI: पहला AI अवतार भाषा ऐप — 3 महीने में UK में 10+ स्कूल सब्सक्रिप्शन',
-          'Mappie AI: AI प्रोजेक्ट मैनेजमेंट — आवश्यकताओं से डेव-रेडी स्टोरीज़ तक',
-          'Vectro AI: कॉल, ईमेल और Slack से वेक्टर सर्च द्वारा सेल्स इंटेलिजेंस',
-          'Stethy: हेल्थकेयर और लाइफ साइंसेज में AI ऑटोमेशन',
-          'Noetic: ADHD, ऑटिज्म, डिस्लेक्सिया, डिस्प्रेक्सिया, डिस्कैलकुलिया के लिए ऑटोमेटेड असेसमेंट',
-        ],
-        trustedBy: {
-          label: '',
-          logos: [] as { name: string; icon?: string; src?: string }[],
-        },
-        businessOS: {
-          title: 'DecoverAI प्लेटफॉर्म',
-          badge: 'AI · $2M फंडेड',
-          desc: 'AI-संचालित कानूनी दस्तावेज़ प्रबंधन और सिमेंटिक सर्च प्लेटफॉर्म, प्रमुख अमेरिकी लॉ फर्मों में डिप्लॉय किया गया।',
-          metrics: [
-            { value: '$2M+', label: 'फंडिंग प्राप्त' },
-            { value: '13', label: 'महीने विकास' },
-            { value: '10+', label: 'लॉ फर्म डिप्लॉय' },
-          ],
-          modules: [
-            {
-              icon: 'database',
-              text: 'सिमेंटिक डॉक्यूमेंट सर्च के लिए वेक्टर डेटाबेस',
-            },
-            {
-              icon: 'bot',
-              text: 'LLM इंटीग्रेशन के साथ AI-संचालित क्वेरी इंजन',
-            },
-            {
-              icon: 'shield',
-              text: 'कानूनी दस्तावेज़ हैंडलिंग के लिए एंटरप्राइज सिक्योरिटी',
-            },
-            {
-              icon: 'users',
-              text: 'लॉ फर्मों के लिए मल्टी-टेनेंट आर्किटेक्चर',
-            },
-          ],
-          footer: '',
-        },
-        jacobo: {
-          title: 'Speakology AI',
-          badge: '10+ स्कूल सब्सक्रिप्शन',
-          desc: 'UK स्कूलों के लिए AI अवतार भाषा सीखने का ऐप। अपनी तरह का पहला, 3 महीने में बूटस्ट्रैप किया।',
-          items: [
-            {
-              icon: 'bot',
-              text: 'इंटरैक्टिव भाषा अभ्यास के लिए AI अवतार',
-            },
-            {
-              icon: 'users',
-              text: '10+ स्कूलों ने बिना फंडिंग के सब्सक्राइब किया',
-            },
-            {
-              icon: 'timer',
-              text: '3 महीने में शून्य से प्रोडक्शन तक',
-            },
-            {
-              icon: 'globe',
-              text: 'विविध पाठ्यक्रमों के लिए बहु-भाषा समर्थन',
-            },
-          ],
-        },
-        webSeo: {
-          title: 'Infinity DevOps प्लेटफॉर्म',
-          badge: 'एंटरप्राइज · 10 की टीम',
-          desc: 'टेक लीड, 10 डेवलपर्स और क्लाउड इंजीनियरों का प्रबंधन करते हुए AWS और GCP पर DevOps IP प्रोडक्ट्स बनाए।',
-          items: [
-            {
-              icon: 'users',
-              text: '10 डेवलपर्स और क्लाउड इंजीनियरों की टीम का नेतृत्व',
-            },
-            {
-              icon: 'cloud',
-              text: 'मल्टी-क्लाउड: AWS EC2, GCP CloudBuild',
-            },
-            {
-              icon: 'container',
-              text: 'Docker, Kubernetes ऑर्केस्ट्रेशन',
-            },
-            {
-              icon: 'gitBranch',
-              text: 'CI/CD पाइपलाइन ऑटोमेशन',
-            },
-          ],
-        },
-        erp: {
-          title: 'Infinity AIWatch',
-          desc: 'AI-संचालित मॉनिटरिंग डैशबोर्ड के साथ APM प्रोडक्ट',
-          metric: 'OpenAI + Python',
-        },
-        gpts: {
-          title: 'Enrico Audit App',
-          desc: 'MEAN स्टैक के साथ SaaS ऑडिट एप्लिकेशन',
-          metric: 'मल्टी-टेनेंट',
-        },
-        reservas: {
-          title: 'eOxygen Insurance',
-          desc: 'MEAN Stack + AWS डिप्लॉयमेंट के साथ इंश्योरेंस ऐप',
-          metric: 'Full Stack',
-        },
-        crm: {
-          title: 'Upwork कॉन्ट्रैक्ट्स',
-          desc: 'ग्लोबल क्लाइंट्स के लिए NextJS, MERN, Angular प्रोजेक्ट्स',
-          metric: '16+ जॉब्स',
-        },
-        genAI: {
-          title: 'AI इंटीग्रेशन',
-          desc: 'सभी प्रोजेक्ट्स में OpenAI, RAG, Vector DBs, Prompt Engineering',
-          metric: '8+ प्रोजेक्ट्स',
-        },
-      },
-      lico: {
-        company: 'LTI Mindtree',
-        location: 'मुंबई, भारत',
-        role: 'Senior Engineering Specialist',
-        period: 'जून 2021 - नवंबर 2023 · एंटरप्राइज प्रोडक्ट्स',
-        desc: '10+ इंजीनियरों की COE टीम का नेतृत्व, DevOps इंटेलेक्चुअल प्रॉपर्टीज़ का प्रबंधन और MEAN स्टैक का उपयोग करके कई HyperScalers पर MVPs/POCs विकसित किए। OpenAI इंटीग्रेशन के साथ AI-संचालित APM प्रोडक्ट बनाया।',
-        testimonial: {
-          quote: '',
-          author: '',
-          role: '',
-        },
-      },
-      everis: {
-        company: 'Azentio Software → Abacus → Threepin',
-        role: 'Senior Software Engineer → Software Developer',
-        period: 'जनवरी 2017 - जून 2021 · SaaS और एंटरप्राइज',
-        desc: '.NET डेवलपर से सीनियर इंजीनियर तक प्रगतिशील करियर। मल्टी-टेनेंसी के साथ SaaS प्रोडक्ट इंजीनियरिंग का नेतृत्व। कई टेक स्टैक्स में कॉम्प्लेक्स वेब एप्लिकेशन, माइक्रोसर्विसेज और एंटरप्राइज इंटीग्रेशन विकसित किए।',
-        tesauro: {
-          title: 'SaaS मल्टी-टेनेंसी आर्किटेक्चर',
-          desc: 'ऑन-डिमांड कैपेसिटी के साथ स्केलेबल मल्टी-टेनेंट एप्लिकेशन डिज़ाइन किए। स्केलिंग से पहले मार्केट ट्रस्ट हासिल करने के लिए POC-फर्स्ट अप्रोच।',
-        },
-        testimonial: {
-          quote:
-            'Yash सबसे मेहनती और सावधान इंजीनियरों में से एक हैं जिनसे मैं मिला हूँ। हमने DecoverAI पर मिलकर काम किया... अंततः उनके प्रयासों की मदद से हमने $2M+ फंडिंग जुटाई।',
-          author: 'Ravi Tandon',
-          role: 'CEO, Co-Founder - DecoverAI',
-        },
-      },
     },
     linkedinPosts: {
       title: 'लेख',

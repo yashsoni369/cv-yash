@@ -1,92 +1,176 @@
 {
   "name": "factual_accuracy",
-  "description": "Verifica que Yash responde con datos correctos del CV",
+  "description": "Checks that Yash answers with facts from the vault (Yash Soni hub, company and project hubs)",
   "tests": [
     {
       "id": "exp-years",
-      "description": "Debe mencionar años de experiencia significativos o fecha de inicio",
-      "input": "¿Cuántos años de experiencia tienes?",
-      "lang": "es",
+      "description": "Experience since Jan 2017, so 9+ years",
+      "input": "How many years of experience do you have?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["16", "15", "2009", "2007"] },
-        { "type": "not_contains", "value": "no sé" }
-      ]
-    },
-    {
-      "id": "agent-name",
-      "description": "Debe mencionar el nombre del agente AI: Jacobo",
-      "input": "¿Cómo se llama tu agente de IA?",
-      "lang": "es",
-      "assertions": [
-        { "type": "contains", "value": "Jacobo" }
+        {
+          "type": "contains_any",
+          "values": [
+            "9+",
+            "nine",
+            "2017",
+            "9 years"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "value": "8+"
+        }
       ]
     },
     {
       "id": "location",
-      "description": "Debe mencionar Sevilla",
-      "input": "¿Dónde estás basado?",
-      "lang": "es",
+      "description": "Based in Mumbai",
+      "input": "Where are you based?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains", "value": "Sevilla" }
+        {
+          "type": "contains",
+          "value": "Mumbai"
+        }
       ]
     },
     {
-      "id": "exit-2025",
-      "description": "Debe mencionar la venta en 2025",
-      "input": "¿Vendiste tu empresa?",
-      "lang": "es",
+      "id": "decoverai-role",
+      "description": "Contractor who helped build the platform; $2M+ seed, not a co-founder or valuation",
+      "input": "What was your role at DecoverAI?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains", "value": "2025" },
-        { "type": "contains_any", "values": ["vendí", "venta", "going concern", "funcionamiento"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "infrastructure",
+            "GenAI",
+            "platform",
+            "contract"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "value": "co-founded"
+        },
+        {
+          "type": "not_contains",
+          "value": "valuation"
+        }
       ]
     },
     {
-      "id": "repairs-count",
-      "description": "Debe mencionar +30,000 reparaciones",
-      "input": "¿Cuántas reparaciones hicisteis en total?",
-      "lang": "es",
+      "id": "decoverai-funding",
+      "description": "DecoverAI raised $2M+ seed",
+      "input": "How much funding did DecoverAI raise?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["30.000", "30,000", "30000", "treinta mil"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "$2M",
+            "2M",
+            "two million"
+          ]
+        }
       ]
     },
     {
-      "id": "automation-hours",
-      "description": "Debe mencionar 170+ horas automatizadas/mes",
-      "input": "¿Cuántas horas automatizaste al mes?",
-      "lang": "es",
+      "id": "speakology-schools",
+      "description": "10+ UK schools in 3 months, never 600+",
+      "input": "How many schools use Speakology?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["170", "ciento setenta"] }
+        {
+          "type": "contains",
+          "value": "10"
+        },
+        {
+          "type": "not_contains",
+          "value": "600"
+        }
       ]
     },
     {
-      "id": "target-roles",
-      "description": "Debe mencionar roles de interés",
-      "input": "¿Qué roles te interesan?",
-      "lang": "es",
+      "id": "lti-team",
+      "description": "Led a COE of 10+ engineers at LTI Mindtree",
+      "input": "What did you do at LTI Mindtree?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["Product Manager", "Solutions Architect", "Forward Deployed", "FDE"] }
+        {
+          "type": "contains_any",
+          "values": [
+            "10+",
+            "COE",
+            "DevOps"
+          ]
+        }
       ]
     },
     {
-      "id": "repo-public",
-      "description": "Debe confirmar que el repo de yashsoni.dev es público en GitHub",
-      "input": "¿El código de yashsoni.dev está en GitHub?",
-      "lang": "es",
+      "id": "llm-model",
+      "description": "The chat runs on Gemini, never Claude",
+      "input": "What model powers this chat?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["público", "publica", "open", "GitHub"] },
-        { "type": "contains_any", "values": ["yashsoni369", "cv-yash"] },
-        { "type": "not_contains", "value": "privado" }
+        {
+          "type": "contains_any",
+          "values": [
+            "Gemini",
+            "gemini"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "value": "Claude"
+        }
       ]
     },
     {
-      "id": "model-version",
-      "description": "Debe decir Claude Sonnet 4.5, no 3.5 Sonnet",
-      "input": "¿Qué modelo de IA usas?",
-      "lang": "es",
+      "id": "mappie-client",
+      "description": "Mappie AI was built for Nindo Solutions",
+      "input": "Who is Mappie AI built for?",
+      "lang": "en",
       "assertions": [
-        { "type": "contains_any", "values": ["Sonnet 4.5", "sonnet-4-5", "Claude Sonnet 4"] },
-        { "type": "not_contains", "value": "3.5 Sonnet" },
-        { "type": "not_contains", "value": "Sonnet 3.5" }
+        {
+          "type": "contains",
+          "value": "Nindo"
+        }
+      ]
+    },
+    {
+      "id": "own-products",
+      "description": "Own product line",
+      "input": "What products have you shipped yourself?",
+      "lang": "en",
+      "assertions": [
+        {
+          "type": "contains_any",
+          "values": [
+            "BrandGen",
+            "TriageGrid",
+            "Convo AI",
+            "CC Logins"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "employer-list",
+      "description": "Lists the employers from the vault timeline",
+      "input": "List every company you have worked for.",
+      "lang": "en",
+      "assertions": [
+        {
+          "type": "contains_any",
+          "values": [
+            "LTI Mindtree",
+            "Azentio",
+            "Abacus",
+            "Threepin"
+          ]
+        }
       ]
     }
   ]

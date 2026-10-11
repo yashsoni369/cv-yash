@@ -27,7 +27,8 @@ const content = {
       {
         heading: 'Terceros',
         items: [
-          'Anthropic (Claude): procesa los mensajes del chatbot para generar respuestas.',
+          'Google (Gemini 2.5 Flash): procesa los mensajes del chatbot para generar respuestas.',
+          'Supabase y OpenAI (embeddings): almacenan y buscan la base de conocimiento del portfolio que fundamenta las respuestas del chatbot.',
           'OpenAI (Realtime API): procesa el audio del modo voz para la conversacion en tiempo real.',
           'Langfuse: almacena trazas anonimizadas de conversaciones para observabilidad y mejora de calidad.',
           'Vercel: aloja el sitio web y recopila analiticas anonimas de uso.',
@@ -73,7 +74,8 @@ const content = {
       {
         heading: 'Third parties',
         items: [
-          'Anthropic (Claude): processes chatbot messages to generate responses.',
+          'Google (Gemini 2.5 Flash): processes chatbot messages to generate responses.',
+          'Supabase and OpenAI (embeddings): store and search the portfolio knowledge base used to ground chatbot answers.',
           'OpenAI (Realtime API): processes voice mode audio for real-time conversation.',
           'Langfuse: stores anonymized conversation traces for observability and quality improvement.',
           'Vercel: hosts the website and collects anonymous usage analytics.',
