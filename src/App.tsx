@@ -1553,7 +1553,7 @@ function App() {
 
           {/* Ledger: one row per employer (data in src/work-experience.ts) */}
           <AnimatedSection delay={0.1}>
-            <WorkExperience />
+            <WorkExperience lang={lang} />
           </AnimatedSection>
         </div>
       </section>

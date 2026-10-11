@@ -1,5 +1,6 @@
 import { ExternalLink } from 'lucide-react'
-import { workExperience, type Quote } from './work-experience'
+import { getWorkExperience, type Quote } from './work-experience'
+import type { Lang } from './i18n'
 import { TechLabel, ProductLogo } from './TechLabel'
 
 function initials(name: string) {
@@ -45,8 +46,8 @@ function Sub({ children }: { children: React.ReactNode }) {
   return <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground/70 mt-6 mb-2">{children}</p>
 }
 
-export function WorkExperience() {
-  const { jobs, clientQuotes } = workExperience
+export function WorkExperience({ lang }: { lang: Lang }) {
+  const { jobs, clientQuotes, labels } = getWorkExperience(lang)
   return (
     <div className="border-t border-border">
       {jobs.map(job => (
@@ -57,12 +58,11 @@ export function WorkExperience() {
             >
               {job.years[0]}
             </span>
-            to {job.years[1]}
+            {labels.range.replace('{y}', job.years[1] === 'Now' ? labels.now : job.years[1])}
           </div>
 
           <div className="min-w-0">
             <h3 className="font-display text-xl font-bold flex items-center gap-2.5">
-              {job.current && <ProductLogo name={job.company} size={26} />}
               {job.company}
             </h3>
             <div className="flex flex-wrap gap-x-3 gap-y-1 mt-0.5">
@@ -84,7 +84,7 @@ export function WorkExperience() {
 
             {job.clients && (
               <>
-                <Sub>Client work</Sub>
+                <Sub>{labels.clientWork}</Sub>
                 <div className="border-t border-border">
                   {job.clients.map(c => (
                     <div
@@ -105,7 +105,7 @@ export function WorkExperience() {
 
             {job.products && (
               <>
-                <Sub>My products</Sub>
+                <Sub>{labels.myProducts}</Sub>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {job.products.map(p => (
                     <div key={p.name} className="p-3.5 rounded-xl bg-card border border-border flex flex-col gap-1">
@@ -162,7 +162,7 @@ export function WorkExperience() {
       ))}
 
       <div className="py-8">
-        <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground/70 mb-3">More from clients</p>
+        <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground/70 mb-3">{labels.moreFromClients}</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {clientQuotes.map(q => (
             <div key={q.author} className="min-w-0">
