@@ -7,9 +7,9 @@ export const seo = {
   },
   en: {
     title:
-      'Yash Soni | Senior Full Stack Architect \u00b7 AI Developer \u00b7 Scalable Systems',
+      'Yash Soni | Freelance AI Architect and Full Stack Developer',
     description:
-      'Senior Full Stack Architect with 9+ years building scalable AI & SaaS solutions. React, Node.js, Python, AWS, Kubernetes, GenAI.',
+      'Independent AI architect with 9+ years building RAG platforms, voice AI and multi-tenant SaaS. Next.js, Node.js, Python, AWS. Open to freelance and contract work worldwide.',
   },
   zh: {
     title:

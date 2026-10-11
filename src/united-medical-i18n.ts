@@ -1,8 +1,8 @@
 const en = {
   slug: 'united-medical',
   seo: {
-    title: 'United Medical: Hospital-Doctor Contract Management | Yash Soni',
-    description: 'Case study: contract management application for a German healthcare startup, an ongoing retainer since August 2023.',
+    title: 'Healthcare Contract Management SaaS, Germany | Yash Soni',
+    description: 'Case study: hospital and doctor contract management for a German healthcare startup, on retainer since August 2023.',
   },
   header: {
     kicker: 'Case Study',

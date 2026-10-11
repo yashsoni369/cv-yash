@@ -1,8 +1,8 @@
 const en = {
   slug: 'infinity-devops',
   seo: {
-    title: 'Infinity DevOps: Enterprise DevOps Platform | Yash Soni',
-    description: 'Case study: DevOps platform across AWS and GCP, built at LTI Mindtree as the second major product of the DevOps Centre of Excellence.',
+    title: 'Enterprise DevOps Platform on AWS and GCP | Yash Soni',
+    description: 'Case study: multi-cloud DevOps platform built at LTI Mindtree\'s DevOps Centre of Excellence.',
   },
   header: {
     kicker: 'Case Study',

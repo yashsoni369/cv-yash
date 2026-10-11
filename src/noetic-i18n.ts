@@ -1,8 +1,8 @@
 const en = {
   slug: 'noetic',
   seo: {
-    title: 'Noetic: Automated Assessment Platform | Yash Soni',
-    description: 'Case study: automated assessment platform for ADHD, autism, dyslexia, dyspraxia and dyscalculia.',
+    title: 'Automated Neurodiversity Assessment Platform | Yash Soni',
+    description: 'Case study: automated assessments for ADHD, autism, dyslexia, dyspraxia and dyscalculia.',
   },
   header: {
     kicker: 'Case Study',

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, ExternalLink, Award, GraduationCap, Briefcase, ChevronRight, Clock, Newspaper, HelpCircle, Users } from 'lucide-react'
+import { applyRouteSeo } from './seo-routes'
 import { aboutContent, type AboutLang } from './about-i18n'
 
 const SOCIAL_LINKS = [
@@ -13,30 +14,7 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
   const altSlug = t.altSlug
 
   useEffect(() => {
-    document.documentElement.lang = lang
-    document.title = t.seo.title
-
-    let desc = document.querySelector('meta[name="description"]') as HTMLMetaElement
-    if (!desc) { desc = document.createElement('meta'); desc.name = 'description'; document.head.appendChild(desc) }
-    desc.content = t.seo.description
-
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement
-    if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical) }
-    canonical.href = `https://yashsoni.dev/${t.slug}`
-
-    const hreflangs = [
-      { lang: 'es', href: 'https://yashsoni.dev/sobre-mi' },
-      { lang: 'en', href: 'https://yashsoni.dev/about' },
-      { lang: 'x-default', href: 'https://yashsoni.dev/sobre-mi' },
-    ]
-    document.querySelectorAll('link[hreflang]').forEach(el => el.remove())
-    for (const hl of hreflangs) {
-      const link = document.createElement('link')
-      link.rel = 'alternate'
-      link.hreflang = hl.lang
-      link.href = hl.href
-      document.head.appendChild(link)
-    }
+    applyRouteSeo(`/${t.slug}`)
 
     let script = document.querySelector('script[data-about-jsonld]') as HTMLScriptElement
     if (!script) { script = document.createElement('script'); script.type = 'application/ld+json'; script.dataset.aboutJsonld = ''; document.head.appendChild(script) }
@@ -46,10 +24,10 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
       dateModified: '2026-10-10',
       mainEntity: {
         '@type': 'Person',
-        '@id': 'https://yashsoni.dev/#person',
+        '@id': 'https://www.yashsoni.dev/#person',
         name: 'Yash Soni',
-        url: 'https://yashsoni.dev',
-        image: 'https://yashsoni.dev/foto-avatar.png',
+        url: 'https://www.yashsoni.dev',
+        image: 'https://www.yashsoni.dev/foto-avatar.png',
         email: 'yash.soni2737@gmail.com',
         jobTitle: ['Independent AI Architect', 'Senior Full Stack Architect', 'AI Developer'],
         knowsAbout: [
@@ -82,7 +60,6 @@ export default function AboutPage({ lang = 'es' }: { lang?: AboutLang }) {
 
     return () => {
       script?.remove()
-      document.querySelectorAll('link[hreflang]').forEach(el => el.remove())
     }
   }, [lang, t])
 

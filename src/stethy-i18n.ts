@@ -1,8 +1,8 @@
 const en = {
   slug: 'stethy',
   seo: {
-    title: 'Stethy: AI Email Triage SaaS | Yash Soni',
-    description: 'Case study: backend and AWS infrastructure for an invite-only B2B email triage SaaS. Python, TypeScript, AWS CDK, LiteLLM and Langfuse.',
+    title: 'AI Email Triage SaaS on AWS: Stethy Case Study | Yash Soni',
+    description: 'Backend and AWS infrastructure for an invite-only B2B AI email triage SaaS. Python, TypeScript, AWS CDK, LiteLLM, Langfuse.',
   },
   header: {
     kicker: 'Case Study',

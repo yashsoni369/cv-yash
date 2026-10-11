@@ -1,8 +1,8 @@
 const en = {
   slug: 'decoverai',
   seo: {
-    title: 'DecoverAI: AI Legal Document Platform | Yash Soni',
-    description: 'Case study: AI legal document search and RAG platform deployed in 10+ US law firms. I helped build the infrastructure and GenAI platform while the company raised $2M+ in seed funding.',
+    title: 'Legal AI RAG Platform Case Study: DecoverAI | Yash Soni',
+    description: 'How I helped build legal document search with RAG, used by 10+ US law firms, while the company raised $2M+ in seed funding.',
   },
   header: {
     kicker: 'Case Study',

@@ -1,8 +1,8 @@
 const en = {
   slug: 'speakology-ai',
   seo: {
-    title: 'Speakology AI: AI Avatar Language Learning App | Yash Soni',
-    description: 'Case study: AI avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in 3 months.',
+    title: 'AI Avatar Language Learning App for UK Schools | Yash Soni',
+    description: 'Case study: AI avatar language app taken from zero to 10+ UK school subscriptions in 3 months, bootstrapped.',
   },
   header: {
     kicker: 'Case Study',

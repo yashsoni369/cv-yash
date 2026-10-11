@@ -50,7 +50,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'DecoverAI', en: 'DecoverAI' },
     seo: {
       es: { title: 'DecoverAI: Plataforma Legal con IA | Yash Soni', description: 'Caso de estudio: plataforma de búsqueda de documentos legales con IA y RAG desplegada en 10+ bufetes de EE.UU. Ayudé a construir la infraestructura y la plataforma GenAI mientras la empresa levantaba $2M+ en financiación semilla.' },
-      en: { title: 'DecoverAI: AI Legal Document Platform | Yash Soni', description: 'Case study: AI legal document search and RAG platform deployed in 10+ US law firms. I helped build the infrastructure and GenAI platform while the company raised $2M+ in seed funding.' },
+      en: { title: 'Legal AI RAG Platform Case Study: DecoverAI | Yash Soni', description: 'How I helped build legal document search with RAG, used by 10+ US law firms, while the company raised $2M+ in seed funding.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -66,7 +66,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'Speakology AI', en: 'Speakology AI' },
     seo: {
       es: { title: 'Speakology AI: App de Idiomas con Avatar IA | Yash Soni', description: 'Caso de estudio: app de aprendizaje de idiomas con avatar IA para escuelas del Reino Unido. De cero a 10+ suscripciones escolares en 3 meses, sin financiación externa.' },
-      en: { title: 'Speakology AI: AI Avatar Language Learning App | Yash Soni', description: 'Case study: AI avatar language learning app for UK schools. Bootstrapped from zero to 10+ school subscriptions in 3 months.' },
+      en: { title: 'AI Avatar Language Learning App for UK Schools | Yash Soni', description: 'Case study: AI avatar language app taken from zero to 10+ UK school subscriptions in 3 months, bootstrapped.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -82,7 +82,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'Infinity DevOps', en: 'Infinity DevOps' },
     seo: {
       es: { title: 'Infinity DevOps: Plataforma DevOps Enterprise | Yash Soni', description: 'Caso de estudio: plataforma DevOps sobre AWS y GCP, construida en LTI Mindtree como el segundo gran producto del Centro de Excelencia DevOps.' },
-      en: { title: 'Infinity DevOps: Enterprise DevOps Platform | Yash Soni', description: 'Case study: DevOps platform across AWS and GCP, built at LTI Mindtree as the second major product of the DevOps Centre of Excellence.' },
+      en: { title: 'Enterprise DevOps Platform on AWS and GCP | Yash Soni', description: 'Case study: multi-cloud DevOps platform built at LTI Mindtree\'s DevOps Centre of Excellence.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -98,7 +98,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'Mappie AI', en: 'Mappie AI' },
     seo: {
       es: { title: 'Mappie AI: Gestión de Proyectos con IA | Yash Soni', description: 'Caso de estudio: herramienta de gestión de proyectos con IA que convierte requisitos desordenados en historias de usuario listas para desarrollo, construida para Nindo Solutions.' },
-      en: { title: 'Mappie AI: AI Project Management | Yash Soni', description: 'Case study: AI project management tool that turns messy requirements into dev-ready user stories, built for Nindo Solutions.' },
+      en: { title: 'AI Project Management: Requirements to User Stories | Yash Soni', description: 'Case study: an AI tool that turns messy requirements into dev-ready user stories, built for Nindo Solutions.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -114,7 +114,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'Vectro AI', en: 'Vectro AI' },
     seo: {
       es: { title: 'Vectro AI: Inteligencia de Ventas | Yash Soni', description: 'Caso de estudio: plataforma de inteligencia de ventas que extrae insights de llamadas, emails y Slack con IA y búsqueda vectorial.' },
-      en: { title: 'Vectro AI: Sales Intelligence | Yash Soni', description: 'Case study: sales intelligence platform that surfaces insights from sales calls, emails and Slack using AI and vector search.' },
+      en: { title: 'AI Sales Intelligence with Vector Search: Vectro | Yash Soni', description: 'Case study: insights from sales calls, email and Slack using OpenAI and vector search.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -130,7 +130,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'United Medical', en: 'United Medical' },
     seo: {
       es: { title: 'United Medical: Gestión de Contratos Hospital-Médico | Yash Soni', description: 'Caso de estudio: aplicación de gestión de contratos para una startup de salud alemana, un retainer activo desde agosto de 2023.' },
-      en: { title: 'United Medical: Hospital-Doctor Contract Management | Yash Soni', description: 'Case study: contract management application for a German healthcare startup, an ongoing retainer since August 2023.' },
+      en: { title: 'Healthcare Contract Management SaaS, Germany | Yash Soni', description: 'Case study: hospital and doctor contract management for a German healthcare startup, on retainer since August 2023.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -146,7 +146,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'Stethy', en: 'Stethy' },
     seo: {
       es: { title: 'Stethy: SaaS de Triaje de Email con IA | Yash Soni', description: 'Caso de estudio: backend e infraestructura AWS para un SaaS B2B de triaje de email por invitación. Python, TypeScript, AWS CDK, LiteLLM y Langfuse.' },
-      en: { title: 'Stethy: AI Email Triage SaaS | Yash Soni', description: 'Case study: backend and AWS infrastructure for an invite-only B2B email triage SaaS. Python, TypeScript, AWS CDK, LiteLLM and Langfuse.' },
+      en: { title: 'AI Email Triage SaaS on AWS: Stethy Case Study | Yash Soni', description: 'Backend and AWS infrastructure for an invite-only B2B AI email triage SaaS. Python, TypeScript, AWS CDK, LiteLLM, Langfuse.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },
@@ -162,7 +162,7 @@ export const articleRegistry: ArticleConfig[] = [
     titles: { es: 'Noetic', en: 'Noetic' },
     seo: {
       es: { title: 'Noetic: Plataforma de Evaluación Automatizada | Yash Soni', description: 'Caso de estudio: plataforma de evaluación automatizada para TDAH, autismo, dislexia, dispraxia y discalculia.' },
-      en: { title: 'Noetic: Automated Assessment Platform | Yash Soni', description: 'Case study: automated assessment platform for ADHD, autism, dyslexia, dyspraxia and dyscalculia.' },
+      en: { title: 'Automated Neurodiversity Assessment Platform | Yash Soni', description: 'Case study: automated assessments for ADHD, autism, dyslexia, dyspraxia and dyscalculia.' },
     },
     sectionLabels: {
       es: { 'problem': 'El Problema', 'solution': 'La Solución', 'architecture': 'Arquitectura', 'features': 'Características', 'results': 'Resultados', 'my-role': 'Mi Rol', 'lessons': 'Lecciones', 'faq': 'FAQ' },

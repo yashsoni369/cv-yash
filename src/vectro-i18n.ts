@@ -1,8 +1,8 @@
 const en = {
   slug: 'vectro-ai',
   seo: {
-    title: 'Vectro AI: Sales Intelligence | Yash Soni',
-    description: 'Case study: sales intelligence platform that surfaces insights from sales calls, emails and Slack using AI and vector search.',
+    title: 'AI Sales Intelligence with Vector Search: Vectro | Yash Soni',
+    description: 'Case study: insights from sales calls, email and Slack using OpenAI and vector search.',
   },
   header: {
     kicker: 'Case Study',

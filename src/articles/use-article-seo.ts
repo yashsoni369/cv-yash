@@ -1,3 +1,4 @@
+import { applyRouteSeo } from '../seo-routes'
 import { useEffect } from 'react'
 
 // ---------------------------------------------------------------------------
@@ -52,8 +53,8 @@ export function useArticleSeo(opts: ArticleSeoOpts) {
       publishedTime, modifiedTime, articleTags, jsonLd, xDefaultSlug,
     } = opts
 
-    const url = `https://yashsoni.dev/${slug}`
-    const altUrl = `https://yashsoni.dev/${altSlug}`
+    const url = `https://www.yashsoni.dev/${slug}`
+    const altUrl = `https://www.yashsoni.dev/${altSlug}`
     const altLang = lang === 'es' ? 'en' : 'es'
     const defaultSlug = xDefaultSlug ?? (lang === 'es' ? slug : altSlug)
 
@@ -92,7 +93,7 @@ export function useArticleSeo(opts: ArticleSeoOpts) {
     for (const { hreflang, href } of [
       { hreflang: lang, href: url },
       { hreflang: altLang, href: altUrl },
-      { hreflang: 'x-default', href: `https://yashsoni.dev/${defaultSlug}` },
+      { hreflang: 'x-default', href: `https://www.yashsoni.dev/${defaultSlug}` },
     ]) {
       const link = document.createElement('link')
       link.rel = 'alternate'
@@ -124,19 +125,6 @@ export function useArticleSeo(opts: ArticleSeoOpts) {
 
 export function useHomeSeo({ lang, title, description }: { lang: string; title: string; description: string }) {
   useEffect(() => {
-    document.title = title
-
-    const metaDesc = document.querySelector('meta[name="description"]')
-    if (metaDesc) metaDesc.setAttribute('content', description)
-
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title)
-    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description)
-    document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'en' ? 'en_US' : 'es_ES')
-
-    const canonical = lang === 'en' ? 'https://yashsoni.dev/en' : 'https://yashsoni.dev/'
-    document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonical)
-    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonical)
-
-    document.documentElement.lang = lang
+    applyRouteSeo(window.location.pathname)
   }, [lang, title, description])
 }
