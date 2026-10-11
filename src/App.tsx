@@ -1488,19 +1488,9 @@ function App() {
                 <span className="text-gradient-theme">{hydrated ? roleText : t.greetingRoles[0]}</span>
                 {hydrated && <span className="inline-block w-[3px] h-[0.85em] bg-primary ml-1 rounded-sm translate-y-[2px]" style={{ animation: 'blink 1s step-end infinite' }} />}
                 <br />
-                {lang === 'es' ? (
-                  <>
-                    {t.greeting}
-                    <br />
-                    LLMOps que se <BeamPill>curan solos.</BeamPill>
-                  </>
-                ) : (
-                  <>
-                    {t.greeting} <BeamPill>AI-powered</BeamPill>
-                    <br />
-                    {t.role}
-                  </>
-                )}
+                {t.greeting} <BeamPill>{t.heroPill}</BeamPill>
+                <br />
+                {t.role}
               </h1>
 
               <div className="flex flex-wrap justify-center md:justify-start gap-3">
@@ -2090,7 +2080,7 @@ function App() {
                   <span className="text-sm text-muted-foreground">{t.skills.professional}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span>Gujarati</span>
+                  <span>{t.skills.gujarati}</span>
                   <span className="text-sm text-muted-foreground">{t.skills.professional}</span>
                 </div>
               </div>
